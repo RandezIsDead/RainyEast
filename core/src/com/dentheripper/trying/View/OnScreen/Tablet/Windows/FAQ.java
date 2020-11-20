@@ -8,7 +8,7 @@ import com.dentheripper.trying.GameCore.Assets;
 
 public class FAQ extends SmartBase {
 
-    private ExtraWindow extraWindow;
+    private final ExtraWindow extraWindow;
 
     public FAQ() {
         setImage(Assets.assetManager.get(Assets.smartUniversal));

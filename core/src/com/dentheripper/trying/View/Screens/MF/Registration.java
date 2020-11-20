@@ -22,7 +22,7 @@ public class Registration extends ScreenBase {
 
     public Registration(Engine engine) {
         super(engine);
-        setBG(new Texture(Gdx.files.internal("screenAssets/regBG.png")), 1000, 1000 * (h/w));
+        setBG(new Texture(Gdx.files.internal("screenAssets/aiStage/black.png")), 1000, 1000 * (h/w));
     }
 
     @Override
@@ -33,18 +33,12 @@ public class Registration extends ScreenBase {
         ok = new ButtonBase("Atlas/buttons.txt", "ok", 450, 220, 100, 70);
         name = new TextFieldBase(250, 400, 500, 150);
 
-        InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(name.stage);
-        multiplexer.addProcessor(ok.stage);
-        multiplexer.addProcessor(name.stage);
-
         super.show();
         Gdx.input.setInputProcessor(multiplexer);
 
-        stage.addActor(extraWindow);
-        stage.addActor(name);
-        stage.addActor(label);
-        stage.addActor(ok);
+        addObject(name);
+        addObject(ok);
+        addObject(label);
     }
 
     @Override
@@ -53,12 +47,12 @@ public class Registration extends ScreenBase {
         actFinal(delta);
 
         if (ok.isClicked() && name.field.getText().length() > 0) {
-            data.putString("playerUsername", name.field.getText());
-            data.putString("playerID", generateID());
-            data.putString("dateOfReg", getDate());
+            Assets.data.putString("playerUsername", name.field.getText());
+            Assets.data.putString("playerID", generateID());
+            Assets.data.putString("dateOfReg", getDate());
             engine.setScreen(new Load(engine, "vgm", 0));
             int s = 1;
-            data.putInteger("gameLaunches", s);
+            Assets.data.putInteger("gameLaunches", s);
             ok.setClicked(false);
         }
     }
@@ -80,12 +74,5 @@ public class Registration extends ScreenBase {
         int year = calendar.get(Calendar.YEAR);
         String s = day + ":" + month + ":" + year;
         return s;
-    }
-
-    @Override
-    protected void actFinal(float delta) {
-        name.act(delta);
-        ok.act(delta);
-        super.actFinal(delta);
     }
 }

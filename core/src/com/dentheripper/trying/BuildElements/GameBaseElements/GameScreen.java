@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.ScreenBase;
+import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.GameCore.Entity;
 import com.dentheripper.trying.View.OnScreen.Controller;
@@ -15,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameScreen extends ScreenBase {
-
-    public InputMultiplexer multiplexer;
 
     protected static ButtonBase useButton = new ButtonBase("Atlas/buttons.txt", "useButton", 600, 350, 60, 120);
     protected static ButtonBase smartButton = new ButtonBase("Atlas/buttons.txt", "smartButton", 950, 600, 50, 200);
@@ -31,9 +30,6 @@ public class GameScreen extends ScreenBase {
 
     public GameScreen(Engine engine) {
         super(engine);
-        multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(useButton.stage);
-        multiplexer.addProcessor(smartButton.stage);
         smartRender.multiplexSmartScreens(multiplexer);
     }
 
@@ -47,9 +43,9 @@ public class GameScreen extends ScreenBase {
             stage.addActor(npc.get(i));
         }
         stage.addActor(controller);
-        stage.addActor(smartButton);
+        addObject(smartButton);
+        addObject(useButton);
         stage.addActor(strengthBar);
-        stage.addActor(useButton);
         stage.addActor(healthBar);
         smartRender.addToStage(stage);
 
@@ -59,11 +55,11 @@ public class GameScreen extends ScreenBase {
         healthBar.setRealHealth(100);
         strengthBar.setRealStrength(100);
 
-        data.setPrefSpeed(200);
+        Assets.data.setPrefSpeed(200);
         player.setMaxHp(100);
         player.setMaxSp(100);
-        player.setHp(data.getPrefHp());
-        player.setSp(data.getPrefSp());
+        player.setHp(Assets.data.getPrefHp());
+        player.setSp(Assets.data.getPrefSp());
     }
 
     @Override
@@ -72,8 +68,8 @@ public class GameScreen extends ScreenBase {
         super.actFinal(delta);
         healthBar.setRealHealth(player.getHp());
         strengthBar.setRealStrength(player.getSp());
-        data.putString("realHP", Float.toString(player.getHp()));
-        data.putString("realSP", Float.toString(player.getSp()));
+        Assets.data.putString("realHP", Float.toString(player.getHp()));
+        Assets.data.putString("realSP", Float.toString(player.getSp()));
         smartRender.renderThis(multiplexer, engine);
         System.out.println(player.getX() + "    " + player.getY()*2);
 

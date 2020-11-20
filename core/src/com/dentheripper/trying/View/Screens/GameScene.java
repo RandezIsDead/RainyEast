@@ -17,9 +17,9 @@ public class GameScene extends GameScreen {
         setBG(Assets.assetManager.get(Assets.gameMap), 8000, 12500 * (h/w));
         player = new Player();
         setPlayer(player);
-        player.setSpeed(data.getPrefSpeed());
-        player.setX(data.getFloat("lastPlayerX"));
-        player.setY(data.getFloat("lastPlayerY"));
+        player.setSpeed(Assets.data.getPrefSpeed());
+        player.setX(Assets.data.getFloat("lastPlayerX"));
+        player.setY(Assets.data.getFloat("lastPlayerY"));
 
 //        for (int i = 0; i < 1000; i++) {
 //            NPC npc = new NPC();
@@ -44,8 +44,8 @@ public class GameScene extends GameScreen {
                 SmartRender.musicScr.setPlaying(false);
                 MusicScr.music.dispose();
             }
-            data.putFloat("lastPlayerX", player.getX());
-            data.putFloat("lastPlayerY", player.getY());
+            Assets.data.putFloat("lastPlayerX", player.getX());
+            Assets.data.putFloat("lastPlayerY", player.getY());
             engine.setScreen(new ShopScreen(engine));
             useButton.setClicked(false);
         }

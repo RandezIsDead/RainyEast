@@ -58,7 +58,7 @@ public class Assets {
 //    public static final AssetDescriptor<Music> monster = new AssetDescriptor<>("music/meg-dia-monster.mp3", Music.class);
 //    public static final AssetDescriptor<Music> levitate = new AssetDescriptor<>("music/twenty-one-pilots-levitate.mp3", Music.class);
 
-    public void load() {
+    public static void load() {
 //        assetManager.load(hbfs);
 //        assetManager.load(alive);
 //        assetManager.load(lftn);
@@ -109,7 +109,7 @@ public class Assets {
         assetManager.load(playerStand);
     }
 
-    public void dispose() {
+    public static void dispose() {
         assetManager.dispose();
     }
 }

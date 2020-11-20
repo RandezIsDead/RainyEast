@@ -13,7 +13,6 @@ import com.dentheripper.trying.View.Screens.MF.Registration;
 
 public class Load extends ScreenBase {
 
-    private final Assets assets;
     private SpriteBatch batch;
     private Texture texture;
     private final BitmapFont font;
@@ -25,7 +24,6 @@ public class Load extends ScreenBase {
         this.string = str;
         this.param = param;
         setBG(new Texture(Gdx.files.internal("screenAssets/bg.png")), 1000, 1000 * (h/w));
-        assets = new Assets();
 
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\\\/?-+=()*&.;:,{}\\\"´`'<>";
@@ -38,7 +36,7 @@ public class Load extends ScreenBase {
     @Override
     public void show() {
         super.show();
-        assets.load();
+        Assets.load();
     }
 
     @Override
@@ -76,7 +74,7 @@ public class Load extends ScreenBase {
     @Override
     public void dispose() {
         super.dispose();
-        assets.dispose();
+        Assets.dispose();
         texture.dispose();
         batch.dispose();
         font.dispose();

@@ -3,6 +3,7 @@ package com.dentheripper.trying.View.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.dentheripper.trying.BuildElements.GameBaseElements.GameScreen;
+import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.View.Entities.Player;
 import com.dentheripper.trying.View.OnScreen.SmartRender;
@@ -20,7 +21,7 @@ public class ShopScreen extends GameScreen {
         player = new Player();
         shopWindow = new ShopWindow(0);
         setPlayer(player);
-        player.setSpeed(data.getPrefSpeed());
+        player.setSpeed(Assets.data.getPrefSpeed());
         player.setX(500);
         player.setY(100*(h/w));
         shopWindow.close();
