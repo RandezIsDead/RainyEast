@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.Tablet.Windows;
+package com.dentheripper.trying.View.OnScreen.SmarttWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -9,37 +9,38 @@ import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Inventory;
 import com.dentheripper.trying.GameCore.Item;
 
-public class Chips extends SmartBase {
+public class GameInventory extends SmartBase {
 
-    private ExtraWindow extraWindow;
-    private ExtraWindow descriptionWindow;
-    private ExtraWindow exceptionWindow;
-    private ButtonBase ok, notOk, close;
+    private final ExtraWindow extraWindow;
+    private final ExtraWindow descriptionWindow;
+    private final ExtraWindow exceptionWindow;
+    private final ButtonBase ok, notOk, close;
     public Inventory inventory;
     public Inventory inventoryUsing;
 
-    public Chips() {
+    public GameInventory() {
         setImage(Assets.assetManager.get(Assets.smartGrid));
         extraWindow = new ExtraWindow();
-        extraWindow.setImage(Assets.assetManager.get(Assets.batteryChips), 650, 150, 50, 700);
-        inventory = new Inventory(10);
-        inventoryUsing = new Inventory(2);
+        extraWindow.setImage(Assets.assetManager.get(Assets.invExt), 450, 128, 250, 760);
+        inventory = new Inventory(0);
+        inventoryUsing = new Inventory(1);
         descriptionWindow = new ExtraWindow();
-        descriptionWindow.setImage(Assets.assetManager.get(Assets.descWindow), 450, 50, 200, 900);
-        ok = new ButtonBase("Atlas/smart.txt", "use", 460, 140, 180, 70);
-        notOk = new ButtonBase("Atlas/smart.txt", "cancel", 460, 60, 180, 70);
+        descriptionWindow.setImage(Assets.assetManager.get(Assets.descWindow), 250, 50, 200, 900);
+        ok = new ButtonBase("Atlas/smart.txt", "use", 260, 140, 180, 70);
+        notOk = new ButtonBase("Atlas/smart.txt", "cancel", 260, 60, 180, 70);
         exceptionWindow = new ExtraWindow();
-        exceptionWindow.setImage(Assets.assetManager.get(Assets.exception), 250, 50, 200, 900);
-        close = new ButtonBase("Atlas/buttons.txt", "errOk", 260, 830, 180, 70);
+        exceptionWindow.setImage(Assets.assetManager.get(Assets.exception), 50, 50, 200, 900);
+        close = new ButtonBase("Atlas/buttons.txt", "errOk", 60, 830, 180, 70);
 
         multiplexer.addProcessor(ok.stage);
         multiplexer.addProcessor(notOk.stage);
         multiplexer.addProcessor(close.stage);
 
-        stage.addActor(ok);
+        stage.addActor(extraWindow);
         stage.addActor(descriptionWindow);
-        stage.addActor(notOk);
         stage.addActor(exceptionWindow);
+        stage.addActor(ok);
+        stage.addActor(notOk);
         stage.addActor(close);
 
         if (Gdx.app.getPreferences("Rainy_East").getInteger("gameLaunches") != 0) {
@@ -53,7 +54,7 @@ public class Chips extends SmartBase {
                 stage.addActor(inventory.items[i].button);
             }
         }
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 6; i++) {
             if (inventoryUsing.items[i] != null) {
                 multiplexer.addProcessor(inventoryUsing.items[i].button.stage);
                 stage.addActor(inventoryUsing.items[i].button);
@@ -64,13 +65,12 @@ public class Chips extends SmartBase {
     @Override
     protected void actFinal(float delta) {
         super.actFinal(delta);
-        stage.addActor(extraWindow);
         for (int i = 0; i < 24; i++) {
             if (inventory.items[i] != null) {
                 checkItem(inventory.items[i].index, inventory.items[i].id);
             }
         }
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 6; i++) {
             if (inventoryUsing.items[i] != null) {
                 deCheckItem(inventoryUsing.items[i].index, inventoryUsing.items[i].id);
             }
@@ -82,15 +82,8 @@ public class Chips extends SmartBase {
             if (inventory.items[index].button.isClicked() && inventory.items[index].id == id) {
                 showDescription();
                 if (ok.isClicked() && inventory.items[index].id == id && inventory.items[index].index == index) {
-                    if (inventoryUsing.items[6] != null) {
-                        closeDescription();
-                        showError();
-                        multiplexer.removeProcessor(ok.stage);
-                        multiplexer.removeProcessor(notOk.stage);
-                    } else {
-                        useItem(inventory.items[index], id);
-                        closeDescription();
-                    }
+                    useItem(inventory.items[index], id);
+                    closeDescription();
                     ok.setClicked(false);
                 }
                 if (notOk.isClicked()) {
@@ -100,8 +93,6 @@ public class Chips extends SmartBase {
                 }
                 if (close.isClicked()) {
                     closeError();
-                    multiplexer.addProcessor(ok.stage);
-                    multiplexer.addProcessor(notOk.stage);
                     close.setClicked(false);
                 }
             }
@@ -118,20 +109,34 @@ public class Chips extends SmartBase {
     }
 
     private void useItem(Item item, int id) {
-        int index = inventoryUsing.getFirstEmptyCell();
+        int index = -1;
+        if (id == 40) index = 0;
+        if (id == 41) index = 1;
+        if (id == 42) index = 2;
+        if (id == 43) index = 3;
+        if (id == 0) index = 4;
 
-        Item rec = new Item(id, index, 2);
-        stage.addAction(Actions.removeActor(item.button));
-        multiplexer.removeProcessor(item.button.stage);
-        inventory.removeItem(item.index);
-        rec.setUsing(true);
-        Gdx.input.setInputProcessor(this.multiplexer);
+        if (inventoryUsing.items[index] != null) {
+            showError();
+        } else {
+            Item rec = new Item(id, index, 1);
+            stage.addAction(Actions.removeActor(item.button));
+            multiplexer.removeProcessor(item.button.stage);
+            inventory.removeItem(item.index);
+            rec.setUsing(true);
+            Gdx.input.setInputProcessor(this.multiplexer);
 
-        multiplexer.addProcessor(rec.button.stage);
-        stage.addActor(rec.button);
-        inventoryUsing.addItemNotClose(rec);
-        inventory.saveInventory();
-        inventoryUsing.saveInventory();
+            if (rec.getStatsID() == 0) Assets.data.putString("intelligence", Integer.valueOf(Integer.parseInt(Assets.data.getString("intelligence")) + rec.getBuff()).toString());
+            if (rec.getStatsID() == 1) Assets.data.putString("strength", Integer.valueOf(Integer.parseInt(Assets.data.getString("strength")) + rec.getBuff()).toString());
+            if (rec.getStatsID() == 6) Assets.data.putString("healing", Integer.valueOf(Integer.parseInt(Assets.data.getString("healing")) + rec.getBuff()).toString());
+            if (rec.getStatsID() == 7) Assets.data.putString("agility", Integer.valueOf(Integer.parseInt(Assets.data.getString("agility")) + rec.getBuff()).toString());
+
+            multiplexer.addProcessor(rec.button.stage);
+            stage.addActor(rec.button);
+            inventoryUsing.addItemAtIndexNotClose(rec, index);
+            inventory.saveInventory();
+            inventoryUsing.saveInventory();
+        }
     }
 
     private void removeFromUsing(Item item, int id) {
@@ -145,6 +150,11 @@ public class Chips extends SmartBase {
             rec.setUsing(false);
             Gdx.input.setInputProcessor(this.multiplexer);
 
+            if (rec.getStatsID() == 0) Assets.data.putString("intelligence", Integer.valueOf(Integer.parseInt(Assets.data.getString("intelligence")) - rec.getBuff()).toString());
+            if (rec.getStatsID() == 1) Assets.data.putString("strength", Integer.valueOf(Integer.parseInt(Assets.data.getString("strength")) - rec.getBuff()).toString());
+            if (rec.getStatsID() == 6) Assets.data.putString("healing", Integer.valueOf(Integer.parseInt(Assets.data.getString("healing")) - rec.getBuff()).toString());
+            if (rec.getStatsID() == 7) Assets.data.putString("agility", Integer.valueOf(Integer.parseInt(Assets.data.getString("agility")) - rec.getBuff()).toString());
+
             multiplexer.addProcessor(rec.button.stage);
             stage.addActor(rec.button);
             inventory.addItemNotClose(rec);
@@ -153,14 +163,6 @@ public class Chips extends SmartBase {
         } else {
             showError();
         }
-    }
-
-    @Override
-    public void show() {
-        super.show();
-        extraWindow.show();
-        inventory.show();
-        inventoryUsing.show();
     }
 
     @Override
@@ -176,6 +178,14 @@ public class Chips extends SmartBase {
         close.addToClose();
         closeDescription();
         closeError();
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        extraWindow.show();
+        inventory.show();
+        inventoryUsing.show();
     }
 
     private void showDescription() {
@@ -201,21 +211,25 @@ public class Chips extends SmartBase {
         close.addToClose();
     }
 
-    public void chipsRender(Home home) {
-        if (home.chips.isClicked()) {
+    public void invRender(Home home) {
+        if (home.inv.isClicked()) {
             home.close();
             show();
             Gdx.input.setInputProcessor(this.multiplexer);
-            home.chips.setClicked(false);
+            home.inv.setClicked(false);
         }
         if (back.isClicked()) {
             close();
             home.show();
+            closeDescription();
+            closeError();
             Gdx.input.setInputProcessor(home.multiplexer);
             back.setClicked(false);
         }
         if (homeS.isClicked()) {
             close();
+            closeDescription();
+            closeError();
             home.show();
             Gdx.input.setInputProcessor(home.multiplexer);
             homeS.setClicked(false);

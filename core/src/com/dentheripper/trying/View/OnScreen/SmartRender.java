@@ -3,18 +3,18 @@ package com.dentheripper.trying.View.OnScreen;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dentheripper.trying.GameCore.Engine;
-import com.dentheripper.trying.View.OnScreen.Tablet.Windows.Browser;
-import com.dentheripper.trying.View.OnScreen.Tablet.Windows.Chat;
-import com.dentheripper.trying.View.OnScreen.Tablet.Windows.Chips;
-import com.dentheripper.trying.View.OnScreen.Tablet.Windows.FAQ;
-import com.dentheripper.trying.View.OnScreen.Tablet.Windows.GameInventory;
-import com.dentheripper.trying.View.OnScreen.Tablet.Windows.Home;
-import com.dentheripper.trying.View.OnScreen.Tablet.Windows.MapOfEnvironment;
-import com.dentheripper.trying.View.OnScreen.Tablet.Windows.MusicScr;
-import com.dentheripper.trying.View.OnScreen.Tablet.Windows.Passport;
-import com.dentheripper.trying.View.OnScreen.Tablet.Windows.Settings;
-import com.dentheripper.trying.View.OnScreen.Tablet.Windows.Skills;
-import com.dentheripper.trying.View.OnScreen.Tablet.Windows.Weapons;
+import com.dentheripper.trying.View.OnScreen.SmarttWindows.Browser;
+import com.dentheripper.trying.View.OnScreen.SmarttWindows.Chat;
+import com.dentheripper.trying.View.OnScreen.SmarttWindows.Chips;
+import com.dentheripper.trying.View.OnScreen.SmarttWindows.FAQ;
+import com.dentheripper.trying.View.OnScreen.SmarttWindows.GameInventory;
+import com.dentheripper.trying.View.OnScreen.SmarttWindows.Home;
+import com.dentheripper.trying.View.OnScreen.SmarttWindows.MapOfEnvironment;
+import com.dentheripper.trying.View.OnScreen.SmarttWindows.MusicScr;
+import com.dentheripper.trying.View.OnScreen.SmarttWindows.Passport;
+import com.dentheripper.trying.View.OnScreen.SmarttWindows.Settings;
+import com.dentheripper.trying.View.OnScreen.SmarttWindows.Skills;
+import com.dentheripper.trying.View.OnScreen.SmarttWindows.Weapons;
 
 public class SmartRender {
 

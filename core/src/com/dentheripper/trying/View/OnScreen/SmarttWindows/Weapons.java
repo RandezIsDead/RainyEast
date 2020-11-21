@@ -1,16 +1,16 @@
-package com.dentheripper.trying.View.OnScreen.Tablet.Windows;
+package com.dentheripper.trying.View.OnScreen.SmarttWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
+import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.GameCore.Assets;
 
-public class FAQ extends SmartBase {
+public class Weapons extends SmartBase {
 
-    private final ExtraWindow extraWindow;
+    private ExtraWindow extraWindow;
 
-    public FAQ() {
+    public Weapons() {
         setImage(Assets.assetManager.get(Assets.smartUniversal));
         extraWindow = new ExtraWindow();
         extraWindow.setImage(Assets.assetManager.get(Assets.comingSoon), 700, 128, 300 ,763);
@@ -28,12 +28,12 @@ public class FAQ extends SmartBase {
         stage.addActor(extraWindow);
     }
 
-    public void faqRender(Home home) {
-        if (home.info.isClicked()) {
+    public void wpnRender(Home home) {
+        if (home.weapon.isClicked()) {
             home.close();
             show();
             Gdx.input.setInputProcessor(this.multiplexer);
-            home.info.setClicked(false);
+            home.weapon.setClicked(false);
         }
         if (back.isClicked()) {
             close();

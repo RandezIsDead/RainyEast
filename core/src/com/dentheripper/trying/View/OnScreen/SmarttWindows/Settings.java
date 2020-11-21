@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.Tablet.Windows;
+package com.dentheripper.trying.View.OnScreen.SmarttWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;

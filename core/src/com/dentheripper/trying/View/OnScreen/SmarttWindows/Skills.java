@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.Tablet.Windows;
+package com.dentheripper.trying.View.OnScreen.SmarttWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -7,53 +7,43 @@ import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SkillBranchBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.GameCore.Assets;
-import com.dentheripper.trying.View.OnScreen.Tablet.SkillBranches.AiBranch;
-import com.dentheripper.trying.View.OnScreen.Tablet.SkillBranches.ArmBranch;
-import com.dentheripper.trying.View.OnScreen.Tablet.SkillBranches.AugmentBranch;
-import com.dentheripper.trying.View.OnScreen.Tablet.SkillBranches.DnaBranch;
-import com.dentheripper.trying.View.OnScreen.Tablet.SkillBranches.EyeBranch;
-import com.dentheripper.trying.View.OnScreen.Tablet.SkillBranches.HeartBranch;
-import com.dentheripper.trying.View.OnScreen.Tablet.SkillBranches.IntellegenceBranch;
-import com.dentheripper.trying.View.OnScreen.Tablet.SkillBranches.LegBranch;
-import com.dentheripper.trying.View.OnScreen.Tablet.SkillBranches.LungsBranch;
-import com.dentheripper.trying.View.OnScreen.Tablet.SkillBranches.SilenceBranch;
 
 import java.util.ArrayList;
 
 public class Skills extends SmartBase {
 
-    private ExtraWindow extraWindow;
+    private final ExtraWindow extraWindow;
 
-    private static IntellegenceBranch intellegenceBranch = new IntellegenceBranch();
-    private static EyeBranch eyeBranch = new EyeBranch();
-    private static HeartBranch heartBranch = new HeartBranch();
-    private static AiBranch aiBranch = new AiBranch();
-    private static LungsBranch lungsBranch = new LungsBranch();
-    private static DnaBranch dnaBranch = new DnaBranch();
-    private static ArmBranch armBranch = new ArmBranch();
-    private static LegBranch legBranch = new LegBranch();
-    private static SilenceBranch silenceBranch = new SilenceBranch();
-    private static AugmentBranch augmentBranch = new AugmentBranch();
+    private static final SkillBranchBase intelligenceBranch = new SkillBranchBase("intelligence");
+    private static final SkillBranchBase eyeBranch = new SkillBranchBase("eye");
+    private static final SkillBranchBase heartBranch = new SkillBranchBase("heart");
+    private static final SkillBranchBase aiBranch = new SkillBranchBase("ai");
+    private static final SkillBranchBase lungsBranch = new SkillBranchBase("lungs");
+    private static final SkillBranchBase dnaBranch = new SkillBranchBase("dna");
+    private static final SkillBranchBase armBranch = new SkillBranchBase("arm");
+    private static final SkillBranchBase legBranch = new SkillBranchBase("leg");
+    private static final SkillBranchBase silenceBranch = new SkillBranchBase( "silence");
+    private static final SkillBranchBase augmentBranch = new SkillBranchBase("augment");
 
-    private static ButtonBase head = new ButtonBase("Atlas/buttons.txt", "skill_varity", 540, 750, 60, 120);
-    private static ButtonBase chest = new ButtonBase("Atlas/buttons.txt", "skill_varity", 540, 555, 60, 140);
-    private static ButtonBase armLeft = new ButtonBase("Atlas/buttons.txt", "skill_varity", 493, 440, 40, 250);
-    private static ButtonBase armRight = new ButtonBase("Atlas/buttons.txt", "skill_varity", 605, 440, 40, 250);
-    private static ButtonBase legLeft = new ButtonBase("Atlas/buttons.txt", "skill_varity", 527, 128, 40, 300);
-    private static ButtonBase legRight = new ButtonBase("Atlas/buttons.txt", "skill_varity", 570, 128, 40, 300);
+    private static final ButtonBase head = new ButtonBase("Atlas/buttons.txt", "skill_varity", 540, 750, 60, 120);
+    private static final ButtonBase chest = new ButtonBase("Atlas/buttons.txt", "skill_varity", 540, 555, 60, 140);
+    private static final ButtonBase armLeft = new ButtonBase("Atlas/buttons.txt", "skill_varity", 493, 440, 40, 250);
+    private static final ButtonBase armRight = new ButtonBase("Atlas/buttons.txt", "skill_varity", 605, 440, 40, 250);
+    private static final ButtonBase legLeft = new ButtonBase("Atlas/buttons.txt", "skill_varity", 527, 128, 40, 300);
+    private static final ButtonBase legRight = new ButtonBase("Atlas/buttons.txt", "skill_varity", 570, 128, 40, 300);
 
-    private static ButtonBase intellegence = new ButtonBase("smart/skillAtlas/skills.txt", "intellegence", 610, 770, 40, 80);
-    private static ButtonBase eye = new ButtonBase("smart/skillAtlas/skills.txt", "eye", 455, 750, 40, 80);
-    private static ButtonBase ai = new ButtonBase("smart/skillAtlas/skills.txt", "ai", 500, 800, 40, 80);
-    private static ButtonBase heart = new ButtonBase("smart/skillAtlas/skills.txt", "heartRate", 570, 600, 40, 80);
-    private static ButtonBase dna = new ButtonBase("smart/skillAtlas/skills.txt", "dna", 525, 620, 40, 80);
-    private static ButtonBase lungs = new ButtonBase("smart/skillAtlas/skills.txt", "lungs", 535, 510, 40, 80);
-    private static ButtonBase technology = new ButtonBase("smart/skillAtlas/skills.txt", "technology", 655, 579, 40, 80);
-    private static ButtonBase fist = new ButtonBase("smart/skillAtlas/skills.txt", "fist", 655, 480, 40, 80);
-    private static ButtonBase leg = new ButtonBase("smart/skillAtlas/skills.txt", "leg", 620, 270, 40, 80);
-    private static ButtonBase silence = new ButtonBase("smart/skillAtlas/skills.txt", "silence", 620, 140, 40, 80);
+    private static final ButtonBase intelligence = new ButtonBase("smart/skillAtlas/skills.txt", "intellegence", 610, 770, 40, 80);
+    private static final ButtonBase eye = new ButtonBase("smart/skillAtlas/skills.txt", "eye", 455, 750, 40, 80);
+    private static final ButtonBase ai = new ButtonBase("smart/skillAtlas/skills.txt", "ai", 500, 800, 40, 80);
+    private static final ButtonBase heart = new ButtonBase("smart/skillAtlas/skills.txt", "heartRate", 570, 600, 40, 80);
+    private static final ButtonBase dna = new ButtonBase("smart/skillAtlas/skills.txt", "dna", 525, 620, 40, 80);
+    private static final ButtonBase lungs = new ButtonBase("smart/skillAtlas/skills.txt", "lungs", 535, 510, 40, 80);
+    private static final ButtonBase technology = new ButtonBase("smart/skillAtlas/skills.txt", "technology", 655, 579, 40, 80);
+    private static final ButtonBase fist = new ButtonBase("smart/skillAtlas/skills.txt", "fist", 655, 480, 40, 80);
+    private static final ButtonBase leg = new ButtonBase("smart/skillAtlas/skills.txt", "leg", 620, 270, 40, 80);
+    private static final ButtonBase silence = new ButtonBase("smart/skillAtlas/skills.txt", "silence", 620, 140, 40, 80);
 
-    private ArrayList<SkillBranchBase> branches = new ArrayList<>();
+    private final ArrayList<SkillBranchBase> branches = new ArrayList<>();
 
     public Skills() {
         setImage(Assets.assetManager.get(Assets.smartUniversal));
@@ -62,7 +52,7 @@ public class Skills extends SmartBase {
 
         stage.addActor(extraWindow);
 
-        addButton(head);               branches.add(intellegenceBranch);
+        addButton(head);               branches.add(intelligenceBranch);
         addButton(chest);              branches.add(eyeBranch);
         addButton(armLeft);            branches.add(heartBranch);
         addButton(armRight);           branches.add(aiBranch);
@@ -71,7 +61,7 @@ public class Skills extends SmartBase {
         addButton(leg);                branches.add(armBranch);
         addButton(eye);                branches.add(legBranch);
         addButton(ai);                 branches.add(augmentBranch);
-        addButton(intellegence);       branches.add(silenceBranch);
+        addButton(intelligence);       branches.add(silenceBranch);
         addButton(heart);
         addButton(dna);
         addButton(lungs);
@@ -129,7 +119,7 @@ public class Skills extends SmartBase {
         if (head.isClicked()) {
             eye.open();
             ai.open();
-            intellegence.open();
+            intelligence.open();
             heart.addToClose();
             lungs.addToClose();
             dna.addToClose();
@@ -148,7 +138,7 @@ public class Skills extends SmartBase {
         if (chest.isClicked()) {
             eye.addToClose();
             ai.addToClose();
-            intellegence.addToClose();
+            intelligence.addToClose();
             heart.open();
             lungs.open();
             dna.open();
@@ -165,7 +155,7 @@ public class Skills extends SmartBase {
             chest.setClicked(false);
         }
         if (armLeft.isClicked() || armRight.isClicked()) {
-            intellegence.addToClose();
+            intelligence.addToClose();
             eye.addToClose();
             ai.addToClose();
             heart.addToClose();
@@ -185,7 +175,7 @@ public class Skills extends SmartBase {
             armRight.setClicked(false);
         }
         if (legLeft.isClicked() || legRight.isClicked()) {
-            intellegence.addToClose();
+            intelligence.addToClose();
             eye.addToClose();
             ai.addToClose();
             heart.addToClose();
@@ -207,13 +197,13 @@ public class Skills extends SmartBase {
     }
 
     private void headBranches() {
-        if (intellegence.isClicked()) {
+        if (intelligence.isClicked()) {
             System.out.println("intel");
             for (int i = 0; i < branches.size(); i++) {
                 branches.get(i).close();
             }
-            intellegenceBranch.open();
-            intellegence.setClicked(false);
+            intelligenceBranch.open();
+            intelligence.setClicked(false);
         }
         if (ai.isClicked()) {
             System.out.println("ai");

@@ -71,6 +71,12 @@ public class SmartBase extends Actor {
         multiplexer.addProcessor(app.stage);
     }
 
+    protected void removeButton(ButtonBase btn) {
+        buttons.remove(btn);
+        stage.addAction(Actions.removeActor(btn));
+        multiplexer.removeProcessor(btn.stage);
+    }
+
     public void close() {
         image.setPosition(1500, image.getY());
         stage.addAction(Actions.removeActor(back));

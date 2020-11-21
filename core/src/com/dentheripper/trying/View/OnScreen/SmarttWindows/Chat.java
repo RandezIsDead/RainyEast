@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.Tablet.Windows;
+package com.dentheripper.trying.View.OnScreen.SmarttWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -6,11 +6,11 @@ import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.GameCore.Assets;
 
-public class MapOfEnvironment extends SmartBase {
+public class Chat extends SmartBase {
 
     private ExtraWindow extraWindow;
 
-    public MapOfEnvironment() {
+    public Chat() {
         setImage(Assets.assetManager.get(Assets.smartUniversal));
         extraWindow = new ExtraWindow();
         extraWindow.setImage(Assets.assetManager.get(Assets.comingSoon), 700, 128, 300 ,763);
@@ -28,12 +28,12 @@ public class MapOfEnvironment extends SmartBase {
         stage.addActor(extraWindow);
     }
 
-    public void moenvRender(Home home) {
-        if (home.map.isClicked()) {
+    public void chatRender(Home home) {
+        if (home.chat.isClicked()) {
             home.close();
             show();
             Gdx.input.setInputProcessor(this.multiplexer);
-            home.map.setClicked(false);
+            home.chat.setClicked(false);
         }
         if (back.isClicked()) {
             close();
