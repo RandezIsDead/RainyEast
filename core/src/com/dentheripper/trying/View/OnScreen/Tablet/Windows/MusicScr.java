@@ -11,57 +11,54 @@ import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.GameCore.Assets;
-import com.dentheripper.trying.GameCore.Data;
 
 import java.util.ArrayList;
 
 public class MusicScr extends SmartBase {
 
     private static ExtraWindow extraWindow;
-    private static ButtonBase stopPlay = new ButtonBase("Atlas/smart.txt", "pause", 700, 128, 96, 59);
-    private static ButtonBase previousButton = new ButtonBase("Atlas/smart.txt", "previous", 808, 128, 96, 59);
-    private static ButtonBase nextButton = new ButtonBase("Atlas/smart.txt", "next", 910, 128, 90, 59);
-    private static ButtonBase daftPunk = new ButtonBase("Atlas/smart.txt", "Daft Punk - HBFS", "ms", 700, 188,  300, 89);
-    private static ButtonBase alive = new ButtonBase("Atlas/smart.txt", "Krewella - Alive", "ms", 700, 276, 300, 89);
-    private static ButtonBase liveNight = new ButtonBase("Atlas/smart.txt", "Krewella - Live for the Night", "ms",  700, 363,300, 89);
-    private static ButtonBase playHard = new ButtonBase("Atlas/smart.txt", "Krewella - Play Hard", "ms", 700, 450, 300, 89);
-    private static ButtonBase wao = new ButtonBase("Atlas/smart.txt", "Krewella - We Are One", "ms", 700, 537, 300, 89);
-    private static ButtonBase cagi = new ButtonBase("Atlas/smart.txt", "Krewella - Come And Get It", "ms", 700, 624, 300, 89);
-    private static ButtonBase yr = new ButtonBase("Atlas/smart.txt", "Joji - Yeah Right", "ms", 700, 711, 300, 89);
-    private static ButtonBase rolmob = new ButtonBase("Atlas/smart.txt", "Carpenter Brut - Roller Mobster", "ms", 700, 798, 300, 89);
-    private static ButtonBase stronger = new ButtonBase("Atlas/smart.txt", "Kanye West - Stronger", "ms", 700, 188,  300, 89);
-    private static ButtonBase redux = new ButtonBase("Atlas/smart.txt", "Killercats - Redux", "ms", 700, 276, 300, 89);
-    private static ButtonBase spkbx = new ButtonBase("Atlas/smart.txt", "Bassnectar - Speakerbox", "ms",  700, 363,300, 89);
-    private static ButtonBase dfy = new ButtonBase("Atlas/smart.txt", "BoomBoomSatellites - Dive for You", "ms", 700, 537, 300, 89);
-    private static ButtonBase pg = new ButtonBase("Atlas/smart.txt", "Deadmau5 - Professional Griefers", "ms", 700, 624, 300, 89);
-    private static ButtonBase frme = new ButtonBase("Atlas/smart.txt", "DFA1979 - Freeze Me", "ms", 700, 711, 300, 89);
-    private static ButtonBase hatt = new ButtonBase("Atlas/smart.txt", "Dual Core - Hack All The Things", "ms", 700, 450, 300, 89);
-    private static ButtonBase fireInside = new ButtonBase("Atlas/smart.txt", "Gemini - Fire Insight", "ms", 700, 798, 300, 89);
-    private static ButtonBase nightcall = new ButtonBase("Atlas/smart.txt", "Kavinsky - Nightcall", "ms", 700, 188,  300, 89);
-    private static ButtonBase nis = new ButtonBase("Atlas/smart.txt", "Lil Skies - Name In The Sand", "ms",  700, 363,300, 89);
-    private static ButtonBase cr = new ButtonBase("Atlas/smart.txt", "Linkin Park - Crawling", "ms", 700, 450, 300, 89);
-    private static ButtonBase nocase = new ButtonBase("Atlas/smart.txt", "Musked Intruder - No Case", "ms", 700, 537, 300, 89);
-    private static ButtonBase monster = new ButtonBase("Atlas/smart.txt", "Monster(DotEXE Remix)", "ms", 700, 624, 300, 89);
-    private static ButtonBase ahit = new ButtonBase("Atlas/smart.txt", "Phantom Sage - Crystal Clouds", "ms", 700, 276, 300, 89);
-    private static ButtonBase levitate = new ButtonBase("Atlas/smart.txt", "Twenty One Pilots - Levitate", "ms", 700, 711, 300, 89);
-    private static ButtonBase gns = new ButtonBase("Atlas/smart.txt", "Deadmau5 - GhostsNStuff", "ms", 700, 798, 300, 89);
+    private static final ButtonBase stopPlay = new ButtonBase("Atlas/smart.txt", "pause", 700, 128, 96, 59);
+    private static final ButtonBase previousButton = new ButtonBase("Atlas/smart.txt", "previous", 808, 128, 96, 59);
+    private static final ButtonBase nextButton = new ButtonBase("Atlas/smart.txt", "next", 910, 128, 90, 59);
+    private static final ButtonBase daftPunk = new ButtonBase("Atlas/smart.txt", "Daft Punk - HBFS", "ms", 700, 188,  300, 89);
+    private static final ButtonBase alive = new ButtonBase("Atlas/smart.txt", "Krewella - Alive", "ms", 700, 276, 300, 89);
+    private static final ButtonBase liveNight = new ButtonBase("Atlas/smart.txt", "Krewella - Live for the Night", "ms",  700, 363,300, 89);
+    private static final ButtonBase playHard = new ButtonBase("Atlas/smart.txt", "Krewella - Play Hard", "ms", 700, 450, 300, 89);
+    private static final ButtonBase wao = new ButtonBase("Atlas/smart.txt", "Krewella - We Are One", "ms", 700, 537, 300, 89);
+    private static final ButtonBase cagi = new ButtonBase("Atlas/smart.txt", "Krewella - Come And Get It", "ms", 700, 624, 300, 89);
+    private static final ButtonBase yr = new ButtonBase("Atlas/smart.txt", "Joji - Yeah Right", "ms", 700, 711, 300, 89);
+    private static final ButtonBase rolmob = new ButtonBase("Atlas/smart.txt", "Carpenter Brut - Roller Mobster", "ms", 700, 798, 300, 89);
+    private static final ButtonBase stronger = new ButtonBase("Atlas/smart.txt", "Kanye West - Stronger", "ms", 700, 188,  300, 89);
+    private static final ButtonBase redux = new ButtonBase("Atlas/smart.txt", "Killercats - Redux", "ms", 700, 276, 300, 89);
+    private static final ButtonBase spkbx = new ButtonBase("Atlas/smart.txt", "Bassnectar - Speakerbox", "ms",  700, 363,300, 89);
+    private static final ButtonBase dfy = new ButtonBase("Atlas/smart.txt", "BoomBoomSatellites - Dive for You", "ms", 700, 537, 300, 89);
+    private static final ButtonBase pg = new ButtonBase("Atlas/smart.txt", "Deadmau5 - Professional Griefers", "ms", 700, 624, 300, 89);
+    private static final ButtonBase frme = new ButtonBase("Atlas/smart.txt", "DFA1979 - Freeze Me", "ms", 700, 711, 300, 89);
+    private static final ButtonBase hatt = new ButtonBase("Atlas/smart.txt", "Dual Core - Hack All The Things", "ms", 700, 450, 300, 89);
+    private static final ButtonBase fireInside = new ButtonBase("Atlas/smart.txt", "Gemini - Fire Insight", "ms", 700, 798, 300, 89);
+    private static final ButtonBase nightcall = new ButtonBase("Atlas/smart.txt", "Kavinsky - Nightcall", "ms", 700, 188,  300, 89);
+    private static final ButtonBase nis = new ButtonBase("Atlas/smart.txt", "Lil Skies - Name In The Sand", "ms",  700, 363,300, 89);
+    private static final ButtonBase cr = new ButtonBase("Atlas/smart.txt", "Linkin Park - Crawling", "ms", 700, 450, 300, 89);
+    private static final ButtonBase nocase = new ButtonBase("Atlas/smart.txt", "Musked Intruder - No Case", "ms", 700, 537, 300, 89);
+    private static final ButtonBase monster = new ButtonBase("Atlas/smart.txt", "Monster(DotEXE Remix)", "ms", 700, 624, 300, 89);
+    private static final ButtonBase ahit = new ButtonBase("Atlas/smart.txt", "Phantom Sage - Crystal Clouds", "ms", 700, 276, 300, 89);
+    private static final ButtonBase levitate = new ButtonBase("Atlas/smart.txt", "Twenty One Pilots - Levitate", "ms", 700, 711, 300, 89);
+    private static final ButtonBase gns = new ButtonBase("Atlas/smart.txt", "Deadmau5 - GhostsNStuff", "ms", 700, 798, 300, 89);
     public static Music music;
     private boolean isPlaying = false;
 
-    private Data data;
-    private ArrayList<ButtonBase> musicButtonsOne = new ArrayList<>();
-    private ArrayList<ButtonBase> musicButtonsTwo = new ArrayList<>();
-    private ArrayList<ButtonBase> musicButtonsThree = new ArrayList<>();
+    private final ArrayList<ButtonBase> musicButtonsOne = new ArrayList<>();
+    private final ArrayList<ButtonBase> musicButtonsTwo = new ArrayList<>();
+    private final ArrayList<ButtonBase> musicButtonsThree = new ArrayList<>();
     private int[] musicPages = new int[]{1, 0, 0};
-    private Skin skin;
-    private TextButton.TextButtonStyle smartButtonStyle;
+    private final Skin skin;
+    private final TextButton.TextButtonStyle smartButtonStyle;
 
     public MusicScr() {
         setImage(Assets.assetManager.get(Assets.smartUniversal));
         extraWindow = new ExtraWindow();
         extraWindow.setImage(Assets.assetManager.get(Assets.musicSelect), 700, 128, 300 ,763);
         music = Gdx.audio.newMusic(Gdx.files.internal("music/Daft Punk - HBFS.mp3"));
-        data = new Data();
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("Atlas/smart.txt"));
         skin = new Skin();
         skin.addRegions(atlas);
@@ -178,7 +175,7 @@ public class MusicScr extends SmartBase {
 
     private void setBgMusic(String path) {
         music = Gdx.audio.newMusic(Gdx.files.internal(path));
-        music.setVolume(data.getFloat("musicVol"));
+        music.setVolume(Assets.data.getFloat("musicVol"));
         music.play();
         music.setLooping(true);
     }

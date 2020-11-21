@@ -3,7 +3,6 @@ package com.dentheripper.trying.GameCore;
 public class Inventory {
 
     private int INV_SLOTS;
-    private Data data;
     public Item[] items;
     public int[] id;
     public int[] index;
@@ -20,7 +19,6 @@ public class Inventory {
         id = new int[INV_SLOTS];
         index = new int[INV_SLOTS];
         indexes = new boolean[INV_SLOTS];
-        data = new Data();
         items = new Item[INV_SLOTS];
         for (int i = 0; i < INV_SLOTS; i++) {
             indexes[i] = false;
@@ -48,15 +46,15 @@ public class Inventory {
             idw[i] = id[i];
             indexw[i] = index[i];
         }
-        data.saveInv(idw, indexw, param, INV_SLOTS);
+        Assets.data.saveInv(idw, indexw, param, INV_SLOTS);
     }
 
     public void loadInventory() {
         int[] idss = new int[INV_SLOTS];
         int[] indxs = new int[INV_SLOTS];
         for (int i = 0; i < INV_SLOTS; i++) {
-            idss = data.loadInvIDs(param, INV_SLOTS);
-            indxs = data.loadInvIndx(param, INV_SLOTS);
+            idss = Assets.data.loadInvIDs(param, INV_SLOTS);
+            indxs = Assets.data.loadInvIndx(param, INV_SLOTS);
         }
         for (int i = 0; i < INV_SLOTS; i++) {
             if (idss[i] != -1) {

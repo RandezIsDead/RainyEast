@@ -7,7 +7,6 @@ import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.GameCore.Assets;
-import com.dentheripper.trying.GameCore.Data;
 
 import java.util.ArrayList;
 

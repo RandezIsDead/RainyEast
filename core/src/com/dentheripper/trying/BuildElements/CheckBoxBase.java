@@ -1,15 +1,15 @@
 package com.dentheripper.trying.BuildElements;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import java.util.ArrayList;
@@ -17,68 +17,84 @@ import java.util.ArrayList;
 public class CheckBoxBase extends Actor {
 
     public Stage stage;
-    private CheckBox checkBox;
-    private ArrayList<Float> xPos = new ArrayList<>();
+    public TextButton button;
+    public BitmapFont font;
+    private boolean checked = false;
+
+    private final ArrayList<Float> xPos = new ArrayList<>();
 
     public CheckBoxBase(float x, float y, float width, float height) {
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
         xPos.add(x);
 
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
         stage = new Stage(new StretchViewport(1000, 1000 * (h / w)));
         Gdx.input.setInputProcessor(stage);
 
-        BitmapFont font;
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\\\/?-+=()*&.;:,{}\\\"´`'<>";
-        parameter.size = (int) (Gdx.graphics.getWidth() * .025f);
-        String FONT_PATH = "Fonts/eww.ttf";
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(FONT_PATH));
-        font = generator.generateFont(parameter);
-
+        font = new BitmapFont();
         Skin skin = new Skin();
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("Atlas/checkBoxStyle.txt"));
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("Atlas/cbStyle.txt"));
         skin.addRegions(atlas);
-        CheckBox.CheckBoxStyle style = new CheckBox.CheckBoxStyle();
+        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = font;
-        style.fontColor = Color.BLUE;
-        style.checkboxOff = skin.getDrawable("cbOff");
-        style.checkboxOn = skin.getDrawable("cbOn");
+        style.up = skin.getDrawable("off");
+        style.checked = skin.getDrawable("on");
+        button = new TextButton("", style);
+        button.setPosition(x, y * (h / w));
+        button.setSize(width, height * (h / w));
 
-        checkBox = new CheckBox("", style);
-        checkBox.setPosition(x, y*(h/w));
-        checkBox.setSize(width, height*(h/w));
-        stage.addActor(checkBox);
+        stage.addActor(button);
+
+        button.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (isChecked()) {
+                    setChecked(false);
+                    button.setChecked(isChecked());
+                } else if (!isChecked()) {
+                    setChecked(true);
+                    button.setChecked(isChecked());
+                }
+            }
+        });
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        checkBox.draw(batch, parentAlpha);
+        button.draw(batch, parentAlpha);
         stage.draw();
     }
 
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
     public void addToClose() {
-        this.moveButton(1500, this.getButtonY());
+        this.move(1500, this.getObjY());
     }
 
     public void open() {
-        this.moveButton(this.xPos.get(0), this.getButtonY());
+        this.move(this.xPos.get(0), this.getObjY());
     }
 
-    public float getButtonX() {
-        return checkBox.getX();
+    public float getObjX() {
+        return button.getX();
     }
 
     public float getOriginX() {
         return this.xPos.get(0);
     }
 
-    public float getButtonY() {
-        return checkBox.getY();
+    public float getObjY() {
+        return button.getY();
     }
 
-    public void moveButton(float x, float y) {
-        checkBox.setPosition(x, y);
+    public void move(float x, float y) {
+        button.setPosition(x, y);
     }
 }

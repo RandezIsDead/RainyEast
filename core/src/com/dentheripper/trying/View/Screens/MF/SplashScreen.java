@@ -56,14 +56,7 @@ public class SplashScreen extends ScreenBase {
             Assets.data.putString("luck", Integer.valueOf(10).toString());
 
             Assets.data.putFloat("playerSpeed", 200);
-            Assets.data.putInteger("money", 1000000);
-
-            for (int i = 0; i < 100; i++) {
-                Assets.data.putString("NPC" + i, "NPC" + i);
-                Assets.data.putInteger("NPC" + i + "0to1", RandomInt0to1());
-                Assets.data.putFloat("NPC" + i + "posX", RandomFloat(100, 10000));
-                Assets.data.putFloat("NPC" + i + "posY", RandomFloat(100, 10000));
-            }
+            Assets.data.putInteger("money", 100000);
         }
     }
 

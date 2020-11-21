@@ -7,11 +7,9 @@ import com.badlogic.gdx.utils.Align;
 import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.GameCore.Assets;
-import com.dentheripper.trying.GameCore.Data;
 
 public class Home extends SmartBase {
 
-    private Data data;
 //    private ButtonBase weather;
     private ButtonBase money;
     private ButtonBase hp;
@@ -29,7 +27,6 @@ public class Home extends SmartBase {
 
     public Home() {
         setImage(Assets.assetManager.get(Assets.smartphone));
-        data = new Data();
 
         money = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 853, 753, 130, 30);
         hp = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 853, 720, 130, 30);
@@ -73,8 +70,8 @@ public class Home extends SmartBase {
             Gdx.input.setInputProcessor(multiplexer);
             back.setClicked(false);
         }
-        money.button.setText("Money: " + new Data().getInteger("money"));
-        hp.button.setText("HP: " + Math.round(Float.parseFloat(data.getString("realHP"))) + "/" + data.getString("maxHP"));
-        sp.button.setText("SP: " + Math.round(Float.parseFloat(data.getString("realSP"))) + "/" + data.getString("maxSP"));
+        money.button.setText("Money: " + Assets.data.getInteger("money"));
+        hp.button.setText("HP: " + Math.round(Float.parseFloat(Assets.data.getString("realHP"))) + "/" + Assets.data.getString("maxHP"));
+        sp.button.setText("SP: " + Math.round(Float.parseFloat(Assets.data.getString("realSP"))) + "/" + Assets.data.getString("maxSP"));
     }
 }

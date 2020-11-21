@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.Align;
 import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.GameCore.Assets;
-import com.dentheripper.trying.GameCore.Data;
 import com.dentheripper.trying.GameCore.Inventory;
 import com.dentheripper.trying.GameCore.Item;
 
@@ -16,7 +15,6 @@ import java.util.Random;
 
 public class ShopWindow extends ExtraWindow {
 
-    private Data data;
     public InputMultiplexer multiplexer;
     public Inventory inventory;
     public Inventory orders;
@@ -31,7 +29,6 @@ public class ShopWindow extends ExtraWindow {
         if (type == 0) {
             setImage(Assets.assetManager.get(Assets.shop1), 150, 100, 700, 800);
         }
-        data = new Data();
         inventory = new Inventory(3);
         orders = new Inventory(4);
 
@@ -88,7 +85,7 @@ public class ShopWindow extends ExtraWindow {
         if (take.isClicked()) {
             for (int i = 0; i < 8; i++) {
                 if (orders.id[i] != -1) {
-                    if (data.getInteger("money") >= getTotalCost()) {
+                    if (Assets.data.getInteger("money") >= getTotalCost()) {
                         Item rec = new Item(orders.id[i], orders.index[i], 4);
                         stage.addAction(Actions.removeActor(orders.items[i].button));
                         multiplexer.removeProcessor(orders.items[i].button.stage);
@@ -97,7 +94,7 @@ public class ShopWindow extends ExtraWindow {
 
                         itemInv.addItemNotClose(rec);
                         itemInv.saveInventory();
-                        data.putInteger("money", data.getInteger("money") - getTotalCost());
+                        Assets.data.putInteger("money",  Assets.data.getInteger("money") - getTotalCost());
                         setTotalCost(0);
                     }
                 }

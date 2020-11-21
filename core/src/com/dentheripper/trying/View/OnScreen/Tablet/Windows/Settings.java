@@ -6,7 +6,6 @@ import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.GameCore.Assets;
-import com.dentheripper.trying.GameCore.Data;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.View.OnScreen.SmartRender;
 import com.dentheripper.trying.View.Screens.MF.Main;

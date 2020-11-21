@@ -25,27 +25,23 @@ public class ButtonBase extends Actor{
 
     public Stage stage;
     public TextButton button;
-    private TextButton.TextButtonStyle smartButtonStyle;
-    private Skin skin;
-    public BitmapFont font;
+    private final TextButton.TextButtonStyle smartButtonStyle = new TextButton.TextButtonStyle();
+    private final Skin skin = new Skin();
+    public BitmapFont font = new BitmapFont();
     public FreeTypeFontGenerator.FreeTypeFontParameter parameter;
 
-    private ArrayList<Float> xPos = new ArrayList<>();
+    private final ArrayList<Float> xPos = new ArrayList<>();
+    private final float w = Gdx.graphics.getWidth();
+    private final float h = Gdx.graphics.getHeight();
 
     public ButtonBase(String atlasPath, String drawable, float x, float y, float width, float height) {
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-
         xPos.add(x);
 
         stage = new Stage(new StretchViewport(1000, 1000 * (h / w)));
         Gdx.input.setInputProcessor(stage);
 
-        font = new BitmapFont();
-        skin = new Skin();
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(atlasPath));
         skin.addRegions(atlas);
-        smartButtonStyle = new TextButton.TextButtonStyle();
         smartButtonStyle.font = font;
         smartButtonStyle.up = skin.getDrawable(drawable);
         button = new TextButton("", smartButtonStyle);
@@ -56,9 +52,6 @@ public class ButtonBase extends Actor{
     }
 
     public ButtonBase(String atlasPath, String text, String drawable, float x, float y, float width, float height) {
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-
         xPos.add(x);
 
         stage = new Stage(new StretchViewport(1000, 1000 * (h / w)));
@@ -71,11 +64,9 @@ public class ButtonBase extends Actor{
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(FONT_PATH));
         font = generator.generateFont(parameter);
 
-        skin = new Skin();
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(atlasPath));
         skin.addRegions(atlas);
 
-        smartButtonStyle = new TextButton.TextButtonStyle();
         smartButtonStyle.font = font;
         smartButtonStyle.up = skin.getDrawable(drawable);
         button = new TextButton(text, smartButtonStyle);

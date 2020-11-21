@@ -32,7 +32,6 @@ public class Entity extends Actor {
     private int agility;
 
 
-    private Data data;
     public float w = Gdx.graphics.getWidth();
     public float h = Gdx.graphics.getHeight();
 
@@ -42,17 +41,11 @@ public class Entity extends Actor {
     private boolean xb;
     private boolean yf;
     private boolean yb;
-    private boolean xxf, xff;
-    private boolean xxb, xbb;
-    private boolean yyf, yff;
-    private boolean yyb, ybb;
 
     private float x = 4000;
     private float y = 7800*(h/w);
 
     protected Entity() {
-        data = new Data();
-
         me = new Rectangle();
         me.setX(getX());
         me.setY(getY());
@@ -140,19 +133,19 @@ public class Entity extends Actor {
 
     public void setMovable(boolean canMove) {
         if (canMove) {
-            xf = data.getBoolean("xf");
-            xb = data.getBoolean("xb");
-            yf = data.getBoolean("yf");
-            yb = data.getBoolean("yb");
+            xf = Assets.data.getBoolean("xf");
+            xb = Assets.data.getBoolean("xb");
+            yf = Assets.data.getBoolean("yf");
+            yb = Assets.data.getBoolean("yb");
 
-            xxf = data.getBoolean("xxf");
-            xxb = data.getBoolean("xxb");
-            yyf = data.getBoolean("yyf");
-            yyb = data.getBoolean("yyb");
-            xff = data.getBoolean("xff");
-            xbb = data.getBoolean("xbb");
-            yff = data.getBoolean("yff");
-            ybb = data.getBoolean("ybb");
+            boolean xxf = Assets.data.getBoolean("xxf");
+            boolean xxb = Assets.data.getBoolean("xxb");
+            boolean yyf = Assets.data.getBoolean("yyf");
+            boolean yyb = Assets.data.getBoolean("yyb");
+            boolean xff = Assets.data.getBoolean("xff");
+            boolean xbb = Assets.data.getBoolean("xbb");
+            boolean yff = Assets.data.getBoolean("yff");
+            boolean ybb = Assets.data.getBoolean("ybb");
 
             if (xxf) setX(getX() + getSpeed()*Gdx.graphics.getDeltaTime()/2);
             if (xff) setX(getX() + getSpeed()*Gdx.graphics.getDeltaTime());
@@ -163,19 +156,19 @@ public class Entity extends Actor {
             if (yyb) setY(getY() - getSpeed()*Gdx.graphics.getDeltaTime()/2);
             if (ybb) setY(getY() - getSpeed()*Gdx.graphics.getDeltaTime());
         } else {
-            data.putBoolean("xf", false);
-            data.putBoolean("xb", false);
-            data.putBoolean("yf", false);
-            data.putBoolean("yb", false);
+            Assets.data.putBoolean("xf", false);
+            Assets.data.putBoolean("xb", false);
+            Assets.data.putBoolean("yf", false);
+            Assets.data.putBoolean("yb", false);
 
-            data.putBoolean("xxf", false);
-            data.putBoolean("xxb", false);
-            data.putBoolean("yyf", false);
-            data.putBoolean("yyb", false);
-            data.putBoolean("xff", false);
-            data.putBoolean("xbb", false);
-            data.putBoolean("yff", false);
-            data.putBoolean("ybb", false);
+            Assets.data.putBoolean("xxf", false);
+            Assets.data.putBoolean("xxb", false);
+            Assets.data.putBoolean("yyf", false);
+            Assets.data.putBoolean("yyb", false);
+            Assets.data.putBoolean("xff", false);
+            Assets.data.putBoolean("xbb", false);
+            Assets.data.putBoolean("yff", false);
+            Assets.data.putBoolean("ybb", false);
         }
     }
 

@@ -6,16 +6,15 @@ import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.GameCore.Assets;
-import com.dentheripper.trying.GameCore.Data;
 import com.dentheripper.trying.GameCore.Inventory;
 import com.dentheripper.trying.GameCore.Item;
 
 public class GameInventory extends SmartBase {
 
-    private ExtraWindow extraWindow;
-    private ExtraWindow descriptionWindow;
-    private ExtraWindow exceptionWindow;
-    private ButtonBase ok, notOk, close;
+    private final ExtraWindow extraWindow;
+    private final ExtraWindow descriptionWindow;
+    private final ExtraWindow exceptionWindow;
+    private final ButtonBase ok, notOk, close;
     public Inventory inventory;
     public Inventory inventoryUsing;
 

@@ -1,16 +1,14 @@
 package com.dentheripper.trying.BuildElements.GameBaseElements;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.ScreenBase;
 import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.GameCore.Entity;
+import com.dentheripper.trying.View.OnScreen.Bar;
 import com.dentheripper.trying.View.OnScreen.Controller;
-import com.dentheripper.trying.View.OnScreen.HealthBar;
 import com.dentheripper.trying.View.OnScreen.SmartRender;
-import com.dentheripper.trying.View.OnScreen.StrengthBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +17,8 @@ public class GameScreen extends ScreenBase {
 
     protected static ButtonBase useButton = new ButtonBase("Atlas/buttons.txt", "useButton", 600, 350, 60, 120);
     protected static ButtonBase smartButton = new ButtonBase("Atlas/buttons.txt", "smartButton", 950, 600, 50, 200);
-    protected static HealthBar healthBar = new HealthBar();
-    protected static StrengthBar strengthBar = new StrengthBar();
+    protected static Bar healthBar = new Bar("health");
+    protected static Bar strengthBar = new Bar("strength");
     protected SmartRender smartRender = new SmartRender();
 
     private Entity player;
@@ -52,8 +50,8 @@ public class GameScreen extends ScreenBase {
         smartRender.close();
         useButton.addToClose();
 
-        healthBar.setRealHealth(100);
-        strengthBar.setRealStrength(100);
+        healthBar.setRealBar(100);
+        strengthBar.setRealBar(100);
 
         Assets.data.setPrefSpeed(200);
         player.setMaxHp(100);
@@ -66,8 +64,8 @@ public class GameScreen extends ScreenBase {
     public void render(float delta) {
         super.render(delta);
         super.actFinal(delta);
-        healthBar.setRealHealth(player.getHp());
-        strengthBar.setRealStrength(player.getSp());
+        healthBar.setRealBar(player.getHp());
+        strengthBar.setRealBar(player.getSp());
         Assets.data.putString("realHP", Float.toString(player.getHp()));
         Assets.data.putString("realSP", Float.toString(player.getSp()));
         smartRender.renderThis(multiplexer, engine);

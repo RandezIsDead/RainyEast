@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.dentheripper.trying.GameCore.Data;
 import com.dentheripper.trying.GameCore.Engine;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 public class ScreenBase implements Screen {
 
     public Engine engine;
-    private static SpriteBatch batch = new SpriteBatch();
+    private static final SpriteBatch batch = new SpriteBatch();
     protected OrthographicCamera camera;
     protected Stage stage;
     protected InputMultiplexer multiplexer;
