@@ -10,12 +10,12 @@ import com.dentheripper.trying.View.OnScreen.SmartRender;
 import com.dentheripper.trying.View.OnScreen.SmartWindows.MusicScr;
 import com.dentheripper.trying.View.OnScreen.Windows.ShopWindow;
 
-public class ShopScreen extends GameScreen {
+public class ShopScene extends GameScreen {
 
-    private Player player;
+    private final Player player;
     private final ShopWindow shopWindow;
 
-    public ShopScreen(Engine engine) {
+    public ShopScene(Engine engine) {
         super(engine);
         setBG(new Texture(Gdx.files.internal("screenAssets/augShop.png")), 1000, 1000*(h/w));
         player = new Player();

@@ -44,12 +44,14 @@ public class GameInventory extends SmartBase {
             if (inventory.items[i] != null) {
                 multiplexer.addProcessor(inventory.items[i].button.stage);
                 stage.addActor(inventory.items[i].button);
+//                stage.addActor(inventory.items[i].getWearScaleImage());
             }
         }
         for (int i = 0; i < inventoryUsing.items.length; i++) {
             if (inventoryUsing.items[i] != null) {
                 multiplexer.addProcessor(inventoryUsing.items[i].button.stage);
                 stage.addActor(inventoryUsing.items[i].button);
+//                stage.addActor(inventoryUsing.items[i].getWearScaleImage());
             }
         }
     }
@@ -176,6 +178,8 @@ public class GameInventory extends SmartBase {
         extraWindow.show();
         inventory.show();
         inventoryUsing.show();
+        removeButton(ok);
+        removeButton(notOk);
     }
 
     private void showDescription() {

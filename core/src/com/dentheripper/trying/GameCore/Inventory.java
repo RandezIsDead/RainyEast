@@ -29,13 +29,19 @@ public class Inventory {
 
     public void show() {
         for (int i = 0; i < INV_SLOTS; i++) {
-            if (items[i] != null) items[i].button.open();
+            if (items[i] != null) {
+                items[i].button.open();
+                items[i].openWearScale();
+            }
         }
     }
 
     public void close() {
         for (int i = 0; i < INV_SLOTS; i++) {
-            if (items[i] != null) items[i].button.addToClose();
+            if (items[i] != null) {
+                items[i].button.addToClose();
+                items[i].closeWearScale();
+            }
         }
     }
 

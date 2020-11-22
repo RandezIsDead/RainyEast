@@ -11,6 +11,7 @@ public class Assets {
 
     public static final AssetDescriptor<Texture> controller = new AssetDescriptor<>("elements/controller.png", Texture.class);
     public static final AssetDescriptor<Texture> gameMap = new AssetDescriptor<>("screenAssets/map.png", Texture.class);
+    public static final AssetDescriptor<Texture> flat = new AssetDescriptor<>("screenAssets/flat.png", Texture.class);
     public static final AssetDescriptor<Texture> playerRun = new AssetDescriptor<>("playerAssets/zeroMovement/playerRun.png", Texture.class);
     public static final AssetDescriptor<Texture> playerRunRev = new AssetDescriptor<>("playerAssets/zeroMovement/playerRunRev.png", Texture.class);
     public static final AssetDescriptor<Texture> playerStand = new AssetDescriptor<>("playerAssets/zeroMovement/playerStand.png", Texture.class);
@@ -86,6 +87,7 @@ public class Assets {
 
         assetManager.load(controller);
         assetManager.load(gameMap);
+        assetManager.load(flat);
         assetManager.load(smartUniversal);
         assetManager.load(musicSelect);
         assetManager.load(smartPass);

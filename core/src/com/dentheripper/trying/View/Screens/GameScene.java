@@ -1,6 +1,7 @@
 package com.dentheripper.trying.View.Screens;
 
 import com.dentheripper.trying.BuildElements.GameBaseElements.GameScreen;
+import com.dentheripper.trying.BuildElements.ScreenBase;
 import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.GameCore.Entity;
@@ -10,7 +11,7 @@ import com.dentheripper.trying.View.OnScreen.SmartWindows.MusicScr;
 
 public class GameScene extends GameScreen {
 
-    private Player player;
+    private final Player player;
 
     public GameScene(Engine engine) {
         super(engine);
@@ -40,14 +41,10 @@ public class GameScene extends GameScreen {
         player.cameraFreeze(camera, true);
 
         if (useButton.isClicked() && getUseID() == 0) {
-            if (MusicScr.music != null) {
-                SmartRender.musicScr.setPlaying(false);
-                MusicScr.music.dispose();
-            }
-            Assets.data.putFloat("lastPlayerX", player.getX());
-            Assets.data.putFloat("lastPlayerY", player.getY());
-            engine.setScreen(new ShopScreen(engine));
-            useButton.setClicked(false);
+            changeLocation(new ShopScene(engine));
+        }
+        if (useButton.isClicked() && getUseID() == 3) {
+            changeLocation(new FlatScene(engine));
         }
         if (useButton.isClicked()) {
             useButton.setClicked(false);
@@ -56,6 +53,17 @@ public class GameScene extends GameScreen {
 //        for (int i = 0; i < 1000; i++) {
 //            collisionDetect(npc.get(i));
 //        }
+    }
+
+    private void changeLocation(ScreenBase screenBase) {
+        if (MusicScr.music != null) {
+            SmartRender.musicScr.setPlaying(false);
+            MusicScr.music.dispose();
+        }
+        Assets.data.putFloat("lastPlayerX", player.getX());
+        Assets.data.putFloat("lastPlayerY", player.getY());
+        engine.setScreen(screenBase);
+        useButton.setClicked(false);
     }
 
     private void collisionDetect(Entity entity) {
