@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.SmarttWindows;
+package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -17,6 +17,7 @@ public class Chips extends SmartBase {
     private final ButtonBase ok, notOk, close;
     public Inventory inventory;
     public Inventory inventoryUsing;
+    private boolean isErrorOpened = false;
 
     public Chips() {
         setImage(Assets.assetManager.get(Assets.smartGrid));
@@ -32,17 +33,9 @@ public class Chips extends SmartBase {
         exceptionWindow.setImage(Assets.assetManager.get(Assets.exception), 250, 50, 200, 900);
         close = new ButtonBase("Atlas/buttons.txt", "errOk", 260, 830, 180, 70);
 
-        multiplexer.addProcessor(ok.stage);
-        multiplexer.addProcessor(notOk.stage);
-        multiplexer.addProcessor(close.stage);
+        stage.addActor(extraWindow);
 
-        stage.addActor(ok);
-        stage.addActor(descriptionWindow);
-        stage.addActor(notOk);
-        stage.addActor(exceptionWindow);
-        stage.addActor(close);
-
-        if (Gdx.app.getPreferences("Rainy_East").getInteger("gameLaunches") != 0) {
+        if (Assets.data.getInteger("gameLaunches") != 0) {
             inventory.loadInventory();
             inventoryUsing.loadInventory();
         }
@@ -64,7 +57,6 @@ public class Chips extends SmartBase {
     @Override
     protected void actFinal(float delta) {
         super.actFinal(delta);
-        stage.addActor(extraWindow);
         for (int i = 0; i < 24; i++) {
             if (inventory.items[i] != null) {
                 checkItem(inventory.items[i].index, inventory.items[i].id);
@@ -83,7 +75,6 @@ public class Chips extends SmartBase {
                 showDescription();
                 if (ok.isClicked() && inventory.items[index].id == id && inventory.items[index].index == index) {
                     if (inventoryUsing.items[6] != null) {
-                        closeDescription();
                         showError();
                         multiplexer.removeProcessor(ok.stage);
                         multiplexer.removeProcessor(notOk.stage);
@@ -95,6 +86,9 @@ public class Chips extends SmartBase {
                 }
                 if (notOk.isClicked()) {
                     closeDescription();
+                    if (isErrorOpened) {
+                        closeError();
+                    }
                     notOk.setClicked(false);
                     inventory.items[index].button.setClicked(false);
                 }
@@ -174,29 +168,30 @@ public class Chips extends SmartBase {
     }
 
     private void showDescription() {
-        descriptionWindow.show();
-        ok.open();
-        notOk.open();
+        stage.addActor(descriptionWindow);
+        stage.addActor(ok);
+        stage.addActor(notOk);
     }
 
     private void closeDescription() {
-        descriptionWindow.close();
-        ok.addToClose();
-        notOk.addToClose();
+        stage.addAction(Actions.removeActor(descriptionWindow));
+        stage.addAction(Actions.removeActor(notOk));
+        stage.addAction(Actions.removeActor(ok));
     }
 
     private void showError() {
-        exceptionWindow.show();
-        close.open();
-        closeDescription();
+        stage.addActor(exceptionWindow);
+        addButton(close);
+        isErrorOpened = true;
     }
 
     private void closeError() {
-        exceptionWindow.close();
-        close.addToClose();
+        stage.addAction(Actions.removeActor(exceptionWindow));
+        removeButton(close);
+        isErrorOpened = false;
     }
 
-    public void chipsRender(Home home) {
+    public void chipsRender(Home home, Passport passport) {
         if (home.chips.isClicked()) {
             home.close();
             show();
@@ -214,6 +209,12 @@ public class Chips extends SmartBase {
             home.show();
             Gdx.input.setInputProcessor(home.multiplexer);
             homeS.setClicked(false);
+        }
+        if (stats.isClicked()) {
+            close();
+            passport.show();
+            Gdx.input.setInputProcessor(passport.multiplexer);
+            stats.setClicked(false);
         }
     }
 }

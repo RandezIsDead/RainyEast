@@ -3,18 +3,18 @@ package com.dentheripper.trying.View.OnScreen;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dentheripper.trying.GameCore.Engine;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.Browser;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.Chat;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.Chips;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.FAQ;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.GameInventory;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.Home;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.MapOfEnvironment;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.MusicScr;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.Passport;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.Settings;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.Skills;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.Weapons;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.Browser;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.Chat;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.Chips;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.FAQ;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.GameInventory;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.Home;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.MapOfEnvironment;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.MusicScr;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.Passport;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.Settings;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.Skills;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.Weapons;
 
 public class SmartRender {
 
@@ -78,16 +78,16 @@ public class SmartRender {
 
     public void renderThis(InputMultiplexer multiplexer, Engine engine) {
         home.smartphoneRender(multiplexer);
-        settings.settingsRender(home, engine);
-        moenv.moenvRender(home);
+        settings.settingsRender(home, engine, passport);
+        moenv.moenvRender(home, passport);
         passport.statsRender(home);
-        browser.browserRender(home);
-        musicScr.musicRender(home);
-        gameInventory.invRender(home);
-        chips.chipsRender(home);
-        skills.skillsRender(home);
-        chat.chatRender(home);
-        weapons.wpnRender(home);
-        faq.faqRender(home);
+        browser.browserRender(home, passport);
+        musicScr.musicRender(home, passport);
+        gameInventory.invRender(home, passport);
+        chips.chipsRender(home, passport);
+        skills.skillsRender(home, passport);
+        chat.chatRender(home, passport);
+        weapons.wpnRender(home, passport);
+        faq.faqRender(home, passport);
     }
 }

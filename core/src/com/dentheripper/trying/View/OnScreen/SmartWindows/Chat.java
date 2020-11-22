@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.SmarttWindows;
+package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -8,7 +8,7 @@ import com.dentheripper.trying.GameCore.Assets;
 
 public class Chat extends SmartBase {
 
-    private ExtraWindow extraWindow;
+    private final ExtraWindow extraWindow;
 
     public Chat() {
         setImage(Assets.assetManager.get(Assets.smartUniversal));
@@ -28,7 +28,7 @@ public class Chat extends SmartBase {
         stage.addActor(extraWindow);
     }
 
-    public void chatRender(Home home) {
+    public void chatRender(Home home, Passport passport) {
         if (home.chat.isClicked()) {
             home.close();
             show();
@@ -46,6 +46,12 @@ public class Chat extends SmartBase {
             home.show();
             Gdx.input.setInputProcessor(home.multiplexer);
             homeS.setClicked(false);
+        }
+        if (stats.isClicked()) {
+            close();
+            passport.show();
+            Gdx.input.setInputProcessor(passport.multiplexer);
+            stats.setClicked(false);
         }
     }
 }

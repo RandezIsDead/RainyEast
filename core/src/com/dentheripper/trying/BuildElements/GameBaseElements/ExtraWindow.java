@@ -19,7 +19,6 @@ public class ExtraWindow extends Actor {
 
     public ExtraWindow() {
         stage = new Stage(new StretchViewport(1000, 1000 * (h / w)));
-        Gdx.input.setInputProcessor(stage);
     }
 
     @Override

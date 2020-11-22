@@ -6,7 +6,7 @@ import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.GameCore.Entity;
 import com.dentheripper.trying.View.Entities.Player;
 import com.dentheripper.trying.View.OnScreen.SmartRender;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.MusicScr;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.MusicScr;
 
 public class GameScene extends GameScreen {
 

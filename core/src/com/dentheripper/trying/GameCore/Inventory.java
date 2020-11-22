@@ -6,8 +6,8 @@ public class Inventory {
     public Item[] items;
     public int[] id;
     public int[] index;
-    private boolean[] indexes;
-    private int param;
+    private final boolean[] indexes;
+    private final int param;
 
     public Inventory(int param) {
         this.param = param;

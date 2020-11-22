@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.SmarttWindows;
+package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -10,10 +10,10 @@ import com.dentheripper.trying.GameCore.Assets;
 
 public class Home extends SmartBase {
 
-//    private ButtonBase weather;
-    private ButtonBase money;
-    private ButtonBase hp;
-    private ButtonBase sp;
+//    private final ButtonBase weather;
+    private final ButtonBase money;
+    private final ButtonBase hp;
+    private final ButtonBase sp;
     ButtonBase browser;
     ButtonBase settings;
     ButtonBase map;

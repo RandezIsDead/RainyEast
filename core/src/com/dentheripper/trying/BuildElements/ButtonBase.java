@@ -37,7 +37,7 @@ public class ButtonBase extends Actor{
     public ButtonBase(String atlasPath, String drawable, float x, float y, float width, float height) {
         xPos.add(x);
 
-        stage = new Stage(new StretchViewport(1000, 1000 * (h / w)));
+        stage = new Stage(new StretchViewport(1000, 1000 * (h/w)));
         Gdx.input.setInputProcessor(stage);
 
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(atlasPath));
@@ -54,7 +54,7 @@ public class ButtonBase extends Actor{
     public ButtonBase(String atlasPath, String text, String drawable, float x, float y, float width, float height) {
         xPos.add(x);
 
-        stage = new Stage(new StretchViewport(1000, 1000 * (h / w)));
+        stage = new Stage(new StretchViewport(1000, 1000 * (h/w)));
         Gdx.input.setInputProcessor(stage);
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -85,10 +85,12 @@ public class ButtonBase extends Actor{
 
     public void addToClose() {
         this.moveButton(1500, this.getButtonY());
+//        stage.addAction(Actions.removeActor(this));
     }
 
     public void open() {
         this.moveButton(this.xPos.get(0), this.getButtonY());
+//        stage.addActor(this);
     }
 
     public void click(String drawable) {

@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.SmarttWindows;
+package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -95,7 +95,7 @@ public class Skills extends SmartBase {
         extraWindow.show();
     }
 
-    public void skillsRender(Home home) {
+    public void skillsRender(Home home, Passport passport) {
         if (home.skill.isClicked()) {
             home.close();
             show();
@@ -107,6 +107,12 @@ public class Skills extends SmartBase {
             home.show();
             Gdx.input.setInputProcessor(home.multiplexer);
             back.setClicked(false);
+        }
+        if (stats.isClicked()) {
+            close();
+            passport.show();
+            Gdx.input.setInputProcessor(passport.multiplexer);
+            stats.setClicked(false);
         }
         bodyRender();
         headBranches();

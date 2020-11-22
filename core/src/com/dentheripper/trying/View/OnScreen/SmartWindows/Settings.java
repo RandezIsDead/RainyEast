@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.SmarttWindows;
+package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -14,11 +14,11 @@ import java.util.ArrayList;
 
 public class Settings extends SmartBase {
 
-    private ArrayList<ButtonBase> btns = new ArrayList<>();
-    private ExtraWindow settingsWindow;
-    private ButtonBase sound;
-    private ButtonBase game;
-    private ButtonBase exit;
+    private final ArrayList<ButtonBase> btn = new ArrayList<>();
+    private final ExtraWindow settingsWindow;
+    private final ButtonBase sound;
+    private final ButtonBase game;
+    private final ButtonBase exit;
 
     public Settings() {
         setImage(Assets.assetManager.get(Assets.smartUniversal));
@@ -28,18 +28,18 @@ public class Settings extends SmartBase {
         game = new ButtonBase("Atlas/smart.txt", "gameSett", 705, 650, 290, 89);
         exit = new ButtonBase("Atlas/smart.txt", "exitSett", 705, 145, 290, 89);
 
-        btns.add(sound);
-        btns.add(game);
-        btns.add(exit);
+        btn.add(sound);
+        btn.add(game);
+        btn.add(exit);
     }
 
     @Override
     public void show() {
         super.show();
         stage.addActor(settingsWindow);
-        for (int i = 0; i < btns.size(); i++) {
-            stage.addActor(btns.get(i));
-            multiplexer.addProcessor(btns.get(i).stage);
+        for (int i = 0; i < btn.size(); i++) {
+            stage.addActor(btn.get(i));
+            multiplexer.addProcessor(btn.get(i).stage);
         }
     }
 
@@ -47,13 +47,13 @@ public class Settings extends SmartBase {
     public void close() {
         super.close();
         stage.addAction(Actions.removeActor(settingsWindow));
-        for (int i = 0; i < btns.size(); i++) {
-            stage.addAction(Actions.removeActor(btns.get(i)));
-            multiplexer.removeProcessor(btns.get(i).stage);
+        for (int i = 0; i < btn.size(); i++) {
+            stage.addAction(Actions.removeActor(btn.get(i)));
+            multiplexer.removeProcessor(btn.get(i).stage);
         }
     }
 
-    public void settingsRender(Home home, Engine engine) {
+    public void settingsRender(Home home, Engine engine, Passport passport) {
         if (home.settings.isClicked()) {
             home.close();
             show();
@@ -71,6 +71,12 @@ public class Settings extends SmartBase {
             home.show();
             Gdx.input.setInputProcessor(home.multiplexer);
             homeS.setClicked(false);
+        }
+        if (stats.isClicked()) {
+            close();
+            passport.show();
+            Gdx.input.setInputProcessor(passport.multiplexer);
+            stats.setClicked(false);
         }
         if (sound.isClicked()) {
             System.out.println("Sound");

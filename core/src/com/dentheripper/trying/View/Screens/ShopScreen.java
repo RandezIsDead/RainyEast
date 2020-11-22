@@ -7,13 +7,13 @@ import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.View.Entities.Player;
 import com.dentheripper.trying.View.OnScreen.SmartRender;
-import com.dentheripper.trying.View.OnScreen.SmarttWindows.MusicScr;
+import com.dentheripper.trying.View.OnScreen.SmartWindows.MusicScr;
 import com.dentheripper.trying.View.OnScreen.Windows.ShopWindow;
 
 public class ShopScreen extends GameScreen {
 
     private Player player;
-    private ShopWindow shopWindow;
+    private final ShopWindow shopWindow;
 
     public ShopScreen(Engine engine) {
         super(engine);

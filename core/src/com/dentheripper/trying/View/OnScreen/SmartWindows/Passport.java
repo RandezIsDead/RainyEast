@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.SmarttWindows;
+package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -12,22 +12,22 @@ import java.util.ArrayList;
 
 public class Passport extends SmartBase {
 
-    private ArrayList<ButtonBase> btns = new ArrayList<>();
-    private ExtraWindow pass;
-    private static ButtonBase name = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 795, 820, 150, 20);
-    private static ButtonBase datePass = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 795, 770, 150, 20);
-    private static ButtonBase id = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 725, 685, 250, 20);
+    private final ArrayList<ButtonBase> btn = new ArrayList<>();
+    private final ExtraWindow pass;
+    private static final ButtonBase name = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 795, 820, 150, 20);
+    private static final ButtonBase datePass = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 795, 770, 150, 20);
+    private static final ButtonBase id = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 725, 685, 250, 20);
 
-    private static ButtonBase intelligence = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 555, 130, 30);
-    private static ButtonBase strength = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 515, 130, 30);
-    private static ButtonBase maxHP = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 475, 130, 30);
-    private static ButtonBase maxSP = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 435, 130, 30);
-    private static ButtonBase damage = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 395, 130, 30);
-    private static ButtonBase defence = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 355, 130, 30);
-    private static ButtonBase healing = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 315, 130, 30);
-    private static ButtonBase agility = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 275, 130, 30);
-    private static ButtonBase skOpened = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 235, 130, 30);
-    private static ButtonBase luck = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 195, 130, 30);
+    private static final ButtonBase intelligence = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 555, 130, 30);
+    private static final ButtonBase strength = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 515, 130, 30);
+    private static final ButtonBase maxHP = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 475, 130, 30);
+    private static final ButtonBase maxSP = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 435, 130, 30);
+    private static final ButtonBase damage = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 395, 130, 30);
+    private static final ButtonBase defence = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 355, 130, 30);
+    private static final ButtonBase healing = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 315, 130, 30);
+    private static final ButtonBase agility = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 275, 130, 30);
+    private static final ButtonBase skOpened = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 235, 130, 30);
+    private static final ButtonBase luck = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 195, 130, 30);
 
     public Passport() {
         setImage(Assets.assetManager.get(Assets.smartUniversal));
@@ -42,27 +42,27 @@ public class Passport extends SmartBase {
         datePass.button.getLabel().setAlignment(Align.left);
         id.button.getLabel().setAlignment(Align.center);
 
-        btns.add(intelligence);
-        btns.add(strength);
-        btns.add(maxHP);
-        btns.add(maxSP);
-        btns.add(damage);
-        btns.add(defence);
-        btns.add(healing);
-        btns.add(agility);
-        btns.add(skOpened);
-        btns.add(luck);
+        btn.add(intelligence);
+        btn.add(strength);
+        btn.add(maxHP);
+        btn.add(maxSP);
+        btn.add(damage);
+        btn.add(defence);
+        btn.add(healing);
+        btn.add(agility);
+        btn.add(skOpened);
+        btn.add(luck);
 
-        for (int i = 0; i < btns.size(); i++) {
-            btns.get(i).button.getLabel().setAlignment(Align.left);
+        for (int i = 0; i < btn.size(); i++) {
+            btn.get(i).button.getLabel().setAlignment(Align.left);
         }
 
         stage.addActor(pass);
         stage.addActor(name);
         stage.addActor(datePass);
         stage.addActor(id);
-        for (int i = 0; i < btns.size(); i++) {
-            stage.addActor(btns.get(i));
+        for (int i = 0; i < btn.size(); i++) {
+            stage.addActor(btn.get(i));
         }
     }
 
@@ -73,8 +73,8 @@ public class Passport extends SmartBase {
         stage.addActor(name);
         stage.addActor(datePass);
         stage.addActor(id);
-        for (int i = 0; i < btns.size(); i++) {
-            stage.addActor(btns.get(i));
+        for (int i = 0; i < btn.size(); i++) {
+            stage.addActor(btn.get(i));
         }
     }
 
@@ -85,8 +85,8 @@ public class Passport extends SmartBase {
         stage.addAction(Actions.removeActor(name));
         stage.addAction(Actions.removeActor(datePass));
         stage.addAction(Actions.removeActor(id));
-        for (int i = 0; i < btns.size(); i++) {
-            stage.addAction(Actions.removeActor(btns.get(i)));
+        for (int i = 0; i < btn.size(); i++) {
+            stage.addAction(Actions.removeActor(btn.get(i)));
         }
     }
 

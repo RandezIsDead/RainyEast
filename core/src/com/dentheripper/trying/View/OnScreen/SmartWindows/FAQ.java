@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.SmarttWindows;
+package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -28,7 +28,7 @@ public class FAQ extends SmartBase {
         stage.addActor(extraWindow);
     }
 
-    public void faqRender(Home home) {
+    public void faqRender(Home home, Passport passport) {
         if (home.info.isClicked()) {
             home.close();
             show();
@@ -46,6 +46,12 @@ public class FAQ extends SmartBase {
             home.show();
             Gdx.input.setInputProcessor(home.multiplexer);
             homeS.setClicked(false);
+        }
+        if (stats.isClicked()) {
+            close();
+            passport.show();
+            Gdx.input.setInputProcessor(passport.multiplexer);
+            stats.setClicked(false);
         }
     }
 }

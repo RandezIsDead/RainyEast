@@ -1,7 +1,6 @@
 package com.dentheripper.trying.View.Screens.MF;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;

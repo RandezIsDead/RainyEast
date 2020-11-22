@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.SmarttWindows;
+package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -17,6 +17,7 @@ public class GameInventory extends SmartBase {
     private final ButtonBase ok, notOk, close;
     public Inventory inventory;
     public Inventory inventoryUsing;
+    private boolean isErrorOpened = false;
 
     public GameInventory() {
         setImage(Assets.assetManager.get(Assets.smartGrid));
@@ -32,29 +33,20 @@ public class GameInventory extends SmartBase {
         exceptionWindow.setImage(Assets.assetManager.get(Assets.exception), 50, 50, 200, 900);
         close = new ButtonBase("Atlas/buttons.txt", "errOk", 60, 830, 180, 70);
 
-        multiplexer.addProcessor(ok.stage);
-        multiplexer.addProcessor(notOk.stage);
-        multiplexer.addProcessor(close.stage);
-
         stage.addActor(extraWindow);
-        stage.addActor(descriptionWindow);
-        stage.addActor(exceptionWindow);
-        stage.addActor(ok);
-        stage.addActor(notOk);
-        stage.addActor(close);
 
         if (Gdx.app.getPreferences("Rainy_East").getInteger("gameLaunches") != 0) {
             inventory.loadInventory();
             inventoryUsing.loadInventory();
         }
 
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < inventory.items.length; i++) {
             if (inventory.items[i] != null) {
                 multiplexer.addProcessor(inventory.items[i].button.stage);
                 stage.addActor(inventory.items[i].button);
             }
         }
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < inventoryUsing.items.length; i++) {
             if (inventoryUsing.items[i] != null) {
                 multiplexer.addProcessor(inventoryUsing.items[i].button.stage);
                 stage.addActor(inventoryUsing.items[i].button);
@@ -65,12 +57,12 @@ public class GameInventory extends SmartBase {
     @Override
     protected void actFinal(float delta) {
         super.actFinal(delta);
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < inventory.items.length; i++) {
             if (inventory.items[i] != null) {
                 checkItem(inventory.items[i].index, inventory.items[i].id);
             }
         }
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < inventoryUsing.items.length; i++) {
             if (inventoryUsing.items[i] != null) {
                 deCheckItem(inventoryUsing.items[i].index, inventoryUsing.items[i].id);
             }
@@ -88,6 +80,9 @@ public class GameInventory extends SmartBase {
                 }
                 if (notOk.isClicked()) {
                     closeDescription();
+                    if (isErrorOpened) {
+                        closeError();
+                    }
                     notOk.setClicked(false);
                     inventory.items[index].button.setClicked(false);
                 }
@@ -171,11 +166,6 @@ public class GameInventory extends SmartBase {
         extraWindow.close();
         inventory.close();
         inventoryUsing.close();
-        descriptionWindow.close();
-        ok.addToClose();
-        notOk.addToClose();
-        exceptionWindow.close();
-        close.addToClose();
         closeDescription();
         closeError();
     }
@@ -189,29 +179,30 @@ public class GameInventory extends SmartBase {
     }
 
     private void showDescription() {
-        descriptionWindow.show();
-        ok.open();
-        notOk.open();
+        stage.addActor(descriptionWindow);
+        addButton(ok);
+        addButton(notOk);
     }
 
     private void closeDescription() {
-        descriptionWindow.close();
-        ok.addToClose();
-        notOk.addToClose();
+        stage.addAction(Actions.removeActor(descriptionWindow));
+        removeButton(ok);
+        removeButton(notOk);
     }
 
     private void showError() {
-        exceptionWindow.show();
-        close.open();
-        closeDescription();
+        stage.addActor(exceptionWindow);
+        addButton(close);
+        isErrorOpened = true;
     }
 
     private void closeError() {
-        exceptionWindow.close();
-        close.addToClose();
+        stage.addAction(Actions.removeActor(exceptionWindow));
+        removeButton(close);
+        isErrorOpened = false;
     }
 
-    public void invRender(Home home) {
+    public void invRender(Home home, Passport passport) {
         if (home.inv.isClicked()) {
             home.close();
             show();
@@ -233,6 +224,12 @@ public class GameInventory extends SmartBase {
             home.show();
             Gdx.input.setInputProcessor(home.multiplexer);
             homeS.setClicked(false);
+        }
+        if (stats.isClicked()) {
+            close();
+            passport.show();
+            Gdx.input.setInputProcessor(passport.multiplexer);
+            stats.setClicked(false);
         }
     }
 }

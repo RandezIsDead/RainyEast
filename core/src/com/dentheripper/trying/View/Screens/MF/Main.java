@@ -1,10 +1,8 @@
 package com.dentheripper.trying.View.Screens.MF;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.ScreenBase;
 import com.dentheripper.trying.GameCore.Assets;
@@ -42,7 +40,6 @@ public class Main extends ScreenBase {
         quitButton.click("exitPressed");
 
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("music/Zombie.mp3"));
-        bgMusic.setVolume(Assets.data.getFloat("musicVol"));
         bgMusic.play();
         bgMusic.setLooping(true);
 
@@ -61,7 +58,11 @@ public class Main extends ScreenBase {
     public void render(float delta) {
         super.render(delta);
         actFinal(delta);
-        bgMusic.setVolume(Assets.data.getFloat("musicVol"));
+        if (Assets.data.getBoolean("musicMuteIsChecked")) {
+            bgMusic.setVolume(0);
+        } else {
+            bgMusic.setVolume(Assets.data.getFloat("musicVol"));
+        }
 
         if (startButton.isClicked()) {
             bgMusic.dispose();

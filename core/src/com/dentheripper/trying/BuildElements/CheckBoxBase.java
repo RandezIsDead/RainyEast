@@ -72,6 +72,7 @@ public class CheckBoxBase extends Actor {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+        button.setChecked(checked);
     }
 
     public void addToClose() {

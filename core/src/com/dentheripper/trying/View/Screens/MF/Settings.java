@@ -48,20 +48,11 @@ public class Settings extends ScreenBase {
     public void render(float delta) {
         super.render(delta);
         actFinal(delta);
-        if (muteMusic.isChecked()) {
-            Assets.data.putFloat("musicVol", 0);
-            Assets.data.putBoolean("musicMuteIsChecked", true);
-        } else {
-            Assets.data.putFloat("musicVol", musicVol.getPos());
-            Assets.data.putBoolean("musicMuteIsChecked", false);
-        }
-        if (muteSfx.isChecked()) {
-            Assets.data.putFloat("sfxVol", 0);
-            Assets.data.putBoolean("sfxMuteIsChecked", true);
-        } else {
-            Assets.data.putFloat("sfxVol", sfxVol.getPos());
-            Assets.data.putBoolean("sfxMuteIsChecked", false);
-        }
+        Assets.data.putFloat("musicVol", musicVol.getPos());
+        Assets.data.putFloat("sfxVol", sfxVol.getPos());
+        Assets.data.putBoolean("musicMuteIsChecked", muteMusic.isChecked());
+        Assets.data.putBoolean("sfxMuteIsChecked", muteSfx.isChecked());
+
         if (exitButton.isClicked()) {
             engine.setScreen(new Main(engine));
             exitButton.setClicked(false);

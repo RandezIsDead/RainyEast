@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.SmarttWindows;
+package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -8,7 +8,7 @@ import com.dentheripper.trying.GameCore.Assets;
 
 public class MapOfEnvironment extends SmartBase {
 
-    private ExtraWindow extraWindow;
+    private final ExtraWindow extraWindow;
 
     public MapOfEnvironment() {
         setImage(Assets.assetManager.get(Assets.smartUniversal));
@@ -28,7 +28,7 @@ public class MapOfEnvironment extends SmartBase {
         stage.addActor(extraWindow);
     }
 
-    public void moenvRender(Home home) {
+    public void moenvRender(Home home, Passport passport) {
         if (home.map.isClicked()) {
             home.close();
             show();
@@ -46,6 +46,12 @@ public class MapOfEnvironment extends SmartBase {
             home.show();
             Gdx.input.setInputProcessor(home.multiplexer);
             homeS.setClicked(false);
+        }
+        if (stats.isClicked()) {
+            close();
+            passport.show();
+            Gdx.input.setInputProcessor(passport.multiplexer);
+            stats.setClicked(false);
         }
     }
 }

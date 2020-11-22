@@ -1,4 +1,4 @@
-package com.dentheripper.trying.View.OnScreen.SmarttWindows;
+package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -175,12 +175,17 @@ public class MusicScr extends SmartBase {
 
     private void setBgMusic(String path) {
         music = Gdx.audio.newMusic(Gdx.files.internal(path));
-        music.setVolume(Assets.data.getFloat("musicVol"));
         music.play();
         music.setLooping(true);
     }
 
-    public void musicRender(Home home) {
+    public void musicRender(Home home, Passport passport) {
+        if (Assets.data.getBoolean("musicMuteIsChecked")) {
+            music.setVolume(0);
+        } else {
+            music.setVolume(Assets.data.getFloat("musicVol"));
+        }
+
         if (home.music.isClicked()) {
             home.close();
             show();
@@ -200,6 +205,12 @@ public class MusicScr extends SmartBase {
             musicPages = new int[]{1, 0, 0};
             Gdx.input.setInputProcessor(home.multiplexer);
             homeS.setClicked(false);
+        }
+        if (stats.isClicked()) {
+            close();
+            passport.show();
+            Gdx.input.setInputProcessor(passport.multiplexer);
+            stats.setClicked(false);
         }
         if (previousButton.isClicked()) {
             System.out.println("Previous");
