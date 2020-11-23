@@ -1,7 +1,12 @@
 package com.dentheripper.trying.GameCore;
 
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+
 public class Inventory {
 
+    private final Stage stage;
     private int INV_SLOTS;
     public Item[] items;
     public int[] id;
@@ -9,7 +14,8 @@ public class Inventory {
     private final boolean[] indexes;
     private final int param;
 
-    public Inventory(int param) {
+    public Inventory(Stage stage, int param) {
+        this.stage = stage;
         this.param = param;
         if (param == 0 || param == 10) INV_SLOTS = 24;
         if (param == 1) INV_SLOTS = 6;
@@ -27,20 +33,20 @@ public class Inventory {
         }
     }
 
-    public void show() {
+    public void show(InputMultiplexer multiplexer) {
         for (int i = 0; i < INV_SLOTS; i++) {
             if (items[i] != null) {
-                items[i].button.open();
-                items[i].openWearScale();
+                stage.addActor(items[i].button);
+                multiplexer.addProcessor(items[i].button.stage);
             }
         }
     }
 
-    public void close() {
+    public void close(InputMultiplexer multiplexer) {
         for (int i = 0; i < INV_SLOTS; i++) {
             if (items[i] != null) {
-                items[i].button.addToClose();
-                items[i].closeWearScale();
+                stage.addAction(Actions.removeActor(items[i].button));
+                multiplexer.removeProcessor(items[i].button.stage);
             }
         }
     }
@@ -94,7 +100,7 @@ public class Inventory {
             index[i] = item.index;
             indexes[i] = true;
             items[i] = item;
-            items[i].button.addToClose();
+            stage.addAction(Actions.removeActor(items[i].button));
         }
     }
 
@@ -115,7 +121,7 @@ public class Inventory {
             this.index[index] = item.index;
             indexes[index] = true;
             items[index] = item;
-            items[index].button.addToClose();
+            stage.addAction(Actions.removeActor(items[index].button));
         }
     }
 

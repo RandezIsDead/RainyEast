@@ -17,42 +17,27 @@ public class GameInventory extends SmartBase {
     private final ButtonBase ok, notOk, close;
     public Inventory inventory;
     public Inventory inventoryUsing;
-    private boolean isErrorOpened = false;
+    private boolean mustShowDescription = true;
 
     public GameInventory() {
         setImage(Assets.assetManager.get(Assets.smartGrid));
         extraWindow = new ExtraWindow();
         extraWindow.setImage(Assets.assetManager.get(Assets.invExt), 450, 128, 250, 760);
-        inventory = new Inventory(0);
-        inventoryUsing = new Inventory(1);
+        inventory = new Inventory(stage,0);
+        inventoryUsing = new Inventory(stage,1);
         descriptionWindow = new ExtraWindow();
         descriptionWindow.setImage(Assets.assetManager.get(Assets.descWindow), 250, 50, 200, 900);
         ok = new ButtonBase("Atlas/smart.txt", "use", 260, 140, 180, 70);
         notOk = new ButtonBase("Atlas/smart.txt", "cancel", 260, 60, 180, 70);
         exceptionWindow = new ExtraWindow();
-        exceptionWindow.setImage(Assets.assetManager.get(Assets.exception), 50, 50, 200, 900);
-        close = new ButtonBase("Atlas/buttons.txt", "errOk", 60, 830, 180, 70);
+        exceptionWindow.setImage(Assets.assetManager.get(Assets.exception), 250, 50, 200, 900);
+        close = new ButtonBase("Atlas/buttons.txt", "errOk", 260, 830, 180, 70);
 
         stage.addActor(extraWindow);
 
         if (Gdx.app.getPreferences("Rainy_East").getInteger("gameLaunches") != 0) {
             inventory.loadInventory();
             inventoryUsing.loadInventory();
-        }
-
-        for (int i = 0; i < inventory.items.length; i++) {
-            if (inventory.items[i] != null) {
-                multiplexer.addProcessor(inventory.items[i].button.stage);
-                stage.addActor(inventory.items[i].button);
-//                stage.addActor(inventory.items[i].getWearScaleImage());
-            }
-        }
-        for (int i = 0; i < inventoryUsing.items.length; i++) {
-            if (inventoryUsing.items[i] != null) {
-                multiplexer.addProcessor(inventoryUsing.items[i].button.stage);
-                stage.addActor(inventoryUsing.items[i].button);
-//                stage.addActor(inventoryUsing.items[i].getWearScaleImage());
-            }
         }
     }
 
@@ -61,79 +46,64 @@ public class GameInventory extends SmartBase {
         super.actFinal(delta);
         for (int i = 0; i < inventory.items.length; i++) {
             if (inventory.items[i] != null) {
-                checkItem(inventory.items[i].index, inventory.items[i].id);
+                if (inventory.items[i].button.isClicked()) {
+                    if (mustShowDescription) {
+                        showDescription();
+                    }
+                    if (ok.isClicked()) {
+                        if (canUseItem(inventory.items[i].id)) {
+                            mustShowDescription = true;
+                            useItem(inventory.items[i], inventory.items[i].id);
+                        } else {
+                            showError();
+                            mustShowDescription = false;
+                        }
+                        closeDescription();
+                        ok.setClicked(false);
+                    }
+                    if (notOk.isClicked()) {
+                        closeDescription();
+                        notOk.setClicked(false);
+                        inventory.items[i].button.setClicked(false);
+                    }
+                    if (close.isClicked()) {
+                        mustShowDescription = true;
+                        closeError();
+                        close.setClicked(false);
+                    }
+                }
             }
         }
         for (int i = 0; i < inventoryUsing.items.length; i++) {
             if (inventoryUsing.items[i] != null) {
-                deCheckItem(inventoryUsing.items[i].index, inventoryUsing.items[i].id);
-            }
-        }
-    }
-
-    private void checkItem(int index, int id) {
-        if (inventory.items[index] != null) {
-            if (inventory.items[index].button.isClicked() && inventory.items[index].id == id) {
-                showDescription();
-                if (ok.isClicked() && inventory.items[index].id == id && inventory.items[index].index == index) {
-                    useItem(inventory.items[index], id);
-                    closeDescription();
-                    ok.setClicked(false);
+                if (inventoryUsing.items[i].button.isClicked()) {
+                    inventoryUsing.items[i].button.setClicked(false);
+                    removeFromUsing(inventoryUsing.items[i], inventoryUsing.items[i].id);
                 }
-                if (notOk.isClicked()) {
-                    closeDescription();
-                    if (isErrorOpened) {
-                        closeError();
-                    }
-                    notOk.setClicked(false);
-                    inventory.items[index].button.setClicked(false);
-                }
-                if (close.isClicked()) {
-                    closeError();
-                    close.setClicked(false);
-                }
-            }
-        }
-    }
-
-    private void deCheckItem(int index, int id) {
-        if (inventoryUsing.items[index] != null) {
-            if (inventoryUsing.items[index].button.isClicked() && inventoryUsing.items[index].id == id) {
-                inventoryUsing.items[index].button.setClicked(false);
-                removeFromUsing(inventoryUsing.items[index], id);
             }
         }
     }
 
     private void useItem(Item item, int id) {
-        int index = -1;
-        if (id == 40) index = 0;
-        if (id == 41) index = 1;
-        if (id == 42) index = 2;
-        if (id == 43) index = 3;
-        if (id == 0) index = 4;
+        int index = setIndexById(id);
 
-        if (inventoryUsing.items[index] != null) {
-            showError();
-        } else {
-            Item rec = new Item(id, index, 1);
-            stage.addAction(Actions.removeActor(item.button));
-            multiplexer.removeProcessor(item.button.stage);
-            inventory.removeItem(item.index);
-            rec.setUsing(true);
-            Gdx.input.setInputProcessor(this.multiplexer);
+        Item rec = new Item(id, index, 1);
+        stage.addAction(Actions.removeActor(item.button));
+        multiplexer.removeProcessor(item.button.stage);
+        inventory.removeItem(item.index);
+        rec.setUsing(true);
+        Gdx.input.setInputProcessor(this.multiplexer);
 
-            if (rec.getStatsID() == 0) Assets.data.putString("intelligence", Integer.valueOf(Integer.parseInt(Assets.data.getString("intelligence")) + rec.getBuff()).toString());
-            if (rec.getStatsID() == 1) Assets.data.putString("strength", Integer.valueOf(Integer.parseInt(Assets.data.getString("strength")) + rec.getBuff()).toString());
-            if (rec.getStatsID() == 6) Assets.data.putString("healing", Integer.valueOf(Integer.parseInt(Assets.data.getString("healing")) + rec.getBuff()).toString());
-            if (rec.getStatsID() == 7) Assets.data.putString("agility", Integer.valueOf(Integer.parseInt(Assets.data.getString("agility")) + rec.getBuff()).toString());
+        if (rec.getStatsID() == 0) Assets.data.putString("intelligence", Integer.valueOf(Integer.parseInt(Assets.data.getString("intelligence")) + rec.getBuff()).toString());
+        if (rec.getStatsID() == 1) Assets.data.putString("strength", Integer.valueOf(Integer.parseInt(Assets.data.getString("strength")) + rec.getBuff()).toString());
+        if (rec.getStatsID() == 6) Assets.data.putString("healing", Integer.valueOf(Integer.parseInt(Assets.data.getString("healing")) + rec.getBuff()).toString());
+        if (rec.getStatsID() == 7) Assets.data.putString("agility", Integer.valueOf(Integer.parseInt(Assets.data.getString("agility")) + rec.getBuff()).toString());
 
-            multiplexer.addProcessor(rec.button.stage);
-            stage.addActor(rec.button);
-            inventoryUsing.addItemAtIndexNotClose(rec, index);
-            inventory.saveInventory();
-            inventoryUsing.saveInventory();
-        }
+        multiplexer.addProcessor(rec.button.stage);
+        stage.addActor(rec.button);
+        inventoryUsing.addItemAtIndexNotClose(rec, index);
+        inventory.saveInventory();
+        inventoryUsing.saveInventory();
     }
 
     private void removeFromUsing(Item item, int id) {
@@ -162,12 +132,34 @@ public class GameInventory extends SmartBase {
         }
     }
 
+    private boolean canUseItem(int id) {
+        int index = setIndexById(id);
+        return inventoryUsing.items[index] == null;
+    }
+
+    private int setIndexById(int id) {
+        int index = -1;
+        if (id == 40) index = 0;
+        if (id == 41) index = 1;
+        if (id == 42) index = 2;
+        if (id == 43) index = 3;
+        if (id == 0) index = 4;
+
+        return index;
+    }
+
     @Override
     public void close() {
         super.close();
+        for (int i = 0; i < inventory.items.length; i++) {
+            if (inventory.items[i] != null) {
+                inventory.items[i].button.setClicked(false);
+            }
+        }
+        mustShowDescription = true;
         extraWindow.close();
-        inventory.close();
-        inventoryUsing.close();
+        inventory.close(multiplexer);
+        inventoryUsing.close(multiplexer);
         closeDescription();
         closeError();
     }
@@ -176,8 +168,8 @@ public class GameInventory extends SmartBase {
     public void show() {
         super.show();
         extraWindow.show();
-        inventory.show();
-        inventoryUsing.show();
+        inventory.show(multiplexer);
+        inventoryUsing.show(multiplexer);
         removeButton(ok);
         removeButton(notOk);
     }
@@ -197,13 +189,11 @@ public class GameInventory extends SmartBase {
     private void showError() {
         stage.addActor(exceptionWindow);
         addButton(close);
-        isErrorOpened = true;
     }
 
     private void closeError() {
         stage.addAction(Actions.removeActor(exceptionWindow));
         removeButton(close);
-        isErrorOpened = false;
     }
 
     public void invRender(Home home, Passport passport) {
@@ -215,10 +205,8 @@ public class GameInventory extends SmartBase {
         }
         if (back.isClicked()) {
             close();
-            home.show();
-            closeDescription();
-            closeError();
             Gdx.input.setInputProcessor(home.multiplexer);
+            home.show();
             back.setClicked(false);
         }
         if (homeS.isClicked()) {

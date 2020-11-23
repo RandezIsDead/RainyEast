@@ -25,6 +25,7 @@ public class GameScreen extends ScreenBase {
     protected List<Entity> npc = new ArrayList<>();
     protected Controller controller = new Controller();
     private int useID;
+//    private float time = 0;
 
     public GameScreen(Engine engine) {
         super(engine);
@@ -69,7 +70,7 @@ public class GameScreen extends ScreenBase {
         Assets.data.putString("realHP", Float.toString(player.getHp()));
         Assets.data.putString("realSP", Float.toString(player.getSp()));
         smartRender.renderThis(multiplexer, engine);
-        System.out.println(player.getX() + "    " + player.getY()*2);
+//        System.out.println(player.getX() + "    " + player.getY()*2);
 
         if (player.getX() >= 2012 && player.getX() <= 2280 && player.getY() >= 5666*(h/w) && player.getY() <= 5828*(h/w)) {
             useButton.open();
@@ -96,23 +97,31 @@ public class GameScreen extends ScreenBase {
 
         player.HPControl();
 
-        if (player.getSp() == 0) {
-            long time = System.currentTimeMillis();
-            if ((System.currentTimeMillis() - time) / 1000 <= 30) {
-                controller.setCanMove(false);
-            }
-            else {
-                controller.setCanMove(true);
-            }
-        }
-        if (player.getSp() >= 10) {
-            controller.setCanMove(true);
-        }
-        if (player.isRunning()) {
-            player.setSp(player.getSp() - 5*Gdx.graphics.getDeltaTime());
-        } else {
-            player.SPControl();
-        }
+//        if (player.isRunning()) {
+//            time += Gdx.graphics.getDeltaTime();
+//            if (time > 10) {
+//                for (int i = 0; i < smartRender.gameInventory.inventoryUsing.items.length; i++) {
+//                    if (smartRender.gameInventory.inventoryUsing.items[i] != null) {
+//                        smartRender.gameInventory.inventoryUsing.items[i].setWearScalePercent(smartRender.gameInventory.inventoryUsing.items[i].getWearScalePercent()-1);
+//                        System.out.println(smartRender.gameInventory.inventoryUsing.items[i].getWearScalePercent());
+//                    }
+//                }
+//                time = 0;
+//            }
+//        }
+
+//        if (player.getSp() == 0) {
+//            long time = System.currentTimeMillis();
+//            controller.setCanMove((System.currentTimeMillis() - time) / 1000 > 30);
+//        }
+//        if (player.getSp() >= 10) {
+//            controller.setCanMove(true);
+//        }
+//        if (player.isRunning()) {
+//            player.setSp(player.getSp() - 5*Gdx.graphics.getDeltaTime());
+//        } else {
+//            player.SPControl();
+//        }
     }
 
     protected void setPlayer(Entity player) {

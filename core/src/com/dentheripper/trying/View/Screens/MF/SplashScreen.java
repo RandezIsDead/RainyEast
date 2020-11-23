@@ -33,10 +33,10 @@ public class SplashScreen extends ScreenBase {
 
     private void firstLaunchInitialize() {
         if (Assets.data.getInteger("gameLaunches") == 0) {
-            Inventory inventory = new Inventory(0);
-            Inventory chips = new Inventory(10);
-            Inventory invUsing = new Inventory(1);
-            Inventory invChipsUsing = new Inventory(2);
+            Inventory inventory = new Inventory(stage,0);
+            Inventory chips = new Inventory(stage,10);
+            Inventory invUsing = new Inventory(stage,1);
+            Inventory invChipsUsing = new Inventory(stage,2);
             inventory.saveInventory();
             chips.saveInventory();
             invChipsUsing.saveInventory();

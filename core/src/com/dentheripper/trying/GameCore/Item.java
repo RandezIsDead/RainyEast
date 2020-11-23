@@ -1,8 +1,12 @@
 package com.dentheripper.trying.GameCore;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.dentheripper.trying.BuildElements.ButtonBase;
 
 public class Item {
@@ -22,15 +26,12 @@ public class Item {
     private int statsID;
     private boolean hasWearScale;
     private int wearScalePercent;
-    private Image image;
-    private Texture wearScale;
+    private float textScale = 1;
 
     public Item(int id, int index, int type) {
         this.id = id;
         this.index = index;
         setType(type);
-        wearScale = new Texture(Gdx.files.internal("wearScale/10.png"));
-        image = new Image(wearScale);
 
         if (getType() == 0 || getType() == 10) itemGameInv();
         if (getType() == 1) itemInvUsing();
@@ -38,14 +39,19 @@ public class Item {
         if (getType() == 3) itemShop();
         if (getType() == 4) itemOrders();
         setItem(id, x, y, width, height);
-        image.setSize(width, height);
-        image.setPosition(x, y);
     }
 
     private void setItem(int id, float x, float y, float width, float height) {
         initializeItem(id);
         String path = "smart/items/items.txt";
-        button = new ButtonBase(path, drawable, x, y, width, height);
+        if (isHasWearScale()) {
+            button = new ButtonBase(path, "----------", drawable, x, y, width, height);
+            button.button.getLabel().setAlignment(Align.bottom);
+            button.button.getLabel().setColor(Color.GREEN);
+            button.button.getLabel().setFontScaleX(textScale);
+        } else {
+            button = new ButtonBase(path,  drawable, x, y, width, height);
+        }
     }
 
     private void itemGameInv() {
@@ -98,7 +104,7 @@ public class Item {
         }
         if (index == 1 && getType() == 1) {
             x = 647;
-            y = 694;
+            y = 690;
             width = 39;
             height = 80;
         }
@@ -126,6 +132,7 @@ public class Item {
             width = 39;
             height = 80;
         }
+        textScale = 0.65f;
     }
 
     private void itemChipUsing() {
@@ -171,6 +178,7 @@ public class Item {
             width = 40;
             height = 80;
         }
+        textScale = 0.65f;
     }
 
     private void itemShop() {
@@ -407,65 +415,21 @@ public class Item {
         this.hasWearScale = hasWearScale;
     }
 
-    public Image getWearScaleImage() {
-        return image;
-    }
-    public void setWearScaleTexture() {
-        int percent = getWearScalePercent();
-        if (percent >= 90 && percent <= 100) {
-            wearScale = new Texture(Gdx.files.internal("wearScale/10.png"));
-        }
-        if (percent >= 80 && percent < 90) {
-            wearScale = new Texture(Gdx.files.internal("wearScale/9.png"));
-        }
-        if (percent >= 70 && percent < 80) {
-            wearScale = new Texture(Gdx.files.internal("wearScale/8.png"));
-        }
-        if (percent >= 60 && percent < 70) {
-            wearScale = new Texture(Gdx.files.internal("wearScale/7.png"));
-        }
-        if (percent >= 50 && percent < 60) {
-            wearScale = new Texture(Gdx.files.internal("wearScale/6.png"));
-        }
-        if (percent >= 40 && percent < 50) {
-            wearScale = new Texture(Gdx.files.internal("wearScale/5.png"));
-        }
-        if (percent >= 30 && percent < 40) {
-            wearScale = new Texture(Gdx.files.internal("wearScale/4.png"));
-        }
-        if (percent >= 20 && percent < 30) {
-            wearScale = new Texture(Gdx.files.internal("wearScale/3.png"));
-        }
-        if (percent >= 10 && percent < 20) {
-            wearScale = new Texture(Gdx.files.internal("wearScale/2.png"));
-        }
-        if (percent > 0 && percent < 10) {
-            wearScale = new Texture(Gdx.files.internal("wearScale/1.png"));
-        }
-        if (percent == 0) {
-            wearScale = new Texture(Gdx.files.internal("wearScale/0.png"));
-        }
-    }
-
     public int getWearScalePercent() {
         return wearScalePercent;
     }
 
     public void setWearScalePercent(int wearScalePercent) {
         this.wearScalePercent = wearScalePercent;
-        setWearScaleTexture();
-        image = new Image(wearScale);
+        char x = '-';
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < wearScalePercent/10; i++) {
+            sb.append(x);
+        }
+        button.button.getLabel().setText(sb.toString());
     }
 
     public void setDefaultWearScale() {
-        this.wearScalePercent = 36;
-    }
-
-    public void openWearScale() {
-        image.setPosition(x, y);
-    }
-
-    public void closeWearScale() {
-        image.setPosition(x+1000, y);
+        this.wearScalePercent = 100;
     }
 }

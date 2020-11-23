@@ -24,10 +24,10 @@ public class ScreenBase implements Screen {
     protected Stage stage;
     protected InputMultiplexer multiplexer;
 
-    protected ArrayList<ButtonBase> buttons = new ArrayList<>();
-    protected ArrayList<CheckBoxBase> checkBoxes = new ArrayList<>();
-    protected ArrayList<SliderBase> sliders = new ArrayList<>();
-    protected ArrayList<TextFieldBase> fields = new ArrayList<>();
+    private final ArrayList<ButtonBase> buttons = new ArrayList<>();
+    private final ArrayList<CheckBoxBase> cbBase = new ArrayList<>();
+    private final ArrayList<SliderBase> sliders = new ArrayList<>();
+    private final ArrayList<TextFieldBase> fields = new ArrayList<>();
 
     public float w = Gdx.graphics.getWidth();
     public float h = Gdx.graphics.getHeight();
@@ -60,9 +60,9 @@ public class ScreenBase implements Screen {
 
     protected void actFinal(float delta) {
         for (int i = 0; i < buttons.size(); i++) buttons.get(i).act(delta);
-        for (int i = 0; i < fields.size(); i++) fields.get(i).act(delta);
         for (int i = 0; i < sliders.size(); i++) sliders.get(i).act(delta);
-        for (int i = 0; i < checkBoxes.size(); i++) checkBoxes.get(i).act(delta);
+        for (int i = 0; i < cbBase.size(); i++) cbBase.get(i).act(delta);
+        for (int i = 0; i < fields.size(); i++) fields.get(i).act(delta);
         stage.act(delta);
         stage.draw();
     }
@@ -90,7 +90,7 @@ public class ScreenBase implements Screen {
     }
 
     protected void addObject(CheckBoxBase cbb) {
-        checkBoxes.add(cbb);
+        cbBase.add(cbb);
         stage.addActor(cbb);
         multiplexer.addProcessor(cbb.stage);
     }

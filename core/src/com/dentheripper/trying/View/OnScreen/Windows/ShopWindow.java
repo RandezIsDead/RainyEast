@@ -20,8 +20,8 @@ public class ShopWindow extends ExtraWindow {
     public Inventory orders;
     public ButtonBase close;
     public ButtonBase take;
-    private Inventory itemInv;
-    private ButtonBase cost;
+    private final Inventory itemInv;
+    private final ButtonBase cost;
 
     private int totalCost = 0;
 
@@ -29,10 +29,10 @@ public class ShopWindow extends ExtraWindow {
         if (type == 0) {
             setImage(Assets.assetManager.get(Assets.shop1), 150, 100, 700, 800);
         }
-        inventory = new Inventory(3);
-        orders = new Inventory(4);
+        inventory = new Inventory(stage,3);
+        orders = new Inventory(stage,4);
 
-        itemInv = new Inventory(0);
+        itemInv = new Inventory(stage,0);
         itemInv.loadInventory();
 
         close = new ButtonBase("Atlas/smart.txt", "cancel", 350, 105, 100, 65);
@@ -48,19 +48,6 @@ public class ShopWindow extends ExtraWindow {
         for (int i = 0; i < 25; i++) {
             Random random = new Random();
             inventory.addItem(new Item(random.nextInt((43 - 40) + 1) + 40, inventory.getFirstEmptyCell(), 3));
-        }
-
-        for (int i = 0; i < 25; i++) {
-            if (inventory.items[i] != null) {
-                multiplexer.addProcessor(inventory.items[i].button.stage);
-                stage.addActor(inventory.items[i].button);
-            }
-        }
-        for (int i = 0; i < 8; i++) {
-            if (orders.items[i] != null) {
-                multiplexer.addProcessor(orders.items[i].button.stage);
-                stage.addActor(orders.items[i].button);
-            }
         }
 
         stage.addActor(close);
@@ -79,7 +66,10 @@ public class ShopWindow extends ExtraWindow {
         }
         for (int i = 0; i < 8; i++) {
             if (orders.items[i] != null) {
-                deCheckItem(orders.items[i].index, orders.items[i].id);
+                if (orders.items[orders.items[i].index].button.isClicked()) {
+                    orders.items[orders.items[i].index].button.setClicked(false);
+                    deUseItem(orders.items[orders.items[i].index], orders.items[i].id);
+                }
             }
         }
         if (take.isClicked()) {
@@ -108,15 +98,6 @@ public class ShopWindow extends ExtraWindow {
             if (inventory.items[index].button.isClicked() && inventory.items[index].id == id) {
                 inventory.items[index].button.setClicked(false);
                 useItem(inventory.items[index], id);
-            }
-        }
-    }
-
-    private void deCheckItem(int index, int id) {
-        if (orders.items[index] != null) {
-            if (orders.items[index].button.isClicked() && orders.items[index].id == id) {
-                orders.items[index].button.setClicked(false);
-                deUseItem(orders.items[index], id);
             }
         }
     }
@@ -158,8 +139,8 @@ public class ShopWindow extends ExtraWindow {
     @Override
     public void show() {
         super.show();
-        inventory.show();
-        orders.show();
+        inventory.show(multiplexer);
+        orders.show(multiplexer);
         take.open();
         close.open();
         cost.open();
@@ -168,8 +149,8 @@ public class ShopWindow extends ExtraWindow {
     @Override
     public void close() {
         super.close();
-        inventory.close();
-        orders.close();
+        inventory.close(multiplexer);
+        orders.close(multiplexer);
         take.addToClose();
         close.addToClose();
         cost.addToClose();
