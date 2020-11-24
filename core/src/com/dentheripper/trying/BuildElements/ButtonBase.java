@@ -1,6 +1,7 @@
 package com.dentheripper.trying.BuildElements;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -9,12 +10,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.dentheripper.trying.GameCore.Assets;
 
 import java.util.ArrayList;
 
@@ -31,13 +31,13 @@ public class ButtonBase extends Actor{
     public FreeTypeFontGenerator.FreeTypeFontParameter parameter;
 
     private final ArrayList<Float> xPos = new ArrayList<>();
-    private final float w = Gdx.graphics.getWidth();
-    private final float h = Gdx.graphics.getHeight();
+    public float w = Assets.w;
+    public float h = Assets.h;
 
     public ButtonBase(String atlasPath, String drawable, float x, float y, float width, float height) {
         xPos.add(x);
 
-        stage = new Stage(new StretchViewport(1000, 1000 * (h/w)));
+        stage = new Stage(new StretchViewport(1000, 1000 * (h / w)));
         Gdx.input.setInputProcessor(stage);
 
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(atlasPath));
@@ -63,6 +63,7 @@ public class ButtonBase extends Actor{
         String FONT_PATH = "Fonts/eww.ttf";
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(FONT_PATH));
         font = generator.generateFont(parameter);
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(atlasPath));
         skin.addRegions(atlas);

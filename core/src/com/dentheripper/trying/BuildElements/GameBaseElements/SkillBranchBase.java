@@ -22,8 +22,8 @@ public class SkillBranchBase extends Actor {
     private Texture texture;
     private final String type;
 
-    protected float w = Gdx.graphics.getWidth();
-    protected float h = Gdx.graphics.getHeight();
+    public float w = Assets.w;
+    public float h = Assets.h;
 
     protected List<ButtonBase> skill = new ArrayList<>();
     private final List<Float> xPos = new ArrayList<>();

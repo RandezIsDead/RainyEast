@@ -38,6 +38,7 @@ public class Inventory {
             if (items[i] != null) {
                 stage.addActor(items[i].button);
                 multiplexer.addProcessor(items[i].button.stage);
+                stage.addActor(items[i].wearScale);
             }
         }
     }
@@ -47,6 +48,7 @@ public class Inventory {
             if (items[i] != null) {
                 stage.addAction(Actions.removeActor(items[i].button));
                 multiplexer.removeProcessor(items[i].button.stage);
+                stage.addAction(Actions.removeActor(items[i].wearScale));
             }
         }
     }
@@ -101,6 +103,7 @@ public class Inventory {
             indexes[i] = true;
             items[i] = item;
             stage.addAction(Actions.removeActor(items[i].button));
+            stage.addAction(Actions.removeActor(items[i].wearScale));
         }
     }
 
@@ -122,6 +125,7 @@ public class Inventory {
             indexes[index] = true;
             items[index] = item;
             stage.addAction(Actions.removeActor(items[index].button));
+            stage.addAction(Actions.removeActor(items[index].wearScale));
         }
     }
 

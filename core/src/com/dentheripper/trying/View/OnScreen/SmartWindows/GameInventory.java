@@ -35,7 +35,7 @@ public class GameInventory extends SmartBase {
 
         stage.addActor(extraWindow);
 
-        if (Gdx.app.getPreferences("Rainy_East").getInteger("gameLaunches") != 0) {
+        if (Assets.data.getInteger("gameLaunches") != 0) {
             inventory.loadInventory();
             inventoryUsing.loadInventory();
         }
@@ -89,6 +89,7 @@ public class GameInventory extends SmartBase {
 
         Item rec = new Item(id, index, 1);
         stage.addAction(Actions.removeActor(item.button));
+        stage.addAction(Actions.removeActor(item.wearScale));
         multiplexer.removeProcessor(item.button.stage);
         inventory.removeItem(item.index);
         rec.setUsing(true);
@@ -101,6 +102,7 @@ public class GameInventory extends SmartBase {
 
         multiplexer.addProcessor(rec.button.stage);
         stage.addActor(rec.button);
+        stage.addActor(rec.wearScale);
         inventoryUsing.addItemAtIndexNotClose(rec, index);
         inventory.saveInventory();
         inventoryUsing.saveInventory();
@@ -112,6 +114,7 @@ public class GameInventory extends SmartBase {
         if (index != -1) {
             Item rec = new Item(id, index, 0);
             stage.addAction(Actions.removeActor(item.button));
+            stage.addAction(Actions.removeActor(item.wearScale));
             multiplexer.removeProcessor(item.button.stage);
             inventoryUsing.removeItem(item.index);
             rec.setUsing(false);
@@ -124,6 +127,7 @@ public class GameInventory extends SmartBase {
 
             multiplexer.addProcessor(rec.button.stage);
             stage.addActor(rec.button);
+            stage.addActor(rec.wearScale);
             inventory.addItemNotClose(rec);
             inventory.saveInventory();
             inventoryUsing.saveInventory();

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.dentheripper.trying.GameCore.Assets;
 
 import java.util.ArrayList;
 
@@ -15,11 +16,11 @@ public class SliderBase extends Actor {
 
     public Stage stage;
     public Slider slider;
-    private ArrayList<Float> xPos = new ArrayList<>();
+    private final ArrayList<Float> xPos = new ArrayList<>();
 
     public SliderBase(float x, float y, float width, float height) {
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
+        float w = Assets.w;
+        float h = Assets.h;
         xPos.add(x);
 
         stage = new Stage(new StretchViewport(1000, 1000 * (h / w)));

@@ -89,6 +89,7 @@ public class Chips extends SmartBase {
 
         Item rec = new Item(id, index, 2);
         stage.addAction(Actions.removeActor(item.button));
+        stage.addAction(Actions.removeActor(item.wearScale));
         multiplexer.removeProcessor(item.button.stage);
         inventory.removeItem(item.index);
         rec.setUsing(true);
@@ -96,6 +97,7 @@ public class Chips extends SmartBase {
 
         multiplexer.addProcessor(rec.button.stage);
         stage.addActor(rec.button);
+        stage.addActor(rec.wearScale);
         inventoryUsing.addItemNotClose(rec);
         inventory.saveInventory();
         inventoryUsing.saveInventory();
@@ -107,6 +109,7 @@ public class Chips extends SmartBase {
         if (index != -1) {
             Item rec = new Item(id, index, 0);
             stage.addAction(Actions.removeActor(item.button));
+            stage.addAction(Actions.removeActor(item.wearScale));
             multiplexer.removeProcessor(item.button.stage);
             inventoryUsing.removeItem(item.index);
             rec.setUsing(false);
@@ -114,6 +117,7 @@ public class Chips extends SmartBase {
 
             multiplexer.addProcessor(rec.button.stage);
             stage.addActor(rec.button);
+            stage.addActor(rec.wearScale);
             inventory.addItemNotClose(rec);
             inventory.saveInventory();
             inventoryUsing.saveInventory();

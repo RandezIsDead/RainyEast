@@ -1,20 +1,20 @@
 package com.dentheripper.trying.BuildElements.GameBaseElements;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.dentheripper.trying.GameCore.Assets;
 
 public class ExtraWindow extends Actor {
 
     protected Stage stage;
 
     private Image image;
-    protected float w = Gdx.graphics.getWidth();
-    protected float h = Gdx.graphics.getHeight();
+    public float w = Assets.w;
+    public float h = Assets.h;
     private float x;
 
     public ExtraWindow() {

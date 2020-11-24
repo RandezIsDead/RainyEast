@@ -1,5 +1,6 @@
 package com.dentheripper.trying.GameCore;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,6 +9,9 @@ public class Assets {
 
     public static AssetManager assetManager = new AssetManager();
     public static Data data = new Data();
+
+    public static float w = Gdx.graphics.getWidth();
+    public static float h = Gdx.graphics.getHeight();
 
     public static final AssetDescriptor<Texture> controller = new AssetDescriptor<>("elements/controller.png", Texture.class);
     public static final AssetDescriptor<Texture> gameMap = new AssetDescriptor<>("screenAssets/map.png", Texture.class);

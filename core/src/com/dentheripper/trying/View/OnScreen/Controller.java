@@ -1,7 +1,6 @@
 package com.dentheripper.trying.View.OnScreen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -12,12 +11,12 @@ import com.dentheripper.trying.GameCore.Assets;
 
 public class Controller extends Actor {
 
-    private OrthographicCamera camera;
-    private Vector3 touchPos;
-    private Preferences data;
-    private Texture contrField, cursor;
-    private Rectangle contr;
-    private Rectangle c;
+    private final OrthographicCamera camera;
+    private final Vector3 touchPos;
+    private final Texture contrField;
+    private final Texture cursor;
+    private final Rectangle contr;
+    private final Rectangle c;
     public boolean canMove = true;
     private boolean xf = false, xb = false, yf = false, yb = false;
     private boolean xxf = false, xff = false;
@@ -26,10 +25,8 @@ public class Controller extends Actor {
     private boolean yyb = false, ybb = false;
 
     public Controller() {
-        data = Gdx.app.getPreferences("Rainy_East");
-
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
+        float w = Assets.w;
+        float h = Assets.h;
 
         camera = new OrthographicCamera(1000, 1000 * (h / w));
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
@@ -87,47 +84,35 @@ public class Controller extends Actor {
         if (c.y > 95) c.y = 95;
         if (c.y < 10) c.y = 10;
 
-        if (c.x > 70) setXf(true);
-        else setXf(false);
-        if (c.x < 35) setXb(true);
-        else setXb(false);
-        if (c.y > 70) setYf(true);
-        else setYf(false);
-        if (c.y < 35) setYb(true);
-        else setYb(false);
+        setXf(c.x > 70);
+        setXb(c.x < 35);
+        setYf(c.y > 70);
+        setYb(c.y < 35);
 
-        if (c.x > 70 && c.x <= 80) setXxf(true);
-        else setXxf(false);
-        if (c.x > 80 && c.x <= 95) setXff(true);
-        else setXff(false);
-        if (c.x < 35 && c.x >= 25) setXxb(true);
-        else setXxb(false);
-        if (c.x < 25 && c.x >= 10) setXbb(true);
-        else setXbb(false);
-        if (c.y > 70 && c.y <= 80) setYyf(true);
-        else setYyf(false);
-        if (c.y > 80 && c.y <= 95) setYff(true);
-        else setYff(false);
-        if (c.y < 35 && c.y >= 25) setYyb(true);
-        else setYyb(false);
-        if (c.y < 25 && c.y >= 10) setYbb(true);
-        else setYbb(false);
+        setXxf(c.x > 70 && c.x <= 80);
+        setXff(c.x > 80 && c.x <= 95);
+        setXxb(c.x < 35 && c.x >= 25);
+        setXbb(c.x < 25 && c.x >= 10);
+        setYyf(c.y > 70 && c.y <= 80);
+        setYff(c.y > 80 && c.y <= 95);
+        setYyb(c.y < 35 && c.y >= 25);
+        setYbb(c.y < 25 && c.y >= 10);
 
-        data.putBoolean("xf", isXf());
-        data.putBoolean("xb", isXb());
-        data.putBoolean("yf", isYf());
-        data.putBoolean("yb", isYb());
-        data.flush();
+        Assets.data.putBoolean("xf", isXf());
+        Assets.data.putBoolean("xb", isXb());
+        Assets.data.putBoolean("yf", isYf());
+        Assets.data.putBoolean("yb", isYb());
+        Assets.data.flush();
 
-        data.putBoolean("xxf", isXxf());
-        data.putBoolean("xff", isXff());
-        data.putBoolean("xxb", isXxb());
-        data.putBoolean("xbb", isXbb());
-        data.putBoolean("yyf", isYyf());
-        data.putBoolean("yff", isYff());
-        data.putBoolean("yyb", isYyb());
-        data.putBoolean("ybb", isYbb());
-        data.flush();
+        Assets.data.putBoolean("xxf", isXxf());
+        Assets.data.putBoolean("xff", isXff());
+        Assets.data.putBoolean("xxb", isXxb());
+        Assets.data.putBoolean("xbb", isXbb());
+        Assets.data.putBoolean("yyf", isYyf());
+        Assets.data.putBoolean("yff", isYff());
+        Assets.data.putBoolean("yyb", isYyb());
+        Assets.data.putBoolean("ybb", isYbb());
+        Assets.data.flush();
     }
 
     private boolean isXf() {

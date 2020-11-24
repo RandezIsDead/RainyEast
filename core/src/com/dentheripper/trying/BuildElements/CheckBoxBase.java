@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.dentheripper.trying.GameCore.Assets;
 
 import java.util.ArrayList;
 
@@ -26,8 +27,8 @@ public class CheckBoxBase extends Actor {
     public CheckBoxBase(float x, float y, float width, float height) {
         xPos.add(x);
 
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
+        float w = Assets.w;
+        float h = Assets.h;
         stage = new Stage(new StretchViewport(1000, 1000 * (h / w)));
         Gdx.input.setInputProcessor(stage);
 

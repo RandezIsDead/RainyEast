@@ -17,8 +17,8 @@ public class Bar extends Actor {
 
     public Bar(String type) {
         this.type = type;
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
+        float w = Assets.w;
+        float h = Assets.h;
 
         he = new Rectangle();
 
@@ -26,9 +26,9 @@ public class Bar extends Actor {
             bar = new Texture(Gdx.files.internal("healthbar/fullHealth.png"));
 
             he.x = 5;
-            he.y = 950 * (h/w);
+            he.y = 950 * (h / w);
             he.width = 200;
-            he.height = 40 * (h/w);
+            he.height = 40 * (h / w);
 
             setFullBar(Float.parseFloat(Assets.data.getString("maxHP")));
         } else if (type.equals("strength")) {

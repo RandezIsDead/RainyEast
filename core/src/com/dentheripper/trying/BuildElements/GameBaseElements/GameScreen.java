@@ -6,7 +6,6 @@ import com.dentheripper.trying.BuildElements.ScreenBase;
 import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.GameCore.Entity;
-import com.dentheripper.trying.View.OnScreen.Bar;
 import com.dentheripper.trying.View.OnScreen.Controller;
 import com.dentheripper.trying.View.OnScreen.SmartRender;
 
@@ -17,15 +16,13 @@ public class GameScreen extends ScreenBase {
 
     protected static ButtonBase useButton = new ButtonBase("Atlas/buttons.txt", "useButton", 600, 350, 60, 120);
     protected static ButtonBase smartButton = new ButtonBase("Atlas/buttons.txt", "smartButton", 950, 600, 50, 200);
-    protected static Bar healthBar = new Bar("health");
-    protected static Bar strengthBar = new Bar("strength");
     protected SmartRender smartRender = new SmartRender();
 
     private Entity player;
     protected List<Entity> npc = new ArrayList<>();
     protected Controller controller = new Controller();
     private int useID;
-//    private float time = 0;
+    private float time = 0;
 
     public GameScreen(Engine engine) {
         super(engine);
@@ -44,15 +41,10 @@ public class GameScreen extends ScreenBase {
         stage.addActor(controller);
         addObject(smartButton);
         addObject(useButton);
-        stage.addActor(strengthBar);
-        stage.addActor(healthBar);
         smartRender.addToStage(stage);
 
         smartRender.close();
         useButton.addToClose();
-
-        healthBar.setRealBar(100);
-        strengthBar.setRealBar(100);
 
         Assets.data.setPrefSpeed(200);
         player.setMaxHp(100);
@@ -65,8 +57,6 @@ public class GameScreen extends ScreenBase {
     public void render(float delta) {
         super.render(delta);
         super.actFinal(delta);
-        healthBar.setRealBar(player.getHp());
-        strengthBar.setRealBar(player.getSp());
         Assets.data.putString("realHP", Float.toString(player.getHp()));
         Assets.data.putString("realSP", Float.toString(player.getSp()));
         smartRender.renderThis(multiplexer, engine);
@@ -96,32 +86,22 @@ public class GameScreen extends ScreenBase {
         }
 
         player.HPControl();
+        player.SPControl();
 
-//        if (player.isRunning()) {
-//            time += Gdx.graphics.getDeltaTime();
-//            if (time > 10) {
-//                for (int i = 0; i < smartRender.gameInventory.inventoryUsing.items.length; i++) {
-//                    if (smartRender.gameInventory.inventoryUsing.items[i] != null) {
-//                        smartRender.gameInventory.inventoryUsing.items[i].setWearScalePercent(smartRender.gameInventory.inventoryUsing.items[i].getWearScalePercent()-1);
-//                        System.out.println(smartRender.gameInventory.inventoryUsing.items[i].getWearScalePercent());
-//                    }
-//                }
-//                time = 0;
-//            }
-//        }
-
-//        if (player.getSp() == 0) {
-//            long time = System.currentTimeMillis();
-//            controller.setCanMove((System.currentTimeMillis() - time) / 1000 > 30);
-//        }
-//        if (player.getSp() >= 10) {
-//            controller.setCanMove(true);
-//        }
-//        if (player.isRunning()) {
-//            player.setSp(player.getSp() - 5*Gdx.graphics.getDeltaTime());
-//        } else {
-//            player.SPControl();
-//        }
+        // Augmentation wearScale must decrease
+        if (player.isRunning()) {
+            time += Gdx.graphics.getDeltaTime();
+            if (time > 10) {
+                for (int i = 0; i < smartRender.gameInventory.inventoryUsing.items.length; i++) {
+                    if (smartRender.gameInventory.inventoryUsing.items[i] != null) {
+                        smartRender.gameInventory.inventoryUsing.items[i].setWearScalePercent(smartRender.gameInventory.inventoryUsing.items[i].getWearScalePercent() - 1);
+                    }
+                }
+                time = 0;
+            } else {
+                System.out.println(time);
+            }
+        }
     }
 
     protected void setPlayer(Entity player) {
@@ -140,3 +120,15 @@ public class GameScreen extends ScreenBase {
         this.useID = useID;
     }
 }
+//        if (player.getSp() == 0) {
+//            long time = System.currentTimeMillis();
+//            controller.setCanMove((System.currentTimeMillis() - time) / 1000 > 30);
+//        }
+//        if (player.getSp() >= 10) {
+//            controller.setCanMove(true);
+//        }
+//        if (player.isRunning()) {
+//            player.setSp(player.getSp() - 5*Gdx.graphics.getDeltaTime());
+//        } else {
+//            player.SPControl();
+//        }

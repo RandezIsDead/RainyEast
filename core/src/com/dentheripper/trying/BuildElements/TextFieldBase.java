@@ -1,7 +1,6 @@
 package com.dentheripper.trying.BuildElements;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -11,11 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.dentheripper.trying.GameCore.Assets;
 
-import java.security.Key;
 import java.util.ArrayList;
 
 
@@ -24,11 +22,11 @@ public class TextFieldBase extends Actor {
     public Stage stage;
     public TextField field;
     private boolean clicked = false;
-    private ArrayList<Float> xPos = new ArrayList<>();
+    private final ArrayList<Float> xPos = new ArrayList<>();
 
     public TextFieldBase(float x, float y, float width, float height) {
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
+        float w = Assets.w;
+        float h = Assets.h;
 
         xPos.add(x);
 

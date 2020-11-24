@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 
 import java.util.ArrayList;
@@ -29,15 +30,15 @@ public class ScreenBase implements Screen {
     private final ArrayList<SliderBase> sliders = new ArrayList<>();
     private final ArrayList<TextFieldBase> fields = new ArrayList<>();
 
-    public float w = Gdx.graphics.getWidth();
-    public float h = Gdx.graphics.getHeight();
+    protected float w = Assets.w;
+    protected float h = Assets.h;
 
     protected Image bg;
 
     public ScreenBase(Engine engine) {
         this.engine = engine;
         camera = new OrthographicCamera(1000, 1000 * (h / w));
-        stage = new Stage(new StretchViewport(1000, 1000 * (h/w)));
+        stage = new Stage(new StretchViewport(1000, 1000 * (h / w)));
         multiplexer = new InputMultiplexer();
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
