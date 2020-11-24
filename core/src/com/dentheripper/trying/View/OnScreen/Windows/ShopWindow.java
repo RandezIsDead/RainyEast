@@ -3,18 +3,21 @@ package com.dentheripper.trying.View.OnScreen.Windows;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.dentheripper.trying.BuildElements.ButtonBase;
-import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Inventory;
 import com.dentheripper.trying.GameCore.Item;
 
 import java.util.Random;
 
-public class ShopWindow extends ExtraWindow {
+public class ShopWindow {
 
+    private final Stage stage;
+    public Image image;
     public InputMultiplexer multiplexer;
     public Inventory inventory;
     public Inventory orders;
@@ -25,14 +28,16 @@ public class ShopWindow extends ExtraWindow {
 
     private int totalCost = 0;
 
-    public ShopWindow(int type) {
+    public ShopWindow(Stage stage, int type) {
+        this.stage = stage;
         if (type == 0) {
-            setImage(Assets.assetManager.get(Assets.shop1), 150, 100, 700, 800);
+            image = new Image(Assets.assetManager.get(Assets.shop1));
+            image.setBounds(150, 100 * (Assets.h / Assets.w), 700, 800 * (Assets.h / Assets.w));
         }
-        inventory = new Inventory(stage,3);
-        orders = new Inventory(stage,4);
+        inventory = new Inventory(stage, 3);
+        orders = new Inventory(stage, 4);
 
-        itemInv = new Inventory(stage,0);
+        itemInv = new Inventory(stage, 0);
         itemInv.loadInventory();
 
         close = new ButtonBase("Atlas/smart.txt", "cancel", 350, 105, 100, 65);
@@ -49,15 +54,9 @@ public class ShopWindow extends ExtraWindow {
             Random random = new Random();
             inventory.addItem(new Item(random.nextInt((43 - 40) + 1) + 40, inventory.getFirstEmptyCell(), 3));
         }
-
-        stage.addActor(close);
-        stage.addActor(take);
-        stage.addActor(cost);
     }
 
-    @Override
-    public void actFinal(float delta) {
-        super.actFinal(delta);
+    public void actFinal() {
         cost.button.setText("Cost:  " + totalCost);
         for (int i = 0; i < 25; i++) {
             if (inventory.items[i] != null) {
@@ -78,6 +77,7 @@ public class ShopWindow extends ExtraWindow {
                     if (Assets.data.getInteger("money") >= getTotalCost()) {
                         Item rec = new Item(orders.id[i], orders.index[i], 4);
                         stage.addAction(Actions.removeActor(orders.items[i].button));
+                        stage.addAction(Actions.removeActor(orders.items[i].wearScale));
                         multiplexer.removeProcessor(orders.items[i].button.stage);
                         orders.removeItem(orders.items[i].index);
                         Gdx.input.setInputProcessor(this.multiplexer);
@@ -108,6 +108,7 @@ public class ShopWindow extends ExtraWindow {
         if (index != -1) {
             Item rec = new Item(id, index, 4);
             stage.addAction(Actions.removeActor(item.button));
+            stage.addAction(Actions.removeActor(item.wearScale));
             multiplexer.removeProcessor(item.button.stage);
             inventory.removeItem(item.index);
             rec.setUsing(true);
@@ -115,6 +116,7 @@ public class ShopWindow extends ExtraWindow {
 
             multiplexer.addProcessor(rec.button.stage);
             stage.addActor(rec.button);
+            stage.addActor(rec.wearScale);
             orders.addItemNotClose(rec);
             setTotalCost(getTotalCost() + rec.getCost());
         }
@@ -125,6 +127,7 @@ public class ShopWindow extends ExtraWindow {
 
         Item rec = new Item(id, index, 3);
         stage.addAction(Actions.removeActor(item.button));
+        stage.addAction(Actions.removeActor(item.wearScale));
         multiplexer.removeProcessor(item.button.stage);
         orders.removeItem(item.index);
         rec.setUsing(false);
@@ -132,28 +135,27 @@ public class ShopWindow extends ExtraWindow {
 
         multiplexer.addProcessor(rec.button.stage);
         stage.addActor(rec.button);
+        stage.addActor(rec.wearScale);
         inventory.addItemNotClose(rec);
         setTotalCost(getTotalCost() - rec.getCost());
     }
 
-    @Override
     public void show() {
-        super.show();
+        stage.addActor(image);
         inventory.show(multiplexer);
         orders.show(multiplexer);
-        take.open();
-        close.open();
-        cost.open();
+        stage.addActor(take);
+        stage.addActor(close);
+        stage.addActor(cost);
     }
 
-    @Override
     public void close() {
-        super.close();
+        stage.addAction(Actions.removeActor(image));
         inventory.close(multiplexer);
         orders.close(multiplexer);
-        take.addToClose();
-        close.addToClose();
-        cost.addToClose();
+        stage.addAction(Actions.removeActor(take));
+        stage.addAction(Actions.removeActor(cost));
+        stage.addAction(Actions.removeActor(close));
     }
 
     public int getTotalCost() {

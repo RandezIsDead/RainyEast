@@ -1,22 +1,24 @@
 package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.GameCore.Assets;
 
 public class Browser extends SmartBase {
 
-    private final ExtraWindow browserWindow;
+    private final Image browserWindow;
 //    private ButtonBase productsB;
 //    private ButtonBase housingB;
 //    private ButtonBase moneyB;
 
-    public Browser() {
+    public Browser(Stage stage) {
+        super(stage);
         setImage(Assets.assetManager.get(Assets.smartUniversal));
-        browserWindow = new ExtraWindow();
-        browserWindow.setImage(Assets.assetManager.get(Assets.comingSoon), 700, 128, 300 ,763);
+        browserWindow = new Image(Assets.assetManager.get(Assets.comingSoon));
+        browserWindow.setBounds(700, 128 * (h / w), 300, 763 * (h / w));
     }
 
     @Override

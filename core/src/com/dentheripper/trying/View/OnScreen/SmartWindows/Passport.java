@@ -1,10 +1,11 @@
 package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.dentheripper.trying.BuildElements.ButtonBase;
-import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.GameCore.Assets;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class Passport extends SmartBase {
 
     private final ArrayList<ButtonBase> btn = new ArrayList<>();
-    private final ExtraWindow pass;
+    private final Image pass;
     private static final ButtonBase name = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 795, 820, 150, 20);
     private static final ButtonBase datePass = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 795, 770, 150, 20);
     private static final ButtonBase id = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 725, 685, 250, 20);
@@ -29,10 +30,11 @@ public class Passport extends SmartBase {
     private static final ButtonBase skOpened = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 235, 130, 30);
     private static final ButtonBase luck = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 710, 195, 130, 30);
 
-    public Passport() {
+    public Passport(Stage stage) {
+        super(stage);
         setImage(Assets.assetManager.get(Assets.smartUniversal));
-        pass = new ExtraWindow();
-        pass.setImage(Assets.assetManager.get(Assets.smartPass), 700, 128, 300 ,763);
+        pass = new Image(Assets.assetManager.get(Assets.smartPass));
+        pass.setBounds(700, 128 * (h / w), 300, 763 * (h / w));
 
         name.button.getLabel().setText("Name: " + Assets.data.getString("playerUsername"));
         datePass.button.getLabel().setText("Date: " + Assets.data.getString("dateOfReg"));

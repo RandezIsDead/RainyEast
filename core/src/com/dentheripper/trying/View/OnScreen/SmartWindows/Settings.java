@@ -1,13 +1,13 @@
 package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
-import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
-import com.dentheripper.trying.View.OnScreen.SmartRender;
 import com.dentheripper.trying.View.Screens.MF.Main;
 
 import java.util.ArrayList;
@@ -15,15 +15,16 @@ import java.util.ArrayList;
 public class Settings extends SmartBase {
 
     private final ArrayList<ButtonBase> btn = new ArrayList<>();
-    private final ExtraWindow settingsWindow;
+    private final Image settingsWindow;
     private final ButtonBase sound;
     private final ButtonBase game;
     private final ButtonBase exit;
 
-    public Settings() {
+    public Settings(Stage stage) {
+        super(stage);
         setImage(Assets.assetManager.get(Assets.smartUniversal));
-        settingsWindow = new ExtraWindow();
-        settingsWindow.setImage(Assets.assetManager.get(Assets.white), 700, 128, 300 ,763);
+        settingsWindow = new Image(Assets.assetManager.get(Assets.white));
+        settingsWindow.setBounds(700, 128 * (h / w), 300, 763 * (h / w));
         sound = new ButtonBase("Atlas/smart.txt", "soundSett", 705, 770, 290, 89);
         game = new ButtonBase("Atlas/smart.txt", "gameSett", 705, 650, 290, 89);
         exit = new ButtonBase("Atlas/smart.txt", "exitSett", 705, 145, 290, 89);
@@ -53,7 +54,7 @@ public class Settings extends SmartBase {
         }
     }
 
-    public void settingsRender(Home home, Engine engine, Passport passport) {
+    public void settingsRender(Home home, Engine engine, Passport passport, MusicScr musicScr) {
         if (home.settings.isClicked()) {
             home.close();
             show();
@@ -87,9 +88,9 @@ public class Settings extends SmartBase {
             game.setClicked(false);
         }
         if (exit.isClicked()) {
-            if (MusicScr.music != null) {
-                SmartRender.musicScr.setPlaying(false);
-                MusicScr.music.dispose();
+            if (musicScr.music != null) {
+                musicScr.setPlaying(false);
+                musicScr.music.dispose();
             }
             engine.setScreen(new Main(engine));
             exit.setClicked(false);

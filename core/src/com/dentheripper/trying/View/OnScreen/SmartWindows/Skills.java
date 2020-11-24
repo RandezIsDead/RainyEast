@@ -1,9 +1,10 @@
 package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.dentheripper.trying.BuildElements.ButtonBase;
-import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SkillBranchBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.GameCore.Assets;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public class Skills extends SmartBase {
 
-    private final ExtraWindow extraWindow;
+    private final Image extraWindow;
 
     private static final SkillBranchBase intelligenceBranch = new SkillBranchBase("intelligence");
     private static final SkillBranchBase eyeBranch = new SkillBranchBase("eye");
@@ -44,21 +45,30 @@ public class Skills extends SmartBase {
     private static final ButtonBase silence = new ButtonBase("smart/skillAtlas/skills.txt", "silence", 620, 140, 40, 80);
 
     private final ArrayList<SkillBranchBase> branches = new ArrayList<>();
+    float imageX = 450;
 
-    public Skills() {
+    public Skills(Stage stage) {
+        super(stage);
         setImage(Assets.assetManager.get(Assets.smartUniversal));
-        extraWindow = new ExtraWindow();
-        extraWindow.setImage(Assets.assetManager.get(Assets.tabletSkill), 450, 128, 250, 760);
+        extraWindow = new Image(Assets.assetManager.get(Assets.tabletSkill));
+        extraWindow.setBounds(450, 128 * (h / w), 250, 760 * (h / w));
 
         stage.addActor(extraWindow);
 
-        addButton(head);               branches.add(intelligenceBranch);
-        addButton(chest);              branches.add(eyeBranch);
-        addButton(armLeft);            branches.add(heartBranch);
-        addButton(armRight);           branches.add(aiBranch);
-        addButton(legLeft);            branches.add(lungsBranch);
-        addButton(legRight);           branches.add(dnaBranch);
-        addButton(leg);                branches.add(armBranch);
+        addButton(head);
+        branches.add(intelligenceBranch);
+        addButton(chest);
+        branches.add(eyeBranch);
+        addButton(armLeft);
+        branches.add(heartBranch);
+        addButton(armRight);
+        branches.add(aiBranch);
+        addButton(legLeft);
+        branches.add(lungsBranch);
+        addButton(legRight);
+        branches.add(dnaBranch);
+        addButton(leg);
+        branches.add(armBranch);
         addButton(eye);                branches.add(legBranch);
         addButton(ai);                 branches.add(augmentBranch);
         addButton(intelligence);       branches.add(silenceBranch);
@@ -75,7 +85,7 @@ public class Skills extends SmartBase {
         super.close();
         for (int i = 0; i < branches.size(); i++) stage.addAction(Actions.removeActor(branches.get(i)));
         for (int i = 0; i < buttons.size(); i++) stage.addAction(Actions.removeActor(buttons.get(i)));
-        extraWindow.close();
+        extraWindow.setPosition(1500, extraWindow.getImageY());
     }
 
     @Override
@@ -92,7 +102,7 @@ public class Skills extends SmartBase {
         armRight.open();
         legLeft.open();
         legRight.open();
-        extraWindow.show();
+        extraWindow.setPosition(imageX, extraWindow.getImageY());
     }
 
     public void skillsRender(Home home, Passport passport) {

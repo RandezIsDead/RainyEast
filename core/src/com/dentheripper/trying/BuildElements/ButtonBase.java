@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
@@ -85,13 +86,11 @@ public class ButtonBase extends Actor{
     }
 
     public void addToClose() {
-        this.moveButton(1500, this.getButtonY());
-//        stage.addAction(Actions.removeActor(this));
+        stage.addAction(Actions.removeActor(button));
     }
 
     public void open() {
-        this.moveButton(this.xPos.get(0), this.getButtonY());
-//        stage.addActor(this);
+        stage.addActor(button);
     }
 
     public void click(String drawable) {

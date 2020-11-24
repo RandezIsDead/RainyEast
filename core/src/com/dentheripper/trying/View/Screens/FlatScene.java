@@ -5,8 +5,6 @@ import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.GameCore.Entity;
 import com.dentheripper.trying.View.Entities.Player;
-import com.dentheripper.trying.View.OnScreen.SmartRender;
-import com.dentheripper.trying.View.OnScreen.SmartWindows.MusicScr;
 
 public class FlatScene extends GameScreen {
 
@@ -28,22 +26,23 @@ public class FlatScene extends GameScreen {
         player.setMovable(true);
         player.cameraFreeze(camera, true);
 
-        if (player.getY() < 120*(h/w) && player.getX() > 350 && player.getX() < 600) {
-            useButton.open();
+        if (player.getY() < 120 * (h / w) && player.getX() > 350 && player.getX() < 600) {
+            addUseButton();
             if (useButton.isClicked()) {
-                if (MusicScr.music != null) {
-                    SmartRender.musicScr.setPlaying(false);
-                    MusicScr.music.dispose();
+                if (smartRender.musicScr.music != null) {
+                    smartRender.musicScr.setPlaying(false);
+                    smartRender.musicScr.music.dispose();
                 }
                 engine.setScreen(new GameScene(engine));
                 useButton.setClicked(false);
             }
-        }
-        if (player.getY() >= 718*(h/w) && player.getX() > 700 && player.getX() < 863) {
-            useButton.open();
+        } else if (player.getY() >= 718 * (h / w) && player.getX() > 700 && player.getX() < 863) {
+            addUseButton();
             if (useButton.isClicked()) {
                 sleep();
             }
+        } else {
+            removeUseButton();
         }
         if (useButton.isClicked()) {
             useButton.setClicked(false);

@@ -4,19 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
-import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.GameCore.Assets;
 
 import java.util.ArrayList;
 
 public class MusicScr extends SmartBase {
 
-    private static ExtraWindow extraWindow;
+    private static Image extraWindow;
     private static final ButtonBase stopPlay = new ButtonBase("Atlas/smart.txt", "pause", 700, 128, 96, 59);
     private static final ButtonBase previousButton = new ButtonBase("Atlas/smart.txt", "previous", 808, 128, 96, 59);
     private static final ButtonBase nextButton = new ButtonBase("Atlas/smart.txt", "next", 910, 128, 90, 59);
@@ -44,7 +45,7 @@ public class MusicScr extends SmartBase {
     private static final ButtonBase ahit = new ButtonBase("Atlas/smart.txt", "Phantom Sage - Crystal Clouds", "ms", 700, 276, 300, 89);
     private static final ButtonBase levitate = new ButtonBase("Atlas/smart.txt", "Twenty One Pilots - Levitate", "ms", 700, 711, 300, 89);
     private static final ButtonBase gns = new ButtonBase("Atlas/smart.txt", "Deadmau5 - GhostsNStuff", "ms", 700, 798, 300, 89);
-    public static Music music;
+    public Music music;
     private boolean isPlaying = false;
 
     private final ArrayList<ButtonBase> musicButtonsOne = new ArrayList<>();
@@ -54,10 +55,11 @@ public class MusicScr extends SmartBase {
     private final Skin skin;
     private final TextButton.TextButtonStyle smartButtonStyle;
 
-    public MusicScr() {
+    public MusicScr(Stage stage) {
+        super(stage);
         setImage(Assets.assetManager.get(Assets.smartUniversal));
-        extraWindow = new ExtraWindow();
-        extraWindow.setImage(Assets.assetManager.get(Assets.musicSelect), 700, 128, 300 ,763);
+        extraWindow = new Image(Assets.assetManager.get(Assets.musicSelect));
+        extraWindow.setBounds(700, 128 * (h / w), 300, 763 * (h / w));
         music = Gdx.audio.newMusic(Gdx.files.internal("music/Daft Punk - HBFS.mp3"));
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("Atlas/smart.txt"));
         skin = new Skin();

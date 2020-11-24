@@ -1,9 +1,10 @@
 package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.dentheripper.trying.BuildElements.ButtonBase;
-import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Inventory;
@@ -11,26 +12,27 @@ import com.dentheripper.trying.GameCore.Item;
 
 public class Chips extends SmartBase {
 
-    private final ExtraWindow extraWindow;
-    private final ExtraWindow descriptionWindow;
-    private final ExtraWindow exceptionWindow;
+    private final Image extraWindow;
+    private final Image descriptionWindow;
+    private final Image exceptionWindow;
     private final ButtonBase ok, notOk, close;
     public Inventory inventory;
     public Inventory inventoryUsing;
     private boolean mustShowDescription = true;
 
-    public Chips() {
+    public Chips(Stage stage) {
+        super(stage);
         setImage(Assets.assetManager.get(Assets.smartGrid));
-        extraWindow = new ExtraWindow();
-        extraWindow.setImage(Assets.assetManager.get(Assets.batteryChips), 650, 150, 50, 700);
-        inventory = new Inventory(stage,10);
-        inventoryUsing = new Inventory(stage,2);
-        descriptionWindow = new ExtraWindow();
-        descriptionWindow.setImage(Assets.assetManager.get(Assets.descWindow), 450, 50, 200, 900);
+        extraWindow = new Image(Assets.assetManager.get(Assets.batteryChips));
+        extraWindow.setBounds(650, 150 * (h / w), 50, 700 * (h / w));
+        inventory = new Inventory(stage, 10);
+        inventoryUsing = new Inventory(stage, 2);
+        descriptionWindow = new Image(Assets.assetManager.get(Assets.descWindow));
+        descriptionWindow.setBounds(450, 50 * (h / w), 200, 900 * (h / w));
         ok = new ButtonBase("Atlas/smart.txt", "use", 460, 140, 180, 70);
         notOk = new ButtonBase("Atlas/smart.txt", "cancel", 460, 60, 180, 70);
-        exceptionWindow = new ExtraWindow();
-        exceptionWindow.setImage(Assets.assetManager.get(Assets.exception), 450, 50, 200, 900);
+        exceptionWindow = new Image(Assets.assetManager.get(Assets.exception));
+        exceptionWindow.setBounds(450, 50 * (h / w), 200, 900 * (h / w));
         close = new ButtonBase("Atlas/buttons.txt", "errOk", 460, 830, 180, 70);
 
         stage.addActor(extraWindow);
@@ -133,7 +135,7 @@ public class Chips extends SmartBase {
     @Override
     public void show() {
         super.show();
-        extraWindow.show();
+        stage.addActor(extraWindow);
         inventory.show(multiplexer);
         inventoryUsing.show(multiplexer);
     }
@@ -147,7 +149,7 @@ public class Chips extends SmartBase {
             }
         }
         mustShowDescription = true;
-        extraWindow.close();
+        stage.addAction(Actions.removeActor(extraWindow));
         inventory.close(multiplexer);
         inventoryUsing.close(multiplexer);
         closeDescription();
@@ -156,14 +158,14 @@ public class Chips extends SmartBase {
 
     private void showDescription() {
         stage.addActor(descriptionWindow);
-        stage.addActor(ok);
-        stage.addActor(notOk);
+        addButton(ok);
+        addButton(notOk);
     }
 
     private void closeDescription() {
         stage.addAction(Actions.removeActor(descriptionWindow));
-        stage.addAction(Actions.removeActor(notOk));
-        stage.addAction(Actions.removeActor(ok));
+        removeButton(ok);
+        removeButton(notOk);
     }
 
     private void showError() {

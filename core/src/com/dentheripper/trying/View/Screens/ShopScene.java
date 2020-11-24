@@ -6,8 +6,6 @@ import com.dentheripper.trying.BuildElements.GameBaseElements.GameScreen;
 import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.View.Entities.Player;
-import com.dentheripper.trying.View.OnScreen.SmartRender;
-import com.dentheripper.trying.View.OnScreen.SmartWindows.MusicScr;
 import com.dentheripper.trying.View.OnScreen.Windows.ShopWindow;
 
 public class ShopScene extends GameScreen {
@@ -19,39 +17,39 @@ public class ShopScene extends GameScreen {
         super(engine);
         setBG(new Texture(Gdx.files.internal("screenAssets/augShop.png")), 1000, 1000*(h/w));
         player = new Player();
-        shopWindow = new ShopWindow(0);
+        shopWindow = new ShopWindow(stage, 0);
         setPlayer(player);
         player.setSpeed(Assets.data.getPrefSpeed());
         player.setX(500);
         player.setY(100*(h/w));
-        shopWindow.close();
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
-        shopWindow.actFinal(delta);
+        shopWindow.actFinal();
         player.setMovable(true);
         player.cameraFreeze(camera, false);
 
-        if (player.getY() < 120*(h/w) && player.getX() > 350 && player.getX() < 600) {
-            useButton.open();
+        if (player.getY() < 120 * (h / w) && player.getX() > 350 && player.getX() < 600) {
+            addUseButton();
             if (useButton.isClicked()) {
-                if (MusicScr.music != null) {
-                    SmartRender.musicScr.setPlaying(false);
-                    MusicScr.music.dispose();
+                if (smartRender.musicScr.music != null) {
+                    smartRender.musicScr.setPlaying(false);
+                    smartRender.musicScr.music.dispose();
                 }
                 engine.setScreen(new GameScene(engine));
                 useButton.setClicked(false);
             }
-        }
-        if (player.getY() > 300*(h/w)) {
-            useButton.open();
-            if (useButton.isClicked() && player.getY() > 300*(h/w)) {
+        } else if (player.getY() > 300 * (h / w)) {
+            addUseButton();
+            if (useButton.isClicked() && player.getY() > 300 * (h / w)) {
                 shopWindow.show();
                 Gdx.input.setInputProcessor(shopWindow.multiplexer);
                 useButton.setClicked(false);
             }
+        } else {
+            removeUseButton();
         }
         if (shopWindow.close.isClicked()) {
             smartRender.chips.inventory.loadInventory();

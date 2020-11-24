@@ -3,6 +3,7 @@ package com.dentheripper.trying.View.OnScreen.SmartWindows;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
 import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
@@ -25,7 +26,8 @@ public class Home extends SmartBase {
     ButtonBase chat;
     ButtonBase weapon;
 
-    public Home() {
+    public Home(Stage stage) {
+        super(stage);
         setImage(Assets.assetManager.get(Assets.smartphone));
 
         money = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 853, 753, 130, 30);

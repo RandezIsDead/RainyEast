@@ -13,23 +13,37 @@ import com.dentheripper.trying.View.OnScreen.SmartWindows.MapOfEnvironment;
 import com.dentheripper.trying.View.OnScreen.SmartWindows.MusicScr;
 import com.dentheripper.trying.View.OnScreen.SmartWindows.Passport;
 import com.dentheripper.trying.View.OnScreen.SmartWindows.Settings;
-import com.dentheripper.trying.View.OnScreen.SmartWindows.Skills;
 import com.dentheripper.trying.View.OnScreen.SmartWindows.Weapons;
 
 public class SmartRender {
 
-    public static Home home = new Home();
-    public static Passport passport = new Passport();
-    public static Browser browser = new Browser();
-    public static Settings settings = new Settings();
-    public static MusicScr musicScr = new MusicScr();
-    public static MapOfEnvironment moenv = new MapOfEnvironment();
-    public static Skills skills = new Skills();
-    public Chips chips = new Chips();
-    public GameInventory gameInventory = new GameInventory();
-    public static FAQ faq = new FAQ();
-    public static Weapons weapons = new Weapons();
-    public static Chat chat = new Chat();
+    public Home home;
+    public Passport passport;
+    public Browser browser;
+    public Settings settings;
+    public MusicScr musicScr;
+    public MapOfEnvironment moenv;
+    //    public Skills skills;
+    public Chips chips;
+    public GameInventory gameInventory;
+    public FAQ faq;
+    public Weapons weapons;
+    public Chat chat;
+
+    public SmartRender(Stage stage) {
+        home = new Home(stage);
+        passport = new Passport(stage);
+        browser = new Browser(stage);
+        settings = new Settings(stage);
+        musicScr = new MusicScr(stage);
+        moenv = new MapOfEnvironment(stage);
+//        skills = new Skills(stage);
+        chips = new Chips(stage);
+        gameInventory = new GameInventory(stage);
+        faq = new FAQ(stage);
+        weapons = new Weapons(stage);
+        chat = new Chat(stage);
+    }
 
     public void multiplexSmartScreens(InputMultiplexer multiplexer) {
         multiplexer.addProcessor(home.multiplexer);
@@ -38,7 +52,7 @@ public class SmartRender {
         multiplexer.addProcessor(moenv.multiplexer);
         multiplexer.addProcessor(browser.multiplexer);
         multiplexer.addProcessor(musicScr.multiplexer);
-        multiplexer.addProcessor(skills.multiplexer);
+//        multiplexer.addProcessor(skills.multiplexer);
         multiplexer.addProcessor(chips.multiplexer);
         multiplexer.addProcessor(gameInventory.multiplexer);
         multiplexer.addProcessor(faq.multiplexer);
@@ -53,7 +67,7 @@ public class SmartRender {
         stage.addActor(moenv);
         stage.addActor(browser);
         stage.addActor(musicScr);
-        stage.addActor(skills);
+//        stage.addActor(skills);
         stage.addActor(chips);
         stage.addActor(gameInventory);
         stage.addActor(faq);
@@ -68,7 +82,7 @@ public class SmartRender {
         moenv.close();
         browser.close();
         musicScr.close();
-        skills.close();
+//        skills.close();
         chips.close();
         gameInventory.close();
         faq.close();
@@ -78,14 +92,14 @@ public class SmartRender {
 
     public void renderThis(InputMultiplexer multiplexer, Engine engine) {
         home.smartphoneRender(multiplexer);
-        settings.settingsRender(home, engine, passport);
+        settings.settingsRender(home, engine, passport, musicScr);
         moenv.moenvRender(home, passport);
         passport.statsRender(home);
         browser.browserRender(home, passport);
         musicScr.musicRender(home, passport);
         gameInventory.invRender(home, passport);
         chips.chipsRender(home, passport);
-        skills.skillsRender(home, passport);
+//        skills.skillsRender(home, passport);
         chat.chatRender(home, passport);
         weapons.wpnRender(home, passport);
         faq.faqRender(home, passport);

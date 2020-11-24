@@ -3,7 +3,6 @@ package com.dentheripper.trying.View.Screens.MF;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.dentheripper.trying.BuildElements.ButtonBase;
-import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
 import com.dentheripper.trying.BuildElements.ScreenBase;
 import com.dentheripper.trying.BuildElements.TextFieldBase;
 import com.dentheripper.trying.GameCore.Assets;
@@ -11,6 +10,7 @@ import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.View.Screens.Load;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
@@ -26,9 +26,7 @@ public class Registration extends ScreenBase {
 
     @Override
     public void show() {
-        ExtraWindow extraWindow = new ExtraWindow();
         ButtonBase label = new ButtonBase("Atlas/buttons.txt", "Enter your name, length up to 16 characters", "skill_varity", 350, 660, 300, 90);
-        extraWindow.setImage(new Texture(Gdx.files.internal("smart/map.png")), 200, 200, 600, 600);
         ok = new ButtonBase("Atlas/buttons.txt", "ok", 450, 220, 100, 70);
         name = new TextFieldBase(250, 400, 500, 150);
 
@@ -67,11 +65,11 @@ public class Registration extends ScreenBase {
     }
 
     private String getDate() {
-        Calendar calendar = new GregorianCalendar();
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(new Date());
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
-        String s = day + ":" + month + ":" + year;
-        return s;
+        return day + ":" + month + ":" + year;
     }
 }

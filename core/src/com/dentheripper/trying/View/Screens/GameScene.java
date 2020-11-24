@@ -6,8 +6,6 @@ import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.GameCore.Entity;
 import com.dentheripper.trying.View.Entities.Player;
-import com.dentheripper.trying.View.OnScreen.SmartRender;
-import com.dentheripper.trying.View.OnScreen.SmartWindows.MusicScr;
 
 public class GameScene extends GameScreen {
 
@@ -21,17 +19,6 @@ public class GameScene extends GameScreen {
         player.setSpeed(Assets.data.getPrefSpeed());
         player.setX(Assets.data.getFloat("lastPlayerX"));
         player.setY(Assets.data.getFloat("lastPlayerY"));
-
-//        for (int i = 0; i < 1000; i++) {
-//            NPC npc = new NPC();
-//            npc.setIS_ENTITY_ANDROID(RandomInt0to1());
-//            npc.setX(RandomFloat(100, 10000));
-//            npc.setY(RandomFloat(100, 10000));
-//            addNPC(npc);
-//            data.putInteger("NPC" + i, npc.getIS_ENTITY_ANDROID());
-//            data.putFloat("NPC" + i + "PosX", npc.getX());
-//            data.putFloat("NPC" + i + "PosY", npc.getY());
-//        }
     }
 
     @Override
@@ -49,16 +36,16 @@ public class GameScene extends GameScreen {
         if (useButton.isClicked()) {
             useButton.setClicked(false);
         }
+        if (getUseID() == -1) {
+            removeUseButton();
+        }
         collisionDetect(player);
-//        for (int i = 0; i < 1000; i++) {
-//            collisionDetect(npc.get(i));
-//        }
     }
 
     private void changeLocation(ScreenBase screenBase) {
-        if (MusicScr.music != null) {
-            SmartRender.musicScr.setPlaying(false);
-            MusicScr.music.dispose();
+        if (smartRender.musicScr.music != null) {
+            smartRender.musicScr.setPlaying(false);
+            smartRender.musicScr.music.dispose();
         }
         Assets.data.putFloat("lastPlayerX", player.getX());
         Assets.data.putFloat("lastPlayerY", player.getY());

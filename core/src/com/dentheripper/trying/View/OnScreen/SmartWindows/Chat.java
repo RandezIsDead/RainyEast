@@ -1,19 +1,21 @@
 package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.dentheripper.trying.BuildElements.GameBaseElements.ExtraWindow;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.GameCore.Assets;
 
 public class Chat extends SmartBase {
 
-    private final ExtraWindow extraWindow;
+    private final Image extraWindow;
 
-    public Chat() {
+    public Chat(Stage stage) {
+        super(stage);
         setImage(Assets.assetManager.get(Assets.smartUniversal));
-        extraWindow = new ExtraWindow();
-        extraWindow.setImage(Assets.assetManager.get(Assets.comingSoon), 700, 128, 300 ,763);
+        extraWindow = new Image(Assets.assetManager.get(Assets.comingSoon));
+        extraWindow.setBounds(700, 128 * (h / w), 300, 763 * (h / w));
     }
 
     @Override
