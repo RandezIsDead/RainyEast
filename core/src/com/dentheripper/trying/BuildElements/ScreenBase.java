@@ -42,7 +42,6 @@ public class ScreenBase implements Screen {
         multiplexer = new InputMultiplexer();
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
-
     }
 
     @Override
@@ -104,7 +103,7 @@ public class ScreenBase implements Screen {
 
     protected void removeObject(ButtonBase app) {
         buttons.remove(app);
-        stage.addAction(Actions.removeActor());
+        stage.addAction(Actions.removeActor(app));
         multiplexer.removeProcessor(app.stage);
     }
 

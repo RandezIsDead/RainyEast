@@ -47,6 +47,7 @@ public class MusicScr extends SmartBase {
     private static final ButtonBase gns = new ButtonBase("Atlas/smart.txt", "Deadmau5 - GhostsNStuff", "ms", 700, 798, 300, 89);
     public Music music;
     private boolean isPlaying = false;
+    private int counter = 0;
 
     private final ArrayList<ButtonBase> musicButtonsOne = new ArrayList<>();
     private final ArrayList<ButtonBase> musicButtonsTwo = new ArrayList<>();
@@ -258,14 +259,16 @@ public class MusicScr extends SmartBase {
             }
             stopPlay.setClicked(false);
         }
-        if (isPlaying) {
+        if (isPlaying && counter == 1) {
             smartButtonStyle.up = skin.getDrawable("pause");
             stopPlay.button.setStyle(smartButtonStyle);
+            counter = 0;
         }
-        if (!isPlaying) {
+        if (!isPlaying && counter == 0) {
             smartButtonStyle.up = skin.getDrawable("play");
             smartButtonStyle.font = new BitmapFont();
             stopPlay.button.setStyle(smartButtonStyle);
+            counter = 1;
         }
         if (daftPunk.isClicked()) {
             music.dispose();

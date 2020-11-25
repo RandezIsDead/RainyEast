@@ -49,7 +49,7 @@ public class ButtonBase extends Actor{
         button.setPosition(x, y * (h / w));
         button.setSize(width, height * (h / w));
 
-        stage.addActor(button);
+        this.stage.addActor(button);
     }
 
     public ButtonBase(String atlasPath, String text, String drawable, float x, float y, float width, float height) {
@@ -75,7 +75,7 @@ public class ButtonBase extends Actor{
         button.setPosition(x, y * (h / w));
         button.setSize(width, height * (h / w));
 
-        stage.addActor(button);
+        this.stage.addActor(button);
     }
 
     @Override

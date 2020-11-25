@@ -17,15 +17,15 @@ import com.dentheripper.trying.View.OnScreen.SmartWindows.Weapons;
 
 public class SmartRender {
 
-    public Home home;
-    public Passport passport;
+    public static Home home;
+    public static Passport passport;
     public Browser browser;
     public Settings settings;
-    public MusicScr musicScr;
+    public static MusicScr musicScr;
     public MapOfEnvironment moenv;
     //    public Skills skills;
-    public Chips chips;
-    public GameInventory gameInventory;
+    public static Chips chips;
+    public static GameInventory gameInventory;
     public FAQ faq;
     public Weapons weapons;
     public Chat chat;

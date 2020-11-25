@@ -82,4 +82,10 @@ public class Main extends ScreenBase {
             optionButton.setClicked(false);
         }
     }
+
+    @Override
+    protected void actFinal(float delta) {
+        optionButton.act(delta);
+        super.actFinal(delta);
+    }
 }

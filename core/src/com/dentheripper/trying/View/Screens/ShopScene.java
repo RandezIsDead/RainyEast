@@ -6,17 +6,17 @@ import com.dentheripper.trying.BuildElements.GameBaseElements.GameScreen;
 import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.View.Entities.Player;
+import com.dentheripper.trying.View.OnScreen.SmartRender;
 import com.dentheripper.trying.View.OnScreen.Windows.ShopWindow;
 
 public class ShopScene extends GameScreen {
 
-    private final Player player;
+    private final Player player = new Player();
     private final ShopWindow shopWindow;
 
     public ShopScene(Engine engine) {
         super(engine);
         setBG(new Texture(Gdx.files.internal("screenAssets/augShop.png")), 1000, 1000*(h/w));
-        player = new Player();
         shopWindow = new ShopWindow(stage, 0);
         setPlayer(player);
         player.setSpeed(Assets.data.getPrefSpeed());
@@ -34,9 +34,9 @@ public class ShopScene extends GameScreen {
         if (player.getY() < 120 * (h / w) && player.getX() > 350 && player.getX() < 600) {
             addUseButton();
             if (useButton.isClicked()) {
-                if (smartRender.musicScr.music != null) {
-                    smartRender.musicScr.setPlaying(false);
-                    smartRender.musicScr.music.dispose();
+                if (SmartRender.musicScr.music != null) {
+                    SmartRender.musicScr.setPlaying(false);
+                    SmartRender.musicScr.music.dispose();
                 }
                 engine.setScreen(new GameScene(engine));
                 useButton.setClicked(false);
@@ -52,8 +52,8 @@ public class ShopScene extends GameScreen {
             removeUseButton();
         }
         if (shopWindow.close.isClicked()) {
-            smartRender.chips.inventory.loadInventory();
-            smartRender.gameInventory.inventory.loadInventory();
+            SmartRender.chips.inventory.loadInventory();
+            SmartRender.gameInventory.inventory.loadInventory();
             shopWindow.close();
             Gdx.input.setInputProcessor(this.multiplexer);
             shopWindow.close.setClicked(false);

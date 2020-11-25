@@ -10,18 +10,14 @@ import com.dentheripper.trying.GameCore.Entity;
 import com.dentheripper.trying.View.OnScreen.Controller;
 import com.dentheripper.trying.View.OnScreen.SmartRender;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class GameScreen extends ScreenBase {
 
-    protected static ButtonBase useButton = new ButtonBase("Atlas/buttons.txt", "useButton", 600, 350, 60, 120);
-    protected static ButtonBase smartButton = new ButtonBase("Atlas/buttons.txt", "smartButton", 950, 600, 50, 200);
+    protected static Controller controller = new Controller();
+    protected ButtonBase useButton = new ButtonBase("Atlas/buttons.txt", "useButton", 600, 350, 60, 120);
     protected SmartRender smartRender = new SmartRender(stage);
 
     private Entity player;
-    protected List<Entity> npc = new ArrayList<>();
-    protected Controller controller = new Controller();
+    protected ButtonBase smartButton = new ButtonBase("Atlas/buttons.txt", "smartButton", 950, 600, 50, 200);
     private int useID;
     private float time = 0;
 
@@ -36,9 +32,6 @@ public class GameScreen extends ScreenBase {
         Gdx.input.setInputProcessor(multiplexer);
 
         stage.addActor(player);
-        for (int i = 0; i < npc.size(); i ++) {
-            stage.addActor(npc.get(i));
-        }
         stage.addActor(controller);
         addObject(smartButton);
         smartRender.addToStage(stage);
@@ -70,29 +63,25 @@ public class GameScreen extends ScreenBase {
             addUseButton();
             setUseID(2);// C-Tech building
         } else if (player.getY() >= 10800*(h/w)) {
-            stage.addActor(useButton);
-            multiplexer.addProcessor(useButton.stage);
+            addUseButton();
             setUseID(3);// Apartments
         } else {
             setUseID(-1);
         }
 
         if (smartButton.isClicked()) {
-            Gdx.input.setInputProcessor(smartRender.home.multiplexer);
-            smartRender.home.show();
+            Gdx.input.setInputProcessor(SmartRender.home.multiplexer);
+            SmartRender.home.show();
             smartButton.setClicked(false);
         }
-
-        player.HPControl();
-        player.SPControl();
 
         // Augmentation wearScale must decrease
         if (player.isRunning()) {
             time += Gdx.graphics.getDeltaTime();
             if (time > 10) {
-                for (int i = 0; i < smartRender.gameInventory.inventoryUsing.items.length; i++) {
-                    if (smartRender.gameInventory.inventoryUsing.items[i] != null) {
-                        smartRender.gameInventory.inventoryUsing.items[i].setWearScalePercent(smartRender.gameInventory.inventoryUsing.items[i].getWearScalePercent() - 1);
+                for (int i = 0; i < SmartRender.gameInventory.inventoryUsing.items.length; i++) {
+                    if (SmartRender.gameInventory.inventoryUsing.items[i] != null) {
+                        SmartRender.gameInventory.inventoryUsing.items[i].setWearScalePercent(SmartRender.gameInventory.inventoryUsing.items[i].getWearScalePercent() - 1);
                     }
                 }
                 time = 0;
@@ -114,10 +103,6 @@ public class GameScreen extends ScreenBase {
 
     protected void setPlayer(Entity player) {
         this.player = player;
-    }
-
-    protected void addNPC(Entity npcP) {
-        npc.add(npcP);
     }
 
     public int getUseID() {

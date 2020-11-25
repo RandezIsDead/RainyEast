@@ -6,15 +6,15 @@ import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.GameCore.Entity;
 import com.dentheripper.trying.View.Entities.Player;
+import com.dentheripper.trying.View.OnScreen.SmartRender;
 
 public class GameScene extends GameScreen {
 
-    private final Player player;
+    private final Player player = new Player();
 
     public GameScene(Engine engine) {
         super(engine);
         setBG(Assets.assetManager.get(Assets.gameMap), 8000, 12500 * (h/w));
-        player = new Player();
         setPlayer(player);
         player.setSpeed(Assets.data.getPrefSpeed());
         player.setX(Assets.data.getFloat("lastPlayerX"));
@@ -43,9 +43,9 @@ public class GameScene extends GameScreen {
     }
 
     private void changeLocation(ScreenBase screenBase) {
-        if (smartRender.musicScr.music != null) {
-            smartRender.musicScr.setPlaying(false);
-            smartRender.musicScr.music.dispose();
+        if (SmartRender.musicScr.music != null) {
+            SmartRender.musicScr.setPlaying(false);
+            SmartRender.musicScr.music.dispose();
         }
         Assets.data.putFloat("lastPlayerX", player.getX());
         Assets.data.putFloat("lastPlayerY", player.getY());
