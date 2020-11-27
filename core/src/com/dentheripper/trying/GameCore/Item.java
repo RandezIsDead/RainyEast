@@ -112,7 +112,7 @@ public class Item {
         }
         if (index == 3 && getType() == 1) {
             x = 468;
-            y = 343;
+            y = 340;
             width = 39;
             height = 80;
         }
@@ -453,7 +453,7 @@ public class Item {
     }
 
     public void setWearScalePercent(int wearScalePercent) {
-        this.wearScalePercent = wearScalePercent;
+        this.wearScalePercent = Math.max(wearScalePercent, 0);
         wearScale.setDrawable(new TextureRegionDrawable(getWearScaleTexture()));
     }
 

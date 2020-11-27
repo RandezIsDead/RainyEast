@@ -56,25 +56,37 @@ public class Inventory {
     public void saveInventory() {
         int[] idw = new int[INV_SLOTS];
         int[] indexw = new int[INV_SLOTS];
+//        int[] wearScaleParams = new int[INV_SLOTS];
         for (int i = 0; i < INV_SLOTS; i++) {
             idw[i] = id[i];
             indexw[i] = index[i];
+//            if (items[i] != null) {
+//                wearScaleParams[i] = items[i].getWearScalePercent();
+//            } else {
+//                wearScaleParams[i] = -1;
+//            }
         }
         Assets.data.saveInv(idw, indexw, param, INV_SLOTS);
+//        Assets.data.saveArr(wearScaleParams, "wearScale"+param);
     }
 
     public void loadInventory() {
         int[] idss = new int[INV_SLOTS];
         int[] indxs = new int[INV_SLOTS];
+//        int[] wearScale = new int[INV_SLOTS];
         for (int i = 0; i < INV_SLOTS; i++) {
             idss = Assets.data.loadInvIDs(param, INV_SLOTS);
             indxs = Assets.data.loadInvIndx(param, INV_SLOTS);
+//            wearScale = Assets.data.loadArr("wearScale"+param, INV_SLOTS);
         }
         for (int i = 0; i < INV_SLOTS; i++) {
             if (idss[i] != -1) {
                 items[i] = new Item(idss[i], indxs[i], param);
                 id[i] = idss[i];
                 index[i] = indxs[i];
+//                if (items[i] != null) {
+//                    items[i].setWearScalePercent(wearScale[i]);
+//                }
             }
         }
     }

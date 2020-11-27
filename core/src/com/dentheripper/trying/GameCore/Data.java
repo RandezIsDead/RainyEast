@@ -110,8 +110,22 @@ public class Data {
 
     public int[] loadInvIndx(int param, int numSlots) {
         int[] arr = new int[numSlots];
-        for (int x = 0; x < numSlots; x++){
+        for (int x = 0; x < numSlots; x++) {
             arr[x] = data.getInteger(param + "invIndexes" + x);
+        }
+        return arr;
+    }
+
+    public void saveArr(int[] arr, String keyName) {
+        for (int i = 0; i < arr.length; i++) {
+            data.putInteger(i + keyName, arr[i]);
+        }
+    }
+
+    public int[] loadArr(String keyName, int length) {
+        int[] arr = new int[length];
+        for (int i = 0; i < length; i++) {
+            arr[i] = data.getInteger(i + keyName);
         }
         return arr;
     }

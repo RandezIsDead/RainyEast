@@ -7,14 +7,16 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dentheripper.trying.GameCore.Assets;
 
 import java.util.ArrayList;
 
-public class SliderBase extends Actor {
+public class SliderBase extends Actor implements Disposable {
 
     public Stage stage;
+    public Skin skin;
     public Slider slider;
     private final ArrayList<Float> xPos = new ArrayList<>();
 
@@ -26,7 +28,7 @@ public class SliderBase extends Actor {
         stage = new Stage(new StretchViewport(1000, 1000 * (h / w)));
         Gdx.input.setInputProcessor(stage);
 
-        Skin skin = new Skin();
+        skin = new Skin();
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("Atlas/sliderStyle.txt"));
         skin.addRegions(atlas);
         Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
@@ -48,6 +50,13 @@ public class SliderBase extends Actor {
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+        skin.dispose();
+    }
+
 
     public float getPos() {
         return slider.getValue();

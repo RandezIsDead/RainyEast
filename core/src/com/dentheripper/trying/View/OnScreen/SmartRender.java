@@ -17,6 +17,7 @@ import com.dentheripper.trying.View.OnScreen.SmartWindows.Weapons;
 
 public class SmartRender {
 
+    private final Stage stage;
     public static Home home;
     public static Passport passport;
     public Browser browser;
@@ -31,6 +32,10 @@ public class SmartRender {
     public Chat chat;
 
     public SmartRender(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void initialize() {
         home = new Home(stage);
         passport = new Passport(stage);
         browser = new Browser(stage);

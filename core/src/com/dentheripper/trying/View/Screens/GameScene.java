@@ -36,9 +36,6 @@ public class GameScene extends GameScreen {
         if (useButton.isClicked()) {
             useButton.setClicked(false);
         }
-        if (getUseID() == -1) {
-            removeUseButton();
-        }
         collisionDetect(player);
     }
 

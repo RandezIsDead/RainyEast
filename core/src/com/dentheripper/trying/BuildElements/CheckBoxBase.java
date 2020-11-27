@@ -10,16 +10,18 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dentheripper.trying.GameCore.Assets;
 
 import java.util.ArrayList;
 
-public class CheckBoxBase extends Actor {
+public class CheckBoxBase extends Actor implements Disposable {
 
     public Stage stage;
     public TextButton button;
     public BitmapFont font;
+    public Skin skin;
     private boolean checked = false;
 
     private final ArrayList<Float> xPos = new ArrayList<>();
@@ -33,7 +35,7 @@ public class CheckBoxBase extends Actor {
         Gdx.input.setInputProcessor(stage);
 
         font = new BitmapFont();
-        Skin skin = new Skin();
+        skin = new Skin();
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("Atlas/cbStyle.txt"));
         skin.addRegions(atlas);
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
@@ -65,6 +67,13 @@ public class CheckBoxBase extends Actor {
         super.draw(batch, parentAlpha);
         button.draw(batch, parentAlpha);
         stage.draw();
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+        skin.dispose();
+        font.dispose();
     }
 
     public boolean isChecked() {

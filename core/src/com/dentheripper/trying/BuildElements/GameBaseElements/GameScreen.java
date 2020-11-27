@@ -1,7 +1,6 @@
 package com.dentheripper.trying.BuildElements.GameBaseElements;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.ScreenBase;
 import com.dentheripper.trying.GameCore.Assets;
@@ -12,28 +11,34 @@ import com.dentheripper.trying.View.OnScreen.SmartRender;
 
 public class GameScreen extends ScreenBase {
 
-    protected static Controller controller = new Controller();
-    protected ButtonBase useButton = new ButtonBase("Atlas/buttons.txt", "useButton", 600, 350, 60, 120);
-    protected SmartRender smartRender = new SmartRender(stage);
+    protected Controller controller;
+    protected ButtonBase useButton;
+    protected SmartRender smartRender;
 
     private Entity player;
-    protected ButtonBase smartButton = new ButtonBase("Atlas/buttons.txt", "smartButton", 950, 600, 50, 200);
+    protected ButtonBase smartButton;
     private int useID;
     private float time = 0;
 
     public GameScreen(Engine engine) {
         super(engine);
-        smartRender.multiplexSmartScreens(multiplexer);
+        smartRender = new SmartRender(stage);
+        smartButton = new ButtonBase("Atlas/buttons.txt", "smartButton", 950, 600, 50, 200);
+        useButton = new ButtonBase("Atlas/buttons.txt", "useButton", 600, 350, 60, 120);
+        controller = new Controller();
+        smartRender.initialize();
     }
 
     @Override
     public void show() {
         super.show();
+        smartRender.multiplexSmartScreens(multiplexer);
         Gdx.input.setInputProcessor(multiplexer);
 
         stage.addActor(player);
         stage.addActor(controller);
         addObject(smartButton);
+        addObject(useButton);
         smartRender.addToStage(stage);
         smartRender.close();
 
@@ -54,18 +59,19 @@ public class GameScreen extends ScreenBase {
         System.out.println(player.getX() + "    " + player.getY() * 2);
 
         if (player.getX() >= 2012 && player.getX() <= 2280 && player.getY() >= 5666*(h/w) && player.getY() <= 5828*(h/w)) {
-            addUseButton();
+            useButton.setPosition(1500, useButton.getButtonY());
             setUseID(0);// Aug Shop
         } else if (player.getX() >= 2492 && player.getX() <= 2565 && player.getY() >= 5666*(h/w) && player.getY() <= 5828*(h/w)) {
-            addUseButton();
+            useButton.setPosition(1500, useButton.getButtonY());
             setUseID(1);// Vending machine near augShop
         } else if (player.getX() >= 6300 && player.getY() >= 7990*(h/w)) {
-            addUseButton();
+            useButton.setPosition(1500, useButton.getButtonY());
             setUseID(2);// C-Tech building
         } else if (player.getY() >= 10800*(h/w)) {
-            addUseButton();
+            useButton.setPosition(1500, useButton.getButtonY());
             setUseID(3);// Apartments
         } else {
+            useButton.setPosition(useButton.getOriginX(), useButton.getButtonY());
             setUseID(-1);
         }
 
@@ -85,20 +91,8 @@ public class GameScreen extends ScreenBase {
                     }
                 }
                 time = 0;
-            } else {
-                System.out.println(time);
             }
         }
-    }
-
-    protected void addUseButton() {
-        stage.addActor(useButton);
-        multiplexer.addProcessor(useButton.stage);
-    }
-
-    protected void removeUseButton() {
-        stage.addAction(Actions.removeActor(useButton));
-        multiplexer.removeProcessor(useButton.stage);
     }
 
     protected void setPlayer(Entity player) {

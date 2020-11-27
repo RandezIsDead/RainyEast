@@ -11,23 +11,21 @@ import com.dentheripper.trying.View.Screens.Load;
 
 public class Main extends ScreenBase {
 
-    private ButtonBase startButton;
-    private ButtonBase optionButton;
-    private ButtonBase quitButton;
-    private ButtonBase credits;
-    private ButtonBase achievement;
-    private Music bgMusic;
+    private final ButtonBase startButton;
+    private final ButtonBase optionButton;
+    private final ButtonBase quitButton;
+    private final ButtonBase credits;
+    private final ButtonBase achievement;
+    private final ButtonBase idk;
+    private final Music bgMusic;
     private final int gameLaunches;
 
     public Main(Engine engine) {
         super(engine);
-        setBG(new Texture("screenAssets/main.png"), 1000, 1000 * (h/w));
+        setBG(new Texture("screenAssets/main.png"), 1000, 1000 * (h / w));
         gameLaunches = Assets.data.getInteger("gameLaunches");
-    }
 
-    @Override
-    public void show() {
-        ButtonBase idk = new ButtonBase("Atlas/buttons.txt", "skill_varity", 0, 0, 1, 1);
+        idk = new ButtonBase("Atlas/buttons.txt", "skill_varity", 0, 0, 1, 1);
         startButton = new ButtonBase("Atlas/buttons.txt", "startButton", 640, 200, 300, 600);
         startButton.click("startButtonPressed");
         optionButton = new ButtonBase("Atlas/buttons.txt", "settings", 480, 200, 150, 600);
@@ -40,6 +38,10 @@ public class Main extends ScreenBase {
         quitButton.click("exitPressed");
 
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("music/Zombie.mp3"));
+    }
+
+    @Override
+    public void show() {
         bgMusic.play();
         bgMusic.setLooping(true);
 
@@ -81,11 +83,5 @@ public class Main extends ScreenBase {
             engine.setScreen(new Settings(engine));
             optionButton.setClicked(false);
         }
-    }
-
-    @Override
-    protected void actFinal(float delta) {
-        optionButton.act(delta);
-        super.actFinal(delta);
     }
 }

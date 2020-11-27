@@ -27,7 +27,7 @@ public class FlatScene extends GameScreen {
         player.cameraFreeze(camera, true);
 
         if (player.getY() < 120 * (h / w) && player.getX() > 350 && player.getX() < 600) {
-            addUseButton();
+            useButton.setPosition(1500, useButton.getButtonY());
             if (useButton.isClicked()) {
                 if (SmartRender.musicScr.music != null) {
                     SmartRender.musicScr.setPlaying(false);
@@ -37,12 +37,12 @@ public class FlatScene extends GameScreen {
                 useButton.setClicked(false);
             }
         } else if (player.getY() >= 718 * (h / w) && player.getX() > 700 && player.getX() < 863) {
-            addUseButton();
+            useButton.setPosition(1500, useButton.getButtonY());
             if (useButton.isClicked()) {
                 sleep();
             }
         } else {
-            removeUseButton();
+            useButton.setPosition(useButton.getOriginX(), useButton.getButtonY());
         }
         if (useButton.isClicked()) {
             useButton.setClicked(false);

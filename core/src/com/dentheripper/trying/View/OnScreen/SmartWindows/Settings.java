@@ -93,6 +93,7 @@ public class Settings extends SmartBase {
                 musicScr.music.dispose();
             }
             engine.setScreen(new Main(engine));
+            Assets.assetManager.clear();
             exit.setClicked(false);
         }
     }

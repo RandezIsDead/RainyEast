@@ -32,7 +32,7 @@ public class ShopScene extends GameScreen {
         player.cameraFreeze(camera, false);
 
         if (player.getY() < 120 * (h / w) && player.getX() > 350 && player.getX() < 600) {
-            addUseButton();
+            useButton.setPosition(1500, useButton.getButtonY());
             if (useButton.isClicked()) {
                 if (SmartRender.musicScr.music != null) {
                     SmartRender.musicScr.setPlaying(false);
@@ -42,14 +42,13 @@ public class ShopScene extends GameScreen {
                 useButton.setClicked(false);
             }
         } else if (player.getY() > 300 * (h / w)) {
-            addUseButton();
+            useButton.setPosition(1500, useButton.getButtonY());
             if (useButton.isClicked() && player.getY() > 300 * (h / w)) {
-                shopWindow.show();
                 Gdx.input.setInputProcessor(shopWindow.multiplexer);
                 useButton.setClicked(false);
             }
         } else {
-            removeUseButton();
+            useButton.setPosition(useButton.getOriginX(), useButton.getButtonY());
         }
         if (shopWindow.close.isClicked()) {
             SmartRender.chips.inventory.loadInventory();

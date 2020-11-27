@@ -3,9 +3,11 @@ package com.dentheripper.trying.BuildElements;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -24,6 +26,7 @@ public class ScreenBase implements Screen {
     protected OrthographicCamera camera;
     protected Stage stage;
     protected InputMultiplexer multiplexer;
+    protected BitmapFont font = new BitmapFont();
 
     private final ArrayList<ButtonBase> buttons = new ArrayList<>();
     private final ArrayList<CheckBoxBase> cbBase = new ArrayList<>();
@@ -37,17 +40,18 @@ public class ScreenBase implements Screen {
 
     public ScreenBase(Engine engine) {
         this.engine = engine;
-        camera = new OrthographicCamera(1000, 1000 * (h / w));
         stage = new Stage(new StretchViewport(1000, 1000 * (h / w)));
         multiplexer = new InputMultiplexer();
-        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-        camera.update();
+        camera = new OrthographicCamera(1000, 1000 * (h / w));
     }
 
     @Override
     public void show() {
+        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        camera.update();
+
         stage.getViewport().setCamera(camera);
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(multiplexer);
         stage.addActor(bg);
     }
 
@@ -65,6 +69,13 @@ public class ScreenBase implements Screen {
         for (int i = 0; i < fields.size(); i++) fields.get(i).act(delta);
         stage.act(delta);
         stage.draw();
+
+        if (Assets.data.getBoolean("showFPS")) {
+            batch.begin();
+            font.setColor(Color.GREEN);
+            font.draw(batch, "" + Gdx.graphics.getFramesPerSecond(), w - w / 2, h - h / 40);
+            batch.end();
+        }
     }
 
     protected void setBG(Texture texture, float width, float height) {
@@ -124,5 +135,6 @@ public class ScreenBase implements Screen {
         engine.dispose();
         stage.dispose();
         batch.dispose();
+        font.dispose();
     }
 }
