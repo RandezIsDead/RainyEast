@@ -56,28 +56,31 @@ public class GameScreen extends ScreenBase {
         Assets.data.putString("realHP", Float.toString(player.getHp()));
         Assets.data.putString("realSP", Float.toString(player.getSp()));
         smartRender.renderThis(multiplexer, engine);
-        System.out.println(player.getX() + "    " + player.getY() * 2);
+//        System.out.println(player.getX() + "    " + player.getY() * 2);
 
         if (player.getX() >= 2012 && player.getX() <= 2280 && player.getY() >= 5666*(h/w) && player.getY() <= 5828*(h/w)) {
-            useButton.setPosition(1500, useButton.getButtonY());
+            useButton.button.setPosition(useButton.getOriginX(), useButton.getButtonY());
             setUseID(0);// Aug Shop
         } else if (player.getX() >= 2492 && player.getX() <= 2565 && player.getY() >= 5666*(h/w) && player.getY() <= 5828*(h/w)) {
-            useButton.setPosition(1500, useButton.getButtonY());
+            useButton.button.setPosition(useButton.getOriginX(), useButton.getButtonY());
             setUseID(1);// Vending machine near augShop
         } else if (player.getX() >= 6300 && player.getY() >= 7990*(h/w)) {
-            useButton.setPosition(1500, useButton.getButtonY());
+            useButton.button.setPosition(useButton.getOriginX(), useButton.getButtonY());
             setUseID(2);// C-Tech building
-        } else if (player.getY() >= 10800*(h/w)) {
-            useButton.setPosition(1500, useButton.getButtonY());
-            setUseID(3);// Apartments
-        } else {
+        } else if (player.getY() >= 10800 * (h / w)) {
             useButton.setPosition(useButton.getOriginX(), useButton.getButtonY());
+            setUseID(3);// Apartments
+        } else if (player.getX() >= 2630 && player.getX() <= 2765 && player.getY() >= 5666 * (h / w) && player.getY() <= 5828 * (h / w)) {
+            useButton.button.setPosition(useButton.getOriginX(), useButton.getButtonY());
+            setUseID(4);// Sell store
+        } else {
+            useButton.button.setPosition(1500, useButton.getButtonY());
             setUseID(-1);
         }
 
         if (smartButton.isClicked()) {
-            Gdx.input.setInputProcessor(SmartRender.home.multiplexer);
-            SmartRender.home.show();
+            Gdx.input.setInputProcessor(smartRender.home.multiplexer);
+            smartRender.home.show();
             smartButton.setClicked(false);
         }
 
@@ -85,9 +88,11 @@ public class GameScreen extends ScreenBase {
         if (player.isRunning()) {
             time += Gdx.graphics.getDeltaTime();
             if (time > 10) {
-                for (int i = 0; i < SmartRender.gameInventory.inventoryUsing.items.length; i++) {
-                    if (SmartRender.gameInventory.inventoryUsing.items[i] != null) {
-                        SmartRender.gameInventory.inventoryUsing.items[i].setWearScalePercent(SmartRender.gameInventory.inventoryUsing.items[i].getWearScalePercent() - 1);
+                for (int i = 0; i < smartRender.gameInventory.inventoryUsing.items.length; i++) {
+                    if (smartRender.gameInventory.inventoryUsing.items[i] != null) {
+                        smartRender.gameInventory.inventoryUsing.items[i].setWearScalePercent(smartRender.gameInventory.inventoryUsing.items[i].getWearScalePercent() - 1);
+                        smartRender.gameInventory.inventory.saveInventory();
+                        smartRender.gameInventory.inventoryUsing.saveInventory();
                     }
                 }
                 time = 0;

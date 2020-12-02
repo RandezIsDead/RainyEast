@@ -18,6 +18,7 @@ public class Item {
     private float width;
     private float height;
     private boolean isUsing = false;
+    private String description;
     private int cost;
     private int buff;
     private int statsID;
@@ -192,27 +193,27 @@ public class Item {
             y = 180;
         }
         if (index == 0 || index == 5 || index == 10 || index == 15 || index == 20 && getType() == 3) {
-            x = 191;
+            x = 91;
             width = 62;
             height = 105;
         }
         if (index == 1 || index == 6 || index == 11 || index == 16 || index == 21 && getType() == 3) {
-            x = 273;
+            x = 173;
             width = 62;
             height = 105;
         }
         if (index == 2 || index == 7 || index == 12 || index == 17 || index == 22 && getType() == 3) {
-            x = 356;
+            x = 256;
             width = 62;
             height = 105;
         }
         if (index == 3 || index == 8 || index == 13 || index == 18 || index == 23 && getType() == 3) {
-            x = 438;
+            x = 338;
             width = 62;
             height = 105;
         }
         if (index == 4 || index == 9 || index == 14 || index == 19 || index == 24 && getType() == 3) {
-            x = 521;
+            x = 421;
             width = 62;
             height = 105;
         }
@@ -232,12 +233,12 @@ public class Item {
             y = 310;
         }
         if (index == 0 || index == 2 || index == 4 || index == 6) {
-            x = 685;
+            x = 585;
             width = 62;
             height = 105;
         }
         if (index == 1 || index == 3 || index == 5 || index == 7) {
-            x = 767;
+            x = 667;
             width = 62;
             height = 105;
         }
@@ -297,6 +298,7 @@ public class Item {
         }
         if (id == 40) {
             drawable = "brainAug";
+            setDescription("That item will allow \n you to feel more \n intelligence \n\n\n +20 intelligence");
             setStatsID(0);
             setCost(2000);
             setBuff(20);
@@ -305,6 +307,7 @@ public class Item {
         }
         if (id == 41) {
             drawable = "armsElite";
+            setDescription("Try out our new \n arms and feel \n the truly power \n\n\n +40 strength");
             setStatsID(1);
             setCost(2000);
             setBuff(40);
@@ -313,6 +316,7 @@ public class Item {
         }
         if (id == 42) {
             drawable = "heartAug";
+            setDescription("Your healing \n on the next \n level now \n\n\n +30 healing");
             setStatsID(6);
             setCost(2000);
             setBuff(30);
@@ -321,6 +325,7 @@ public class Item {
         }
         if (id == 43) {
             drawable = "legsElite";
+            setDescription("With that you \n can run fast \n like a wind \n\n\n +10 agility");
             setStatsID(7);
             setCost(2000);
             setBuff(10);
@@ -359,6 +364,14 @@ public class Item {
             drawable = "highJump";
             setCost(1000);
         }
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getType() {

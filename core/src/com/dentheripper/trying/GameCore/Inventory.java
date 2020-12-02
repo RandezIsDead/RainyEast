@@ -1,5 +1,6 @@
 package com.dentheripper.trying.GameCore;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 public class Inventory {
 
     private final Stage stage;
+    private final InputMultiplexer multiplexer;
     private int INV_SLOTS;
     public Item[] items;
     public int[] id;
@@ -14,8 +16,9 @@ public class Inventory {
     private final boolean[] indexes;
     private final int param;
 
-    public Inventory(Stage stage, int param) {
+    public Inventory(Stage stage, InputMultiplexer multiplexer, int param) {
         this.stage = stage;
+        this.multiplexer = multiplexer;
         this.param = param;
         if (param == 0 || param == 10) INV_SLOTS = 24;
         if (param == 1) INV_SLOTS = 6;
@@ -33,7 +36,7 @@ public class Inventory {
         }
     }
 
-    public void show(InputMultiplexer multiplexer) {
+    public void show() {
         for (int i = 0; i < INV_SLOTS; i++) {
             if (items[i] != null) {
                 stage.addActor(items[i].button);
@@ -43,7 +46,7 @@ public class Inventory {
         }
     }
 
-    public void close(InputMultiplexer multiplexer) {
+    public void close() {
         for (int i = 0; i < INV_SLOTS; i++) {
             if (items[i] != null) {
                 stage.addAction(Actions.removeActor(items[i].button));
@@ -56,37 +59,37 @@ public class Inventory {
     public void saveInventory() {
         int[] idw = new int[INV_SLOTS];
         int[] indexw = new int[INV_SLOTS];
-//        int[] wearScaleParams = new int[INV_SLOTS];
+        int[] wearScaleParams = new int[INV_SLOTS];
         for (int i = 0; i < INV_SLOTS; i++) {
             idw[i] = id[i];
             indexw[i] = index[i];
-//            if (items[i] != null) {
-//                wearScaleParams[i] = items[i].getWearScalePercent();
-//            } else {
-//                wearScaleParams[i] = -1;
-//            }
+            if (items[i] != null) {
+                wearScaleParams[i] = items[i].getWearScalePercent();
+            } else {
+                wearScaleParams[i] = -1;
+            }
         }
         Assets.data.saveInv(idw, indexw, param, INV_SLOTS);
-//        Assets.data.saveArr(wearScaleParams, "wearScale"+param);
+        Assets.data.saveArr(wearScaleParams, "wearScale" + param);
     }
 
     public void loadInventory() {
         int[] idss = new int[INV_SLOTS];
         int[] indxs = new int[INV_SLOTS];
-//        int[] wearScale = new int[INV_SLOTS];
+        int[] wearScale = new int[INV_SLOTS];
         for (int i = 0; i < INV_SLOTS; i++) {
             idss = Assets.data.loadInvIDs(param, INV_SLOTS);
             indxs = Assets.data.loadInvIndx(param, INV_SLOTS);
-//            wearScale = Assets.data.loadArr("wearScale"+param, INV_SLOTS);
+            wearScale = Assets.data.loadArr("wearScale" + param, INV_SLOTS);
         }
         for (int i = 0; i < INV_SLOTS; i++) {
             if (idss[i] != -1) {
                 items[i] = new Item(idss[i], indxs[i], param);
                 id[i] = idss[i];
                 index[i] = indxs[i];
-//                if (items[i] != null) {
-//                    items[i].setWearScalePercent(wearScale[i]);
-//                }
+                if (items[i] != null && wearScale[i] != -1) {
+                    items[i].setWearScalePercent(wearScale[i]);
+                }
             }
         }
     }
@@ -156,6 +159,35 @@ public class Inventory {
             indexes[index] = false;
             items[index] = null;
             id[index] = -1;
+        }
+    }
+
+    public void moveItem(Inventory inventory1, Inventory inventory2, Item item, int index, int type) {
+        int wsp = 0;
+        if (item.isHasWearScale()) {
+            wsp = item.getWearScalePercent();
+        }
+
+        if (index != -1) {
+            Item rec = new Item(item.id, index, type);
+            stage.addAction(Actions.removeActor(item.button));
+            if (item.isHasWearScale()) {
+                stage.addAction(Actions.removeActor(item.wearScale));
+            }
+            multiplexer.removeProcessor(item.button.stage);
+            inventory1.removeItem(item.index);
+            rec.setUsing(true);
+            Gdx.input.setInputProcessor(this.multiplexer);
+
+            multiplexer.addProcessor(rec.button.stage);
+            stage.addActor(rec.button);
+            if (rec.isHasWearScale()) {
+                stage.addActor(rec.wearScale);
+                rec.setWearScalePercent(wsp);
+            }
+            inventory2.addItemNotClose(rec);
+            inventory1.saveInventory();
+            inventory2.saveInventory();
         }
     }
 

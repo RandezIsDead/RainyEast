@@ -1,9 +1,11 @@
 package com.dentheripper.trying.View.OnScreen.SmartWindows;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Align;
 import com.dentheripper.trying.BuildElements.ButtonBase;
 import com.dentheripper.trying.BuildElements.GameBaseElements.SmartBase;
 import com.dentheripper.trying.GameCore.Assets;
@@ -18,6 +20,7 @@ public class GameInventory extends SmartBase {
     private final ButtonBase ok, notOk, close;
     public Inventory inventory;
     public Inventory inventoryUsing;
+    private final ButtonBase desc;
     private boolean mustShowDescription = true;
 
     public GameInventory(Stage stage) {
@@ -25,8 +28,8 @@ public class GameInventory extends SmartBase {
         setImage(Assets.assetManager.get(Assets.smartGrid));
         extraWindow = new Image(Assets.assetManager.get(Assets.invExt));
         extraWindow.setBounds(450, 128 * (h / w), 250, 760 * (h / w));
-        inventory = new Inventory(stage, 0);
-        inventoryUsing = new Inventory(stage, 1);
+        inventory = new Inventory(stage, multiplexer, 0);
+        inventoryUsing = new Inventory(stage, multiplexer, 1);
         descriptionWindow = new Image(Assets.assetManager.get(Assets.descWindow));
         descriptionWindow.setBounds(250, 50 * (h / w), 200, 900 * (h / w));
         ok = new ButtonBase("Atlas/smart.txt", "use", 260, 140, 180, 70);
@@ -34,6 +37,10 @@ public class GameInventory extends SmartBase {
         exceptionWindow = new Image(Assets.assetManager.get(Assets.exception));
         exceptionWindow.setBounds(250, 50 * (h / w), 200, 900 * (h / w));
         close = new ButtonBase("Atlas/buttons.txt", "errOk", 260, 830, 180, 70);
+        desc = new ButtonBase("Atlas/buttons.txt", "", "skill_varity", 250, 180, 200, 700);
+        desc.button.getLabel().setColor(Color.WHITE);
+        desc.button.getLabel().setAlignment(Align.center);
+        desc.button.getLabel().setFontScale(1.2f);
 
         stage.addActor(extraWindow);
 
@@ -50,7 +57,7 @@ public class GameInventory extends SmartBase {
             if (inventory.items[i] != null) {
                 if (inventory.items[i].button.isClicked()) {
                     if (mustShowDescription) {
-                        showDescription();
+                        showDescription(inventory.items[i].getDescription());
                     }
                     if (ok.isClicked()) {
                         if (canUseItem(inventory.items[i].id)) {
@@ -80,7 +87,16 @@ public class GameInventory extends SmartBase {
             if (inventoryUsing.items[i] != null) {
                 if (inventoryUsing.items[i].button.isClicked()) {
                     inventoryUsing.items[i].button.setClicked(false);
-                    removeFromUsing(inventoryUsing.items[i], inventoryUsing.items[i].id);
+                    Item rec = inventoryUsing.items[i];
+                    if (rec.getStatsID() == 0)
+                        Assets.data.putString("intelligence", Integer.valueOf(Integer.parseInt(Assets.data.getString("intelligence")) - rec.getBuff()).toString());
+                    if (rec.getStatsID() == 1)
+                        Assets.data.putString("strength", Integer.valueOf(Integer.parseInt(Assets.data.getString("strength")) - rec.getBuff()).toString());
+                    if (rec.getStatsID() == 6)
+                        Assets.data.putString("healing", Integer.valueOf(Integer.parseInt(Assets.data.getString("healing")) - rec.getBuff()).toString());
+                    if (rec.getStatsID() == 7)
+                        Assets.data.putString("agility", Integer.valueOf(Integer.parseInt(Assets.data.getString("agility")) - rec.getBuff()).toString());
+                    inventoryUsing.moveItem(inventoryUsing, inventory, rec, inventory.getFirstEmptyCell(), 0);
                 }
             }
         }
@@ -88,6 +104,7 @@ public class GameInventory extends SmartBase {
 
     private void useItem(Item item, int id) {
         int index = setIndexById(id);
+        int wsp = item.getWearScalePercent();
 
         Item rec = new Item(id, index, 1);
         stage.addAction(Actions.removeActor(item.button));
@@ -106,36 +123,9 @@ public class GameInventory extends SmartBase {
         stage.addActor(rec.button);
         stage.addActor(rec.wearScale);
         inventoryUsing.addItemAtIndexNotClose(rec, index);
+        rec.setWearScalePercent(wsp);
         inventory.saveInventory();
         inventoryUsing.saveInventory();
-    }
-
-    private void removeFromUsing(Item item, int id) {
-        int index = inventory.getFirstEmptyCell();
-
-        if (index != -1) {
-            Item rec = new Item(id, index, 0);
-            stage.addAction(Actions.removeActor(item.button));
-            stage.addAction(Actions.removeActor(item.wearScale));
-            multiplexer.removeProcessor(item.button.stage);
-            inventoryUsing.removeItem(item.index);
-            rec.setUsing(false);
-            Gdx.input.setInputProcessor(this.multiplexer);
-
-            if (rec.getStatsID() == 0) Assets.data.putString("intelligence", Integer.valueOf(Integer.parseInt(Assets.data.getString("intelligence")) - rec.getBuff()).toString());
-            if (rec.getStatsID() == 1) Assets.data.putString("strength", Integer.valueOf(Integer.parseInt(Assets.data.getString("strength")) - rec.getBuff()).toString());
-            if (rec.getStatsID() == 6) Assets.data.putString("healing", Integer.valueOf(Integer.parseInt(Assets.data.getString("healing")) - rec.getBuff()).toString());
-            if (rec.getStatsID() == 7) Assets.data.putString("agility", Integer.valueOf(Integer.parseInt(Assets.data.getString("agility")) - rec.getBuff()).toString());
-
-            multiplexer.addProcessor(rec.button.stage);
-            stage.addActor(rec.button);
-            stage.addActor(rec.wearScale);
-            inventory.addItemNotClose(rec);
-            inventory.saveInventory();
-            inventoryUsing.saveInventory();
-        } else {
-            showError();
-        }
     }
 
     private boolean canUseItem(int id) {
@@ -164,8 +154,8 @@ public class GameInventory extends SmartBase {
         }
         mustShowDescription = true;
         stage.addAction(Actions.removeActor(extraWindow));
-        inventory.close(multiplexer);
-        inventoryUsing.close(multiplexer);
+        inventory.close();
+        inventoryUsing.close();
         closeDescription();
         closeError();
     }
@@ -174,22 +164,27 @@ public class GameInventory extends SmartBase {
     public void show() {
         super.show();
         stage.addActor(extraWindow);
-        inventory.show(multiplexer);
-        inventoryUsing.show(multiplexer);
+        inventory.show();
+        inventoryUsing.show();
         removeButton(ok);
         removeButton(notOk);
     }
 
-    private void showDescription() {
+    private void showDescription(String s) {
         stage.addActor(descriptionWindow);
         addButton(ok);
         addButton(notOk);
+        stage.addActor(desc);
+        desc.button.getLabel().setText(s);
     }
 
     private void closeDescription() {
         stage.addAction(Actions.removeActor(descriptionWindow));
         removeButton(ok);
         removeButton(notOk);
+        multiplexer.removeProcessor(ok.stage);
+        multiplexer.removeProcessor(notOk.stage);
+        stage.addAction(Actions.removeActor(desc));
     }
 
     private void showError() {

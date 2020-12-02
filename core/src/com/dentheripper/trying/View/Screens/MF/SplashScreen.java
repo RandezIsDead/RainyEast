@@ -33,10 +33,10 @@ public class SplashScreen extends ScreenBase {
 
     private void firstLaunchInitialize() {
         if (Assets.data.getInteger("gameLaunches") == 0) {
-            Inventory inventory = new Inventory(stage,0);
-            Inventory chips = new Inventory(stage,10);
-            Inventory invUsing = new Inventory(stage,1);
-            Inventory invChipsUsing = new Inventory(stage,2);
+            Inventory inventory = new Inventory(stage, multiplexer, 0);
+            Inventory chips = new Inventory(stage, multiplexer, 10);
+            Inventory invUsing = new Inventory(stage, multiplexer, 1);
+            Inventory invChipsUsing = new Inventory(stage, multiplexer, 2);
             inventory.saveInventory();
             chips.saveInventory();
             invChipsUsing.saveInventory();
@@ -58,17 +58,5 @@ public class SplashScreen extends ScreenBase {
             Assets.data.putFloat("playerSpeed", 200);
             Assets.data.putInteger("money", 100000);
         }
-    }
-
-    public int RandomInt0to1() {
-        float a = (float) Math.random();
-        if(a < 0.65)
-            return 0;
-        else
-            return 1;
-    }
-
-    public float RandomFloat(float min, float max) {
-        return (float) ((Math.random() * (max - min)) + min);
     }
 }

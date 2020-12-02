@@ -8,19 +8,19 @@ import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.View.Entities.Player;
 import com.dentheripper.trying.View.OnScreen.Windows.ShopWindow;
 
-public class ShopScene extends GameScreen {
+public class SellStoreScene extends GameScreen {
 
     private final Player player = new Player();
     private final ShopWindow shopWindow;
 
-    public ShopScene(Engine engine) {
+    public SellStoreScene(Engine engine) {
         super(engine);
-        setBG(new Texture(Gdx.files.internal("screenAssets/augShop.png")), 1000, 1000*(h/w));
-        shopWindow = new ShopWindow(stage, 0);
+        setBG(new Texture(Gdx.files.internal("screenAssets/augShop.png")), 1000, 1000 * (h / w));
+        shopWindow = new ShopWindow(stage, 1);
         setPlayer(player);
         player.setSpeed(Assets.data.getPrefSpeed());
         player.setX(500);
-        player.setY(100*(h/w));
+        player.setY(100 * (h / w));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ShopScene extends GameScreen {
                 engine.setScreen(new GameScene(engine));
                 useButton.setClicked(false);
             }
-        } else if (player.getY() > 500 * (h / w)) {
+        } else if (player.getY() > 400 * (h / w)) {
             useButton.button.setPosition(useButton.getOriginX(), useButton.getButtonY());
             if (useButton.isClicked() && player.getY() > 300 * (h / w)) {
                 shopWindow.show();
@@ -78,8 +78,8 @@ public class ShopScene extends GameScreen {
         if (x >= 930) {
             player.setX(930);
         }
-        if (y >= 850*(h/w)) {
-            player.setY(850*(h/w));
+        if (y >= 850 * (h / w)) {
+            player.setY(850 * (h / w));
         }
     }
 }

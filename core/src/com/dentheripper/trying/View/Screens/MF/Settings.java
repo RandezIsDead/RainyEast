@@ -19,7 +19,6 @@ public class Settings extends ScreenBase {
     public CheckBoxBase showFPS;
     public ButtonBase saveData;
     public ButtonBase loadData;
-
     // MISC - Show enemy levels, Show FPS;
     public Settings(Engine engine) {
         super(engine);

@@ -6,7 +6,6 @@ import com.dentheripper.trying.GameCore.Assets;
 import com.dentheripper.trying.GameCore.Engine;
 import com.dentheripper.trying.GameCore.Entity;
 import com.dentheripper.trying.View.Entities.Player;
-import com.dentheripper.trying.View.OnScreen.SmartRender;
 
 public class GameScene extends GameScreen {
 
@@ -24,7 +23,7 @@ public class GameScene extends GameScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-        player.setMovable(true);
+        player.setMovable(0);
         player.cameraFreeze(camera, true);
 
         if (useButton.isClicked() && getUseID() == 0) {
@@ -33,6 +32,12 @@ public class GameScene extends GameScreen {
         if (useButton.isClicked() && getUseID() == 3) {
             changeLocation(new FlatScene(engine));
         }
+        if (useButton.isClicked() && getUseID() == 1) {
+            changeLocation(new MissionScene(engine));
+        }
+        if (useButton.isClicked() && getUseID() == 4) {
+            changeLocation(new SellStoreScene(engine));
+        }
         if (useButton.isClicked()) {
             useButton.setClicked(false);
         }
@@ -40,9 +45,9 @@ public class GameScene extends GameScreen {
     }
 
     private void changeLocation(ScreenBase screenBase) {
-        if (SmartRender.musicScr.music != null) {
-            SmartRender.musicScr.setPlaying(false);
-            SmartRender.musicScr.music.dispose();
+        if (smartRender.musicScr.music != null) {
+            smartRender.musicScr.setPlaying(false);
+            smartRender.musicScr.music.dispose();
         }
         Assets.data.putFloat("lastPlayerX", player.getX());
         Assets.data.putFloat("lastPlayerY", player.getY());
@@ -55,8 +60,8 @@ public class GameScene extends GameScreen {
         float y = entity.getY();
 
         // Main borders
-        if (y >= 11110*(h/w)) {
-            entity.setY(11110*(h/w));
+        if (y >= 11110 * (h / w)) {
+            entity.setY(11110 * (h / w));
         }
         if (x <= 1626) {
             entity.setX(1626);
@@ -64,18 +69,18 @@ public class GameScene extends GameScreen {
         if (x >= 6440) {
             entity.setX(6440);
         }
-        if (y <= 1108*(h/w)) {
-            entity.setY(1108*(h/w));
+        if (y <= 2745 * (h / w)) {
+            entity.setY(2745 * (h / w));
         }
-        if ((x < 3760 || x > 4172) && y >= 8340*(h/w) && y < 8362*(h/w)) {
-            entity.setY(8340*(h/w));
+        if ((x < 3760 || x > 4172) && y >= 8340 * (h / w) && y < 8362 * (h / w)) {
+            entity.setY(8340 * (h / w));
         }
 
         // Middle vertical borders
-        if (x <= 3760 && y > 8365*(h/w)) {
+        if (x <= 3760 && y > 8365 * (h / w)) {
             entity.setX(3760);
         }
-        if (x >= 4172 && y > 8365*(h/w)) {
+        if (x >= 4172 && y > 8365 * (h / w)) {
             entity.setX(4172);
         }
 
@@ -123,7 +128,7 @@ public class GameScene extends GameScreen {
             entity.setY(7856*(h/w));
         }
 
-        // Left middle sector
+        // Left lower sector
         if (x >= 1913 && x <= 1950 && y >= 3250*(h/w) && y <= 5332*(h/w)) {
             entity.setX(1913);
         }
@@ -137,7 +142,7 @@ public class GameScene extends GameScreen {
             entity.setY(5332*(h/w));
         }
 
-        // Right middle sector
+        // Right lower sector
         if (x >= 4172 && x <= 4200 && y >= 3250*(h/w) && y <= 5332*(h/w)) {
             entity.setX(4172);
         }
@@ -150,45 +155,5 @@ public class GameScene extends GameScreen {
         if (x >= 4150 && x <= 6140 && y <= 5332*(h/w) && y >= 5282*(h/w)) {
             entity.setY(5332*(h/w));
         }
-
-        // Left lower sector
-        if (x >= 1913 && x <= 1950 && y >= 1624*(h/w) && y <= 2745*(h/w)) {
-            entity.setX(1913);
-        }
-        if (x <= 3759 && x >= 3700 && y >= 1624*(h/w) && y <= 2745*(h/w)) {
-            entity.setX(3759);
-        }
-        if (x >= 1925 && x <= 3740 && y >= 1624*(h/w) && y <= 1654*(h/w)) {
-            entity.setY(1624*(h/w));
-        }
-        if (x >= 1925 && x <= 3740 && y <= 2745*(h/w) && y >= 2700*(h/w)) {
-            entity.setY(2745*(h/w));
-        }
-
-        // Right lower sector
-        if (x >= 4172 && x <= 4200 && y >= 1624*(h/w) && y <= 2745*(h/w)) {
-            entity.setX(4172);
-        }
-        if (x <= 6160 && x >= 6110 && y >= 1624*(h/w) && y <= 2745*(h/w)) {
-            entity.setX(6160);
-        }
-        if (x >= 4150 && x <= 6140 && y >= 1624*(h/w) && y <= 1654*(h/w)) {
-            entity.setY(1624*(h/w));
-        }
-        if (x >= 4150 && x <= 6140 && y <= 2745*(h/w) && y >= 2700*(h/w)) {
-            entity.setY(2745*(h/w));
-        }
-    }
-
-    public int RandomInt0to1() {
-        float a = (float) Math.random();
-        if(a < 0.5)
-            return 0;
-        else
-            return 1;
-    }
-
-    public float RandomFloat(int min, int max) {
-        return (float) ((Math.random() * (max - min)) + min);
     }
 }

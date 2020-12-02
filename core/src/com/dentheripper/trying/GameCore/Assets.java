@@ -36,6 +36,7 @@ public class Assets {
     public static final AssetDescriptor<Texture> branch3 = new AssetDescriptor<>("smart/skillBranches/branch3.png", Texture.class);
     public static final AssetDescriptor<Texture> branch4 = new AssetDescriptor<>("smart/skillBranches/branch4.png", Texture.class);
     public static final AssetDescriptor<Texture> shop1 = new AssetDescriptor<>("shop/shop1.png", Texture.class);
+    public static final AssetDescriptor<Texture> shop2 = new AssetDescriptor<>("shop/shop2.png", Texture.class);
     public static final AssetDescriptor<Texture> white = new AssetDescriptor<>("smart/map.png", Texture.class);
 
 //    public static final AssetDescriptor<Music> hbfs = new AssetDescriptor<>("music/Daft Punk - HBFS.mp3", Music.class);
@@ -108,6 +109,7 @@ public class Assets {
         assetManager.load(branch3);
         assetManager.load(branch4);
         assetManager.load(shop1);
+        assetManager.load(shop2);
         assetManager.load(white);
 
         assetManager.load(playerRun);

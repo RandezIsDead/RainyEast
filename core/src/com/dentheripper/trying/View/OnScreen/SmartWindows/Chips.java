@@ -25,8 +25,8 @@ public class Chips extends SmartBase {
         setImage(Assets.assetManager.get(Assets.smartGrid));
         extraWindow = new Image(Assets.assetManager.get(Assets.batteryChips));
         extraWindow.setBounds(650, 150 * (h / w), 50, 700 * (h / w));
-        inventory = new Inventory(stage, 10);
-        inventoryUsing = new Inventory(stage, 2);
+        inventory = new Inventory(stage, multiplexer, 10);
+        inventoryUsing = new Inventory(stage, multiplexer, 2);
         descriptionWindow = new Image(Assets.assetManager.get(Assets.descWindow));
         descriptionWindow.setBounds(450, 50 * (h / w), 200, 900 * (h / w));
         ok = new ButtonBase("Atlas/smart.txt", "use", 460, 140, 180, 70);
@@ -55,7 +55,8 @@ public class Chips extends SmartBase {
                     if (ok.isClicked()) {
                         if (canUseItem()) {
                             mustShowDescription = true;
-                            useItem(inventory.items[i], inventory.items[i].id);
+                            Item rec = inventoryUsing.items[i];
+                            inventoryUsing.moveItem(inventory, inventoryUsing, rec, inventoryUsing.getFirstEmptyCell(), 0);
                         } else {
                             showError();
                             mustShowDescription = false;
@@ -80,51 +81,10 @@ public class Chips extends SmartBase {
             if (inventoryUsing.items[i] != null) {
                 if (inventoryUsing.items[i].button.isClicked()) {
                     inventoryUsing.items[i].button.setClicked(false);
-                    removeFromUsing(inventoryUsing.items[i], inventoryUsing.items[i].id);
+                    Item rec = inventoryUsing.items[i];
+                    inventoryUsing.moveItem(inventoryUsing, inventory, rec, inventory.getFirstEmptyCell(), 0);
                 }
             }
-        }
-    }
-
-    private void useItem(Item item, int id) {
-        int index = inventoryUsing.getFirstEmptyCell();
-
-        Item rec = new Item(id, index, 2);
-        stage.addAction(Actions.removeActor(item.button));
-        stage.addAction(Actions.removeActor(item.wearScale));
-        multiplexer.removeProcessor(item.button.stage);
-        inventory.removeItem(item.index);
-        rec.setUsing(true);
-        Gdx.input.setInputProcessor(this.multiplexer);
-
-        multiplexer.addProcessor(rec.button.stage);
-        stage.addActor(rec.button);
-        stage.addActor(rec.wearScale);
-        inventoryUsing.addItemNotClose(rec);
-        inventory.saveInventory();
-        inventoryUsing.saveInventory();
-    }
-
-    private void removeFromUsing(Item item, int id) {
-        int index = inventory.getFirstEmptyCell();
-
-        if (index != -1) {
-            Item rec = new Item(id, index, 0);
-            stage.addAction(Actions.removeActor(item.button));
-            stage.addAction(Actions.removeActor(item.wearScale));
-            multiplexer.removeProcessor(item.button.stage);
-            inventoryUsing.removeItem(item.index);
-            rec.setUsing(false);
-            Gdx.input.setInputProcessor(this.multiplexer);
-
-            multiplexer.addProcessor(rec.button.stage);
-            stage.addActor(rec.button);
-            stage.addActor(rec.wearScale);
-            inventory.addItemNotClose(rec);
-            inventory.saveInventory();
-            inventoryUsing.saveInventory();
-        } else {
-            showError();
         }
     }
 
@@ -136,8 +96,8 @@ public class Chips extends SmartBase {
     public void show() {
         super.show();
         stage.addActor(extraWindow);
-        inventory.show(multiplexer);
-        inventoryUsing.show(multiplexer);
+        inventory.show();
+        inventoryUsing.show();
     }
 
     @Override
@@ -150,8 +110,8 @@ public class Chips extends SmartBase {
         }
         mustShowDescription = true;
         stage.addAction(Actions.removeActor(extraWindow));
-        inventory.close(multiplexer);
-        inventoryUsing.close(multiplexer);
+        inventory.close();
+        inventoryUsing.close();
         closeDescription();
         closeError();
     }

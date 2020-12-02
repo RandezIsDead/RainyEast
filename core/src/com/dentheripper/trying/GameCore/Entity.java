@@ -30,7 +30,7 @@ public class Entity extends Actor {
     private int intelligence;
     private int strength;
     private int agility;
-
+    private int maxJump;
 
     public float w = Gdx.graphics.getWidth();
     public float h = Gdx.graphics.getHeight();
@@ -131,8 +131,8 @@ public class Entity extends Actor {
         runAnimRev = new Animation<>(0.08f, runRevFrames);
     }
 
-    public void setMovable(boolean canMove) {
-        if (canMove) {
+    public void setMovable(int canMoveCode) {
+        if (canMoveCode == 0) {
             xf = Assets.data.getBoolean("xf");
             xb = Assets.data.getBoolean("xb");
             yf = Assets.data.getBoolean("yf");
@@ -147,14 +147,29 @@ public class Entity extends Actor {
             boolean yff = Assets.data.getBoolean("yff");
             boolean ybb = Assets.data.getBoolean("ybb");
 
-            if (xxf) setX(getX() + getSpeed()*Gdx.graphics.getDeltaTime()/2);
-            if (xff) setX(getX() + getSpeed()*Gdx.graphics.getDeltaTime());
-            if (xxb) setX(getX() - getSpeed()*Gdx.graphics.getDeltaTime()/2);
-            if (xbb) setX(getX() - getSpeed()*Gdx.graphics.getDeltaTime());
-            if (yyf) setY(getY() + getSpeed()*Gdx.graphics.getDeltaTime()/2);
-            if (yff) setY(getY() + getSpeed()*Gdx.graphics.getDeltaTime());
-            if (yyb) setY(getY() - getSpeed()*Gdx.graphics.getDeltaTime()/2);
-            if (ybb) setY(getY() - getSpeed()*Gdx.graphics.getDeltaTime());
+            if (xxf) setX(getX() + getSpeed() * Gdx.graphics.getDeltaTime() / 2);
+            if (xff) setX(getX() + getSpeed() * Gdx.graphics.getDeltaTime());
+            if (xxb) setX(getX() - getSpeed() * Gdx.graphics.getDeltaTime() / 2);
+            if (xbb) setX(getX() - getSpeed() * Gdx.graphics.getDeltaTime());
+            if (yyf) setY(getY() + getSpeed() * Gdx.graphics.getDeltaTime() / 2);
+            if (yff) setY(getY() + getSpeed() * Gdx.graphics.getDeltaTime());
+            if (yyb) setY(getY() - getSpeed() * Gdx.graphics.getDeltaTime() / 2);
+            if (ybb) setY(getY() - getSpeed() * Gdx.graphics.getDeltaTime());
+        } else if (canMoveCode == 1) {
+            xf = Assets.data.getBoolean("xf");
+            xb = Assets.data.getBoolean("xb");
+            yf = Assets.data.getBoolean("yf");
+            yb = Assets.data.getBoolean("yb");
+
+            boolean xxf = Assets.data.getBoolean("xxf");
+            boolean xxb = Assets.data.getBoolean("xxb");
+            boolean xff = Assets.data.getBoolean("xff");
+            boolean xbb = Assets.data.getBoolean("xbb");
+
+            if (xxf) setX(getX() + getSpeed() * Gdx.graphics.getDeltaTime() / 2);
+            if (xff) setX(getX() + getSpeed() * Gdx.graphics.getDeltaTime());
+            if (xxb) setX(getX() - getSpeed() * Gdx.graphics.getDeltaTime() / 2);
+            if (xbb) setX(getX() - getSpeed() * Gdx.graphics.getDeltaTime());
         } else {
             Assets.data.putBoolean("xf", false);
             Assets.data.putBoolean("xb", false);
@@ -375,6 +390,14 @@ public class Entity extends Actor {
 
     public void setAgility(int agility) {
         this.agility = agility;
+    }
+
+    public int getMaxJump() {
+        return maxJump;
+    }
+
+    public void setMaxJump(int maxJump) {
+        this.maxJump = maxJump;
     }
 
     public boolean isRunning() {

@@ -1,41 +1,48 @@
 smart.png
-size: 1020, 485
+size: 920, 505
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 backSmart
   rotate: false
-  xy: 745, 45
+  xy: 220, 45
   size: 120, 70
   orig: 120, 70
   offset: 0, 0
   index: -1
 cancel
   rotate: false
-  xy: 120, 115
+  xy: 580, 45
   size: 300, 90
   orig: 300, 90
   offset: 0, 0
   index: -1
 chat
   rotate: false
-  xy: 300, 205
+  xy: 300, 225
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 chips
   rotate: false
-  xy: 440, 205
+  xy: 440, 225
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 chrome
   rotate: false
-  xy: 580, 205
+  xy: 580, 225
   size: 140, 140
   orig: 140, 140
+  offset: 0, 0
+  index: -1
+confirm
+  rotate: false
+  xy: 0, 135
+  size: 300, 90
+  orig: 300, 90
   offset: 0, 0
   index: -1
 exitSett
@@ -47,7 +54,7 @@ exitSett
   index: -1
 faq
   rotate: false
-  xy: 720, 205
+  xy: 720, 225
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
@@ -61,44 +68,30 @@ gameSett
   index: -1
 homeSmart
   rotate: false
-  xy: 865, 45
+  xy: 340, 45
   size: 120, 70
   orig: 120, 70
   offset: 0, 0
   index: -1
-housing
-  rotate: false
-  xy: 220, 45
-  size: 175, 65
-  orig: 175, 65
-  offset: 0, 0
-  index: -1
 inv
   rotate: false
-  xy: 860, 205
+  xy: 0, 365
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 ls
   rotate: false
-  xy: 420, 115
+  xy: 300, 135
   size: 300, 90
   orig: 300, 90
   offset: 0, 0
   index: -1
 moenv
   rotate: false
-  xy: 0, 345
+  xy: 140, 365
   size: 140, 140
   orig: 140, 140
-  offset: 0, 0
-  index: -1
-money
-  rotate: false
-  xy: 395, 45
-  size: 175, 65
-  orig: 175, 65
   offset: 0, 0
   index: -1
 ms
@@ -110,7 +103,7 @@ ms
   index: -1
 music_button
   rotate: false
-  xy: 140, 345
+  xy: 280, 365
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
@@ -143,23 +136,16 @@ previous
   orig: 95, 35
   offset: 0, 0
   index: -1
-products
-  rotate: false
-  xy: 570, 45
-  size: 175, 65
-  orig: 175, 65
-  offset: 0, 0
-  index: -1
 settings
   rotate: false
-  xy: 280, 345
+  xy: 420, 365
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 skills
   rotate: false
-  xy: 420, 345
+  xy: 560, 365
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
@@ -173,28 +159,28 @@ soundSett
   index: -1
 stats
   rotate: false
-  xy: 0, 115
+  xy: 460, 45
   size: 120, 70
   orig: 120, 70
   offset: 0, 0
   index: -1
 take
   rotate: false
-  xy: 720, 115
+  xy: 600, 135
   size: 300, 90
   orig: 300, 90
   offset: 0, 0
   index: -1
 use
   rotate: false
-  xy: 0, 205
+  xy: 0, 225
   size: 300, 90
   orig: 300, 90
   offset: 0, 0
   index: -1
 weapon
   rotate: false
-  xy: 560, 345
+  xy: 700, 365
   size: 140, 140
   orig: 140, 140
   offset: 0, 0

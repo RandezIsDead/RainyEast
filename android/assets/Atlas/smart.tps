@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>skills.txt</filename>
+                <filename>smart.txt</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -181,54 +181,9 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../../../Sprites/skills/ai.png</key>
-            <key type="filename">../../../../../../Sprites/skills/ai_control.png</key>
-            <key type="filename">../../../../../../Sprites/skills/battery.png</key>
-            <key type="filename">../../../../../../Sprites/skills/battery1.png</key>
-            <key type="filename">../../../../../../Sprites/skills/battery2.png</key>
-            <key type="filename">../../../../../../Sprites/skills/bit_heart.png</key>
-            <key type="filename">../../../../../../Sprites/skills/cardio.png</key>
-            <key type="filename">../../../../../../Sprites/skills/cloaking.png</key>
-            <key type="filename">../../../../../../Sprites/skills/dialogue.png</key>
-            <key type="filename">../../../../../../Sprites/skills/dialoguec.png</key>
-            <key type="filename">../../../../../../Sprites/skills/digital_data.png</key>
-            <key type="filename">../../../../../../Sprites/skills/dna.png</key>
-            <key type="filename">../../../../../../Sprites/skills/durability.png</key>
-            <key type="filename">../../../../../../Sprites/skills/emotion.png</key>
-            <key type="filename">../../../../../../Sprites/skills/eye.png</key>
-            <key type="filename">../../../../../../Sprites/skills/eye_base.png</key>
-            <key type="filename">../../../../../../Sprites/skills/eyeq.png</key>
-            <key type="filename">../../../../../../Sprites/skills/fall.png</key>
-            <key type="filename">../../../../../../Sprites/skills/fall2.png</key>
-            <key type="filename">../../../../../../Sprites/skills/fastRun.png</key>
-            <key type="filename">../../../../../../Sprites/skills/fist.png</key>
-            <key type="filename">../../../../../../Sprites/skills/gas1.png</key>
-            <key type="filename">../../../../../../Sprites/skills/gas2.png</key>
-            <key type="filename">../../../../../../Sprites/skills/hack1.png</key>
-            <key type="filename">../../../../../../Sprites/skills/hack2.png</key>
-            <key type="filename">../../../../../../Sprites/skills/hack3.png</key>
-            <key type="filename">../../../../../../Sprites/skills/health1.png</key>
-            <key type="filename">../../../../../../Sprites/skills/health2.png</key>
-            <key type="filename">../../../../../../Sprites/skills/heartRate.png</key>
-            <key type="filename">../../../../../../Sprites/skills/intellegence.png</key>
-            <key type="filename">../../../../../../Sprites/skills/knife.png</key>
-            <key type="filename">../../../../../../Sprites/skills/leg.png</key>
-            <key type="filename">../../../../../../Sprites/skills/logic.png</key>
-            <key type="filename">../../../../../../Sprites/skills/lungs.png</key>
-            <key type="filename">../../../../../../Sprites/skills/power.png</key>
-            <key type="filename">../../../../../../Sprites/skills/radius1.png</key>
-            <key type="filename">../../../../../../Sprites/skills/radius2.png</key>
-            <key type="filename">../../../../../../Sprites/skills/radius3.png</key>
-            <key type="filename">../../../../../../Sprites/skills/recognizer.png</key>
-            <key type="filename">../../../../../../Sprites/skills/shield1.png</key>
-            <key type="filename">../../../../../../Sprites/skills/shield2.png</key>
-            <key type="filename">../../../../../../Sprites/skills/silence.png</key>
-            <key type="filename">../../../../../../Sprites/skills/some_branches.png</key>
-            <key type="filename">../../../../../../Sprites/skills/technology.png</key>
-            <key type="filename">../../../../../../Sprites/skills/time1.png</key>
-            <key type="filename">../../../../../../Sprites/skills/time2.png</key>
-            <key type="filename">../../../../../../Sprites/skills/volume1.png</key>
-            <key type="filename">../../../../../../Sprites/skills/volume2.png</key>
+            <key type="filename">../../../../../Sprites/smart/backSmart.png</key>
+            <key type="filename">../../../../../Sprites/smart/homeSmart.png</key>
+            <key type="filename">../../../../../Sprites/smart/stats.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -237,16 +192,109 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>32,32,64,64</rect>
+                <rect>30,18,60,35</rect>
                 <key>scale9Paddings</key>
-                <rect>32,32,64,64</rect>
+                <rect>30,18,60,35</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../../../../../Sprites/smart/cancel.png</key>
+            <key type="filename">../../../../../Sprites/smart/confirm.png</key>
+            <key type="filename">../../../../../Sprites/smart/ls.png</key>
+            <key type="filename">../../../../../Sprites/smart/take.png</key>
+            <key type="filename">../../../../../Sprites/smart/use.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>75,23,150,45</rect>
+                <key>scale9Paddings</key>
+                <rect>75,23,150,45</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../../../../../Sprites/smart/chat.png</key>
+            <key type="filename">../../../../../Sprites/smart/chips.png</key>
+            <key type="filename">../../../../../Sprites/smart/chrome.png</key>
+            <key type="filename">../../../../../Sprites/smart/faq.png</key>
+            <key type="filename">../../../../../Sprites/smart/inv.png</key>
+            <key type="filename">../../../../../Sprites/smart/moenv.png</key>
+            <key type="filename">../../../../../Sprites/smart/music_button.png</key>
+            <key type="filename">../../../../../Sprites/smart/settings.png</key>
+            <key type="filename">../../../../../Sprites/smart/skills.png</key>
+            <key type="filename">../../../../../Sprites/smart/weapon.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>35,35,70,70</rect>
+                <key>scale9Paddings</key>
+                <rect>35,35,70,70</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../../../../../Sprites/smart/exitSett.png</key>
+            <key type="filename">../../../../../Sprites/smart/gameSett.png</key>
+            <key type="filename">../../../../../Sprites/smart/soundSett.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>55,11,110,23</rect>
+                <key>scale9Paddings</key>
+                <rect>55,11,110,23</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../../../../../Sprites/smart/ms.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>25,4,50,8</rect>
+                <key>scale9Paddings</key>
+                <rect>25,4,50,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../../../../../Sprites/smart/next.png</key>
+            <key type="filename">../../../../../Sprites/smart/pause.png</key>
+            <key type="filename">../../../../../Sprites/smart/play.png</key>
+            <key type="filename">../../../../../Sprites/smart/previous.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>24,9,47,17</rect>
+                <key>scale9Paddings</key>
+                <rect>24,9,47,17</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../../../../../../Sprites/skills</filename>
+            <filename>../../../../../Sprites/smart</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

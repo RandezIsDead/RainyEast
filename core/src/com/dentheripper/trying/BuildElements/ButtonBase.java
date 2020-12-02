@@ -14,12 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dentheripper.trying.GameCore.Assets;
 
 import java.util.ArrayList;
 
-public class ButtonBase extends Actor{
+public class ButtonBase extends Actor implements Disposable {
 
     private Vector2 lastTouch = new Vector2();
     private Vector2 newTouch;
@@ -29,6 +30,7 @@ public class ButtonBase extends Actor{
     private final TextButton.TextButtonStyle smartButtonStyle = new TextButton.TextButtonStyle();
     private final Skin skin = new Skin();
     public BitmapFont font = new BitmapFont();
+    private TextureAtlas atlas;
     public FreeTypeFontGenerator.FreeTypeFontParameter parameter;
 
     private final ArrayList<Float> xPos = new ArrayList<>();
@@ -60,13 +62,13 @@ public class ButtonBase extends Actor{
 
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\\\/?-+=()*&.;:,{}\\\"´`'<>";
-        parameter.size = (int) (w*(h/w) * .020f);
+        parameter.size = (int) (w * (h / w) * .02f);
         String FONT_PATH = "Fonts/eww.ttf";
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(FONT_PATH));
         font = generator.generateFont(parameter);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(atlasPath));
+        atlas = new TextureAtlas(Gdx.files.internal(atlasPath));
         skin.addRegions(atlas);
 
         smartButtonStyle.font = font;
@@ -83,6 +85,14 @@ public class ButtonBase extends Actor{
         super.draw(batch, parentAlpha);
         button.draw(batch, parentAlpha);
         stage.draw();
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+        skin.dispose();
+        font.dispose();
+        atlas.dispose();
     }
 
     public void addToClose() {

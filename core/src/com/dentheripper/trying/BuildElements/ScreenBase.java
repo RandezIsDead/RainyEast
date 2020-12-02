@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class ScreenBase implements Screen {
 
     public Engine engine;
-    private static final SpriteBatch batch = new SpriteBatch();
+    protected SpriteBatch batch = new SpriteBatch();
     protected OrthographicCamera camera;
     protected Stage stage;
     protected InputMultiplexer multiplexer;
@@ -80,8 +80,16 @@ public class ScreenBase implements Screen {
 
     protected void setBG(Texture texture, float width, float height) {
         bg = new Image(texture);
-        bg.setPosition(0,0);
+        bg.setPosition(0, 0);
         bg.setSize(width, height);
+    }
+
+    protected void setBG(Texture texture, float width, float height, boolean align) {
+        if (align) {
+            bg = new Image(texture);
+            bg.setPosition(0, -400 * (h / w));
+            bg.setSize(width, height);
+        }
     }
 
     protected void draw(Texture texture, float x, float y, float width, float height) {
